@@ -6,12 +6,14 @@ import ru.smak.math.fractals.Mandelbrot;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class MainWindow extends JFrame {
-    private GraphicsPanel mainPanel = new GraphicsPanel();
-    private Plane p;
-    private final int GROW = GroupLayout.DEFAULT_SIZE;
-    private final int SHRINK = GroupLayout.PREFERRED_SIZE;
+    private final GraphicsPanel mainPanel = new GraphicsPanel();
+    private final Plane p;
+    private static final int GROW = GroupLayout.DEFAULT_SIZE;
+    private static final int SHRINK = GroupLayout.PREFERRED_SIZE;
     private final Dimension minSz = new Dimension(600, 500);
     public MainWindow(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -21,6 +23,14 @@ public class MainWindow extends JFrame {
         FractalPainter fp = new FractalPainter(p, m);
         mainPanel.setBackground(Color.WHITE);
         mainPanel.addPainter(fp, Priority.FRONT);
+        mainPanel.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                super.componentResized(e);
+                p.setWidth(mainPanel.getWidth());
+                p.setHeight(mainPanel.getHeight());
+            }
+        });
         GroupLayout gl = new GroupLayout(getContentPane());
         gl.setHorizontalGroup(
                 gl.createSequentialGroup()

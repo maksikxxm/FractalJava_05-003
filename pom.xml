@@ -4,7 +4,7 @@
 
   <groupId>ru.smak</groupId>
   <artifactId>FractalJava-2022</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <packaging>jar</packaging>
 
   <name>FractalJava-2022</name>
@@ -18,12 +18,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.13.2</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.jetbrains</groupId>
       <artifactId>annotations-java5</artifactId>
       <version>23.0.0</version>
@@ -34,14 +28,14 @@
       <artifactId>ConvCoords</artifactId>
       <version>1.0</version>
       <scope>system</scope>
-      <systemPath>${project.basedir}/libs/ConvCoords.jar</systemPath>
+      <systemPath>${project.basedir}/libs/ConvCoords-1.0-lib.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>ru.smak</groupId>
       <artifactId>GraphicsPanel</artifactId>
       <version>1.0</version>
       <scope>system</scope>
-      <systemPath>${project.basedir}/libs/GraphicsPanel.jar</systemPath>
+      <systemPath>${project.basedir}/libs/GraphicsPanel-1.0-lib.jar</systemPath>
     </dependency>
   </dependencies>
 
@@ -52,44 +46,40 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>2.6</version>
-        <configuration>
-          <goal>jar</goal>
-          <archive>
-            <addMavenDescriptor>true</addMavenDescriptor>
-            <manifest>
-              <addClasspath>true</addClasspath>
-              <classpathPrefix>libs/</classpathPrefix>
-              <mainClass>ru.smak.App</mainClass>
-            </manifest>
-            <manifestEntries>
-              <Class-Path>
-                libs/ConvCoords-1.0.jar
-                libs/GraphicsPanel-1.0.jar
-              </Class-Path>
-            </manifestEntries>
-          </archive>
-        </configuration>
-
+        <version>3.3.0</version>
+        <executions>
+          <execution>
+            <id>create-jar</id>
+            <goals><goal>jar</goal></goals>
+            <phase>package</phase>
+            <configuration>
+              <finalName>${project.artifactId}-${project.version}</finalName>
+              <archive>
+                <manifest>
+                  <addClasspath>true</addClasspath>
+                  <classpathPrefix>libs/</classpathPrefix>
+                  <mainClass>ru.smak.App</mainClass>
+                </manifest>
+              </archive>
+              <classifier>exec</classifier>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>2.8</version>
+        <version>3.3.0</version>
         <executions>
           <execution>
-            <id>copy-dependencies</id>
-            <phase>prepare-package</phase>
-            <goals>
-              <goal>copy-dependencies</goal>
-            </goals>
-            <configuration>
-              <includeScope>compile</includeScope>
-              <includeScope>system</includeScope>
-              <outputDirectory>${project.build.directory}/libs</outputDirectory>
-            </configuration>
+            <id>copy</id>
+            <phase>package</phase>
+            <goals><goal>copy-dependencies</goal></goals>
           </execution>
         </executions>
+        <configuration>
+          <outputDirectory>${project.build.directory}/libs</outputDirectory>
+        </configuration>
       </plugin>
     </plugins>
   </build>

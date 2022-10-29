@@ -20,28 +20,77 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
       <artifactId>annotations-java5</artifactId>
-      <version>RELEASE</version>
+      <version>23.0.0</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>ru.smak</groupId>
       <artifactId>ConvCoords</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>1.0</version>
       <scope>system</scope>
       <systemPath>${project.basedir}/libs/ConvCoords.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>ru.smak</groupId>
       <artifactId>GraphicsPanel</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>1.0</version>
       <scope>system</scope>
       <systemPath>${project.basedir}/libs/GraphicsPanel.jar</systemPath>
     </dependency>
   </dependencies>
+
+  <build>
+    <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+    <finalName>FractalJava</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <goal>jar</goal>
+          <archive>
+            <addMavenDescriptor>true</addMavenDescriptor>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>libs/</classpathPrefix>
+              <mainClass>ru.smak.App</mainClass>
+            </manifest>
+            <manifestEntries>
+              <Class-Path>
+                libs/ConvCoords-1.0.jar
+                libs/GraphicsPanel-1.0.jar
+              </Class-Path>
+            </manifestEntries>
+          </archive>
+        </configuration>
+
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.8</version>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <includeScope>compile</includeScope>
+              <includeScope>system</includeScope>
+              <outputDirectory>${project.build.directory}/libs</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>

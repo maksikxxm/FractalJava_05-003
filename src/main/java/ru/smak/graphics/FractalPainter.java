@@ -9,12 +9,22 @@ import java.awt.*;
 
 public class FractalPainter implements Painter {
 
-    private Plane plane;
+    private final Plane plane;
     private Fractal f;
 
-    public FractalPainter(Plane p, Fractal f){
-        plane = p;
+    private Colorizer colorFunc;
+
+    public FractalPainter(Plane plane, Fractal f, Colorizer colorFunc) {
+        this.plane = plane;
         this.f = f;
+        this.colorFunc = colorFunc;
+    }
+
+    public Colorizer getColorFunc() {
+        return colorFunc;
+    }
+    public void setColorFunc(Colorizer colorFunc) {
+        this.colorFunc = colorFunc;
     }
 
     @Override
@@ -39,15 +49,14 @@ public class FractalPainter implements Painter {
 
     @Override
     public void paint(@NotNull Graphics g) {
-        g.setColor(Color.BLACK);
         for (int i = 0; i < getWidth(); i++){
             for (int j = 0; j < getHeight(); j++){
                 var x = Converter.INSTANCE.xScrToCrt(i, plane);
                 var y = Converter.INSTANCE.yScrToCrt(j, plane);
                 var r = f.isInSet(new Complex(x, y));
-                if (r){
-                    g.drawLine(i, j, i+1, j);
-                }
+                var c = colorFunc.getColor(r);
+                g.setColor(c);
+                g.drawLine(i, j, i+1, j);
             }
         }
     }

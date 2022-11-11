@@ -1,5 +1,6 @@
 package ru.smak.gui;
 
+import ru.smak.graphics.ColorFunction1;
 import ru.smak.graphics.FractalPainter;
 import ru.smak.graphics.Plane;
 import ru.smak.math.fractals.Mandelbrot;
@@ -20,7 +21,8 @@ public class MainWindow extends JFrame {
         setMinimumSize(minSz);
         Mandelbrot m = new Mandelbrot();
         p = new Plane(-2.0, 1.0, -1.0, 1.0, 0, 0);
-        FractalPainter fp = new FractalPainter(p, m);
+        var colorFunc = new ColorFunction1();
+        FractalPainter fp = new FractalPainter(p, m, colorFunc);
         mainPanel.setBackground(Color.WHITE);
         mainPanel.addPainter(fp, Priority.FRONT);
         mainPanel.addComponentListener(new ComponentAdapter() {

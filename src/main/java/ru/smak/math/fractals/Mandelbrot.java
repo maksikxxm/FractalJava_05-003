@@ -33,15 +33,14 @@ public class Mandelbrot implements Fractal {
     }
 
     @Override
-    public boolean isInSet(Complex c) {
+    public float isInSet(Complex c) {
         Complex z = new Complex(0.0);
         int cnt = 0;
         var r2 = r * r;
         while (++cnt < maxIterations) {
             z = z.times(z).plus(c);
-            if (z.abs2() >= r2)
-                return false;
+            if (z.abs2() >= r2) break;
         }
-        return true;
+        return (float)cnt / maxIterations;
     }
 }

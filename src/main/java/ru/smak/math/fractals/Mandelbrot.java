@@ -7,6 +7,15 @@ public class Mandelbrot implements Fractal {
     private int maxIterations;
     private double r;
 
+    public Mandelbrot(){
+        this(200, 2);
+    }
+
+    public Mandelbrot(int maxIterations, double r){
+        this.maxIterations = maxIterations;
+        this.r = r;
+    }
+
     public int getMaxIterations(){
         return maxIterations;
     }

@@ -26,9 +26,9 @@
     <dependency>
       <groupId>ru.smak</groupId>
       <artifactId>ConvCoords</artifactId>
-      <version>1.0</version>
+      <version>1.1</version>
       <scope>system</scope>
-      <systemPath>${project.basedir}/libs/ConvCoords-1.0-lib.jar</systemPath>
+      <systemPath>${project.basedir}/libs/ConvCoords-1.1-lib.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>ru.smak</groupId>

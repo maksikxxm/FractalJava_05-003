@@ -56,7 +56,7 @@ public class FractalPainter implements Painter {
                 var r = f.isInSet(new Complex(x, y));
                 var c = colorFunc.getColor(r);
                 g.setColor(c);
-                g.drawLine(i, j, i+1, j);
+                g.drawLine(i, j, i+1, j+1);
             }
         }
     }

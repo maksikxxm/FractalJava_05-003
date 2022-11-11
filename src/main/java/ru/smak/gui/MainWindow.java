@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainWindow extends JFrame {
     private final GraphicsPanel mainPanel = new GraphicsPanel();
@@ -16,6 +18,10 @@ public class MainWindow extends JFrame {
     private static final int GROW = GroupLayout.DEFAULT_SIZE;
     private static final int SHRINK = GroupLayout.PREFERRED_SIZE;
     private final Dimension minSz = new Dimension(600, 500);
+
+    private Point p1 = null;
+    private Point pp = null;
+
     public MainWindow(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setMinimumSize(minSz);
@@ -47,6 +53,43 @@ public class MainWindow extends JFrame {
                         .addGap(8)
         );
         setLayout(gl);
+
+        mainPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                p1 = e.getPoint();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                if (pp!=null){
+                    var g = mainPanel.getGraphics();
+                    g.setXORMode(Color.WHITE);
+                    g.drawRect(p1.x, p1.y, pp.x-p1.x, pp.y-p1.y);
+                    g.setPaintMode();
+                }
+                pp = p1 = null;
+            }
+        });
+
+        mainPanel.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+                var g = mainPanel.getGraphics();
+                g.setXORMode(Color.WHITE);
+                g.setColor(Color.BLACK);
+                if (pp!=null){
+                    g.drawRect(p1.x, p1.y, pp.x-p1.x, pp.y-p1.y);
+                }
+                g.drawRect(p1.x, p1.y, e.getX()-p1.x, e.getY()-p1.y);
+                g.setPaintMode();
+                pp = e.getPoint();
+            }
+        });
+
     }
 
     @Override
@@ -54,5 +97,9 @@ public class MainWindow extends JFrame {
         super.setVisible(v);
         p.setWidth(mainPanel.getWidth());
         p.setHeight(mainPanel.getHeight());
+        var g = mainPanel.getGraphics();
+        g.setXORMode(Color.WHITE);
+        g.drawRect(-1000, -1000, 1, 1);
+        g.setPaintMode();
     }
 }

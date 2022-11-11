@@ -1,6 +1,8 @@
 package ru.smak.gui;
 
+import kotlin.Pair;
 import ru.smak.graphics.ColorFunction1;
+import ru.smak.graphics.Converter;
 import ru.smak.graphics.FractalPainter;
 import ru.smak.graphics.Plane;
 import ru.smak.math.fractals.Mandelbrot;
@@ -14,7 +16,7 @@ import java.awt.event.MouseEvent;
 
 public class MainWindow extends JFrame {
     private final GraphicsPanel mainPanel = new GraphicsPanel();
-    private final Plane p;
+    private final Plane plane;
     private static final int GROW = GroupLayout.DEFAULT_SIZE;
     private static final int SHRINK = GroupLayout.PREFERRED_SIZE;
     private final Dimension minSz = new Dimension(600, 500);
@@ -26,17 +28,17 @@ public class MainWindow extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setMinimumSize(minSz);
         Mandelbrot m = new Mandelbrot();
-        p = new Plane(-2.0, 1.0, -1.0, 1.0, 0, 0);
+        plane = new Plane(-2.0, 1.0, -1.0, 1.0, 0, 0);
         var colorFunc = new ColorFunction1();
-        FractalPainter fp = new FractalPainter(p, m, colorFunc);
+        FractalPainter fp = new FractalPainter(plane, m, colorFunc);
         mainPanel.setBackground(Color.WHITE);
         mainPanel.addPainter(fp, Priority.FRONT);
         mainPanel.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
                 super.componentResized(e);
-                p.setWidth(mainPanel.getWidth());
-                p.setHeight(mainPanel.getHeight());
+                plane.setWidth(mainPanel.getWidth());
+                plane.setHeight(mainPanel.getHeight());
             }
         });
         GroupLayout gl = new GroupLayout(getContentPane());
@@ -70,7 +72,14 @@ public class MainWindow extends JFrame {
                     g.drawRect(p1.x, p1.y, pp.x-p1.x, pp.y-p1.y);
                     g.setPaintMode();
                 }
+                var xMin = Converter.INSTANCE.xScrToCrt(p1.x, plane);
+                var xMax = Converter.INSTANCE.xScrToCrt(pp.x, plane);
+                var yMin = Converter.INSTANCE.yScrToCrt(pp.y, plane);
+                var yMax = Converter.INSTANCE.yScrToCrt(p1.y, plane);
+                plane.setXEdges(new Pair<>(xMin, xMax));
+                plane.setYEdges(new Pair<>(yMin, yMax));
                 pp = p1 = null;
+                mainPanel.repaint();
             }
         });
 
@@ -95,8 +104,8 @@ public class MainWindow extends JFrame {
     @Override
     public void setVisible(boolean v){
         super.setVisible(v);
-        p.setWidth(mainPanel.getWidth());
-        p.setHeight(mainPanel.getHeight());
+        plane.setWidth(mainPanel.getWidth());
+        plane.setHeight(mainPanel.getHeight());
         var g = mainPanel.getGraphics();
         g.setXORMode(Color.WHITE);
         g.drawRect(-1000, -1000, 1, 1);

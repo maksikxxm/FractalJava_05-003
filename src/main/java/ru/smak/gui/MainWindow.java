@@ -63,19 +63,18 @@ public class MainWindow extends JFrame {
                 p1 = e.getPoint();
             }
 
-            @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
                 if (pp!=null){
                     var g = mainPanel.getGraphics();
                     g.setXORMode(Color.WHITE);
-                    g.drawRect(p1.x, p1.y, pp.x-p1.x, pp.y-p1.y);
+                    g.drawRect(Math.min(p1.x, pp.x), Math.min(p1.y, pp.y), Math.abs(pp.x-p1.x), Math.abs(pp.y-p1.y));
                     g.setPaintMode();
                 }
-                var xMin = Converter.INSTANCE.xScrToCrt(p1.x, plane);
-                var xMax = Converter.INSTANCE.xScrToCrt(pp.x, plane);
-                var yMin = Converter.INSTANCE.yScrToCrt(pp.y, plane);
-                var yMax = Converter.INSTANCE.yScrToCrt(p1.y, plane);
+                var xMin = Converter.INSTANCE.xScrToCrt(Math.min(p1.x, pp.x), plane);
+                var xMax = Converter.INSTANCE.xScrToCrt(Math.max(p1.x, pp.x), plane);
+                var yMin = Converter.INSTANCE.yScrToCrt(Math.min(p1.y, pp.y), plane);
+                var yMax = Converter.INSTANCE.yScrToCrt(Math.max(p1.y, pp.y), plane);
                 plane.setXEdges(new Pair<>(xMin, xMax));
                 plane.setYEdges(new Pair<>(yMin, yMax));
                 pp = p1 = null;
@@ -91,9 +90,9 @@ public class MainWindow extends JFrame {
                 g.setXORMode(Color.WHITE);
                 g.setColor(Color.BLACK);
                 if (pp!=null){
-                    g.drawRect(p1.x, p1.y, pp.x-p1.x, pp.y-p1.y);
+                    g.drawRect(Math.min(p1.x, pp.x), Math.min(p1.y, pp.y), Math.abs(pp.x-p1.x), Math.abs(pp.y-p1.y));
                 }
-                g.drawRect(p1.x, p1.y, e.getX()-p1.x, e.getY()-p1.y);
+                g.drawRect(Math.min(p1.x, e.getX()), Math.min(p1.y, e.getY()), Math.abs(e.getX()-p1.x), Math.abs(e.getY()-p1.y));
                 g.setPaintMode();
                 pp = e.getPoint();
             }

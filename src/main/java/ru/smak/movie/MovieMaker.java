@@ -11,6 +11,9 @@ public class MovieMaker {
      * Количество сменяемых кадров за одну секунду.
      */
     int fps;
+    /**
+     * Массив кадров, передаваемых пользователем.
+     */
     Image[] frames;
     public MovieMaker(Image[] frames, int time, int fps){
 

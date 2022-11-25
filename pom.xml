@@ -42,6 +42,11 @@
           <artifactId>kotlin-stdlib</artifactId>
           <version>1.6.20</version>
       </dependency>
+    <dependency>
+      <groupId>org.jcodec</groupId>
+      <artifactId>jcodec</artifactId>
+      <version>0.2.3</version>
+    </dependency>
   </dependencies>
 
   <build>

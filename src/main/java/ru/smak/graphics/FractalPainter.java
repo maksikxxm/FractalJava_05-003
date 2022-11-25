@@ -6,11 +6,14 @@ import ru.smak.math.Complex;
 import ru.smak.math.fractals.Fractal;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class FractalPainter implements Painter {
 
     private final Plane plane;
     private Fractal f;
+    private Graphics g;
 
     private Colorizer colorFunc;
 
@@ -49,15 +52,38 @@ public class FractalPainter implements Painter {
 
     @Override
     public void paint(@NotNull Graphics g) {
-        for (int i = 0; i < getWidth(); i++){
-            for (int j = 0; j < getHeight(); j++){
-                var x = Converter.INSTANCE.xScrToCrt(i, plane);
-                var y = Converter.INSTANCE.yScrToCrt(j, plane);
-                var r = f.isInSet(new Complex(x, y));
-                var c = colorFunc.getColor(r);
-                g.setColor(c);
-                g.drawLine(i, j, i+1, j+1);
+        this.g = g;
+        var bt = System.currentTimeMillis();
+        var threadCount = Runtime.getRuntime().availableProcessors();
+        var bWidth = getWidth() / threadCount + 1;
+        ArrayList<Thread> threads = new ArrayList<>();
+        for (int threadNum = 0; threadNum < threadCount; threadNum++) {
+            int finalThreadNum = threadNum;
+            threads.add(new Thread(() -> {
+                var img = new BufferedImage(bWidth, getHeight(), BufferedImage.TYPE_INT_RGB);
+                var tGr = img.createGraphics();
+                var shift = finalThreadNum * bWidth;
+                for (int i = shift; i < shift + bWidth; i++) {
+                    for (int j = 0; j < getHeight(); j++) {
+                        var x = Converter.INSTANCE.xScrToCrt(i, plane);
+                        var y = Converter.INSTANCE.yScrToCrt(j, plane);
+                        var r = f.isInSet(new Complex(x, y));
+                        var c = colorFunc.getColor(r);
+                        tGr.setColor(c);
+                        tGr.drawLine(i - shift, j, i - shift + 1, j + 1);
+                    }
+                }
+                g.drawImage(img, shift, 0, null);
+            }));
+            threads.get(threads.size() - 1).start();
+        }
+        for (var t : threads){
+            try {
+                t.join();
+            } catch (InterruptedException ignored) {
             }
         }
+        var et = System.currentTimeMillis();
+        System.out.println(et - bt);
     }
 }

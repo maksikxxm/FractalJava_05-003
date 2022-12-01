@@ -4,5 +4,4 @@ import java.awt.*;
 
 public interface Colorizer {
     Color getColor(float value);
-    Color getColor(float value, Color fractalColor);
 }

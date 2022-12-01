@@ -21,12 +21,15 @@ public class MainWindow extends JFrame {
     private Point p1 = null;
     private Point pp = null;
 
+    private int LastButtonPressed;
+    private int LastButtonReleased;
+
     public MainWindow(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setMinimumSize(minSz);
         Mandelbrot m = new Mandelbrot();
         plane = new Plane(-2.0, 1.0, -1.0, 1.0, 0, 0);
-        var colorFunc = new ColorFunctionRed();
+        var colorFunc = new ColorFunction();
         FractalPainter fp = new FractalPainter(plane, m, colorFunc);
         mainPanel.setBackground(Color.WHITE);
         mainPanel.addPainter(fp, Priority.FRONT);
@@ -57,25 +60,37 @@ public class MainWindow extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                p1 = e.getPoint();
+                LastButtonPressed = e.getButton();
+                if(LastButtonPressed == 1)
+                {
+                    p1 = e.getPoint();
+                }
+                else if(LastButtonPressed == 2)
+                {
+
+                }
             }
 
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                if (pp!=null){
-                    var g = mainPanel.getGraphics();
-                    g.setXORMode(Color.WHITE);
-                    g.drawRect(Math.min(p1.x, pp.x), Math.min(p1.y, pp.y), Math.abs(pp.x-p1.x), Math.abs(pp.y-p1.y));
-                    g.setPaintMode();
+                LastButtonReleased = e.getButton();
+                if(LastButtonReleased == 1)
+                {
+                    if (pp!=null) {
+                        var g = mainPanel.getGraphics();
+                        g.setXORMode(Color.WHITE);
+                        g.drawRect(Math.min(p1.x, pp.x), Math.min(p1.y, pp.y), Math.abs(pp.x-p1.x), Math.abs(pp.y-p1.y));
+                        g.setPaintMode();
+                    }
+                    var xMin = Converter.INSTANCE.xScrToCrt(Math.min(p1.x, pp.x), plane);
+                    var xMax = Converter.INSTANCE.xScrToCrt(Math.max(p1.x, pp.x), plane);
+                    var yMin = Converter.INSTANCE.yScrToCrt(Math.min(p1.y, pp.y), plane);
+                    var yMax = Converter.INSTANCE.yScrToCrt(Math.max(p1.y, pp.y), plane);
+                    plane.setXEdges(new Pair<>(xMin, xMax));
+                    plane.setYEdges(new Pair<>(yMin, yMax));
+                    pp = p1 = null;
+                    mainPanel.repaint();
                 }
-                var xMin = Converter.INSTANCE.xScrToCrt(Math.min(p1.x, pp.x), plane);
-                var xMax = Converter.INSTANCE.xScrToCrt(Math.max(p1.x, pp.x), plane);
-                var yMin = Converter.INSTANCE.yScrToCrt(Math.min(p1.y, pp.y), plane);
-                var yMax = Converter.INSTANCE.yScrToCrt(Math.max(p1.y, pp.y), plane);
-                plane.setXEdges(new Pair<>(xMin, xMax));
-                plane.setYEdges(new Pair<>(yMin, yMax));
-                pp = p1 = null;
-                mainPanel.repaint();
             }
         });
 
@@ -83,15 +98,18 @@ public class MainWindow extends JFrame {
             @Override
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
-                var g = mainPanel.getGraphics();
-                g.setXORMode(Color.WHITE);
-                g.setColor(Color.BLACK);
-                if (pp!=null){
-                    g.drawRect(Math.min(p1.x, pp.x), Math.min(p1.y, pp.y), Math.abs(pp.x-p1.x), Math.abs(pp.y-p1.y));
+                if(LastButtonPressed == 1)
+                {
+                    var g = mainPanel.getGraphics();
+                    g.setXORMode(Color.WHITE);
+                    g.setColor(Color.BLACK);
+                    if (pp!=null) {
+                        g.drawRect(Math.min(p1.x, pp.x), Math.min(p1.y, pp.y), Math.abs(pp.x-p1.x), Math.abs(pp.y-p1.y));
+                    }
+                    g.drawRect(Math.min(p1.x, e.getX()), Math.min(p1.y, e.getY()), Math.abs(e.getX()-p1.x), Math.abs(e.getY()-p1.y));
+                    g.setPaintMode();
+                    pp = e.getPoint();
                 }
-                g.drawRect(Math.min(p1.x, e.getX()), Math.min(p1.y, e.getY()), Math.abs(e.getX()-p1.x), Math.abs(e.getY()-p1.y));
-                g.setPaintMode();
-                pp = e.getPoint();
             }
         });
 

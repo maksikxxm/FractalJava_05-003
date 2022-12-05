@@ -33,11 +33,9 @@ public class MainWindow extends JFrame {
         var colorFunc = new ColorFunction();
         FractalPainter fp = new FractalPainter(plane, m, colorFunc);
         mainPanel.setBackground(Color.WHITE);
-
         JMenuBar menuBar = new JMenuBar();
         MainMenu menu = new MainMenu(menuBar);
         setJMenuBar(menuBar);
-
         mainPanel.addPainter(fp, Priority.FRONT);
         mainPanel.addComponentListener(new ComponentAdapter() {
             @Override

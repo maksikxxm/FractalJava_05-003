@@ -3,6 +3,8 @@ package ru.smak.menu;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainMenu extends JFrame {
     private JMenuBar menuBar;
@@ -47,10 +49,11 @@ public class MainMenu extends JFrame {
         JMenu edit = new JMenu("Правка");
         JMenuItem cancel = new JMenuItem("Отмена");
         edit.add(cancel);
-        cancel.addActionListener(new ActionListener() {
+        //отмена операции
+        cancel.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                //отмена операции
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
             }
         });
         return edit;

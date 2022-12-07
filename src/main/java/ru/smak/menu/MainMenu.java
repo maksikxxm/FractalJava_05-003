@@ -26,7 +26,9 @@ public class MainMenu extends JFrame {
         file.add(open);
         save.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
+
                 //сохранение в собственном формате
             }
         });

@@ -19,7 +19,7 @@ public class MovieWindow extends JFrame {
     private JButton SelectFile, OK, Play;
     private JSpinner FPS, Duration;
     private JLabel FPSlbl, Durationlbl;
-    private ArrayList<File> files;
+    private ArrayList<File> jsonFiles, jpgFiles;
     private int fps, duration;
     public MovieWindow(){
         moviePanel = new JPanel();
@@ -43,7 +43,8 @@ public class MovieWindow extends JFrame {
         controlPanel.setLayout(glcp);
 
 
-        files = new ArrayList<>();
+        jsonFiles = new ArrayList<>();
+        jpgFiles = new ArrayList<>();
 
         SelectFile.addActionListener(new ActionListener() {
             @Override
@@ -51,15 +52,15 @@ public class MovieWindow extends JFrame {
                 //открывается диалоговое окно с выбором файла
                 var a = new JFileChooser();
                 FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                        "JSON Images", "json");
+                        "JSON Files", "json");
                 a.setFileFilter(filter);
                 a.showOpenDialog(null);
-                files.add(a.getSelectedFile());
+                jsonFiles.add(a.getSelectedFile());
             }
         });
 
         FPS.addChangeListener(e -> {
-
+            
         });
 
         OK.addActionListener(new ActionListener() {

@@ -53,4 +53,7 @@ public class Complex{
     public double abs2(){
         return re * re + im * im;
     }
+    public Complex sin(Complex z){
+        return new Complex(1,1);
+    }
 }

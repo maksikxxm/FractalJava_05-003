@@ -36,13 +36,12 @@ public class MainWindow extends JFrame {
         var colorFunc = new ColorFunction();
         FractalPainter fp = new FractalPainter(plane, m, colorFunc);
         mainPanel.setBackground(Color.WHITE);
-        dataInformationPut dataPut = new dataInformationPut(plane,m,colorFunc); // Никитино
-        fileChooserTest fileChooserTest = new fileChooserTest();// Никитино
-        fileChooserTest.getGraphics(mainPanel);// Никитино
-        dataPut.put(); // Никитино
+//        dataInformationPut dataPut = new dataInformationPut(plane,m,colorFunc); // Никитино
+//        dataPut.put(); // Никитино
         JMenuBar menuBar = new JMenuBar();
         MainMenu menu = new MainMenu(menuBar);
         setJMenuBar(menuBar);
+        menu.getMainPanel(mainPanel); // Передача mainPanel в MainMenu
         JToolBar toolBar = new JToolBar();
         InstrumentPanel tool = new InstrumentPanel(toolBar);
         mainPanel.addPainter(fp, Priority.FRONT);

@@ -21,6 +21,7 @@ public class MovieWindow extends JFrame {
     private JLabel FPSlbl, Durationlbl;
     private ArrayList<File> jsonFiles, jpgFiles;
     private int fps, duration;
+    private MovieMaker movie;
     public MovieWindow(){
         moviePanel = new JPanel();
         controlPanel = new JPanel();
@@ -41,7 +42,7 @@ public class MovieWindow extends JFrame {
         setLayout(gl);
         controlPanel.setBackground(Color.WHITE);
         controlPanel.setLayout(glcp);
-
+        movie = new MovieMaker(jsonFiles, duration, fps);
 
         jsonFiles = new ArrayList<>();
         jpgFiles = new ArrayList<>();
@@ -59,14 +60,11 @@ public class MovieWindow extends JFrame {
             }
         });
 
-        FPS.addChangeListener(e -> {
-            
-        });
-
         OK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //видео начинает создаваться
+                movie.create();
             }
         });
 
@@ -74,6 +72,7 @@ public class MovieWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //видео запускается (кнопка доступна только после того, как видео создано)
+                movie.show();
             }
         });
 

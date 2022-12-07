@@ -11,15 +11,17 @@ import java.io.PrintWriter;
 
 public class dataInformationPut
 {
-    private  ColorFunction ColorSave;
-    private  Plane  PlaneSave;
-    private  Mandelbrot MandelbrotSave;
-    private  String pathDontName;
+    private final ColorFunction ColorSave;
+    private final Plane PlaneSave;
+    private final Mandelbrot MandelbrotSave;
     public dataInformationPut(Plane plane, Mandelbrot m, ColorFunction color)
     {
         this.PlaneSave = plane;
         this.MandelbrotSave = m;
         this.ColorSave = color;
+
+    }
+
         System.out.println(PlaneSave+ "Plane");
 
     }

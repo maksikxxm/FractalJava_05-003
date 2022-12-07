@@ -2,7 +2,8 @@ package ru.smak.gui;
 
 import kotlin.Pair;
 import ru.smak.graphics.*;
-import ru.smak.math.fractals.Mandelbrot;
+import
+import ru.smak.math.fractals.MandelbrotX2;
 import ru.smak.menu.InstrumentPanel;
 import ru.smak.menu.MainMenu;
 
@@ -48,7 +49,7 @@ public class MainWindow extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         MainMenu menu = new MainMenu(menuBar);
         menu.getMainPanel(mainPanel); // Передача mainPanel в MainMenu
-        menu.setDataPutMainMenu(plane,m,colorFunc);
+        //menu.setDataPutMainMenu(plane,m,colorFunc);
         setJMenuBar(menuBar);
         JToolBar toolBar = new JToolBar();
         InstrumentPanel tool = new InstrumentPanel(toolBar, this);
@@ -63,7 +64,6 @@ public class MainWindow extends JFrame {
                 plane.setHeight(mainPanel.getHeight());
             }
         });
-        //region Расположение
         GroupLayout gl = new GroupLayout(getContentPane());
         gl.setHorizontalGroup(
                 gl.createSequentialGroup()
@@ -154,7 +154,6 @@ public class MainWindow extends JFrame {
         plane.setWidth(mainPanel.getWidth());
         plane.setHeight(mainPanel.getHeight());
         var g = mainPanel.getGraphics();
-        //костыль
         g.setXORMode(Color.WHITE);
         g.drawRect(-1000, -1000, 1, 1);
         g.setPaintMode();

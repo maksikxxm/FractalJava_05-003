@@ -3,6 +3,8 @@ package ru.smak.gui;
 import kotlin.Pair;
 import ru.smak.graphics.*;
 import ru.smak.math.fractals.Mandelbrot;
+import ru.smak.menu.InstrumentPanel;
+import ru.smak.menu.MainMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,6 +34,11 @@ public class MainWindow extends JFrame {
         var colorFunc = new ColorFunction();
         FractalPainter fp = new FractalPainter(plane, m, colorFunc);
         mainPanel.setBackground(Color.WHITE);
+        JMenuBar menuBar = new JMenuBar();
+        MainMenu menu = new MainMenu(menuBar);
+        setJMenuBar(menuBar);
+        JToolBar toolBar = new JToolBar();
+        InstrumentPanel tool = new InstrumentPanel(toolBar);
         mainPanel.addPainter(fp, Priority.FRONT);
         mainPanel.addComponentListener(new ComponentAdapter() {
             @Override
@@ -44,15 +51,21 @@ public class MainWindow extends JFrame {
         GroupLayout gl = new GroupLayout(getContentPane());
         gl.setHorizontalGroup(
                 gl.createSequentialGroup()
-                        .addGap(8)
-                        .addComponent(mainPanel,GROW, GROW, GROW)
-                        .addGap(8)
+                        .addGap(4)
+                        .addGroup(gl.createParallelGroup()
+                                .addComponent(toolBar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                                .addGap(4)
+                                .addComponent(mainPanel,GROW, GROW, GROW)
+                        )
+                        .addGap(4)
         );
         gl.setVerticalGroup(
                 gl.createSequentialGroup()
-                        .addGap(8)
+                        .addGap(4)
+                        .addComponent(toolBar, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addGap(4)
                         .addComponent(mainPanel, GROW, GROW, GROW)
-                        .addGap(8)
+                        .addGap(4)
         );
         setLayout(gl);
 

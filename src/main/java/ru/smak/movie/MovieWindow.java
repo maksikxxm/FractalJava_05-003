@@ -14,7 +14,7 @@ public class MovieWindow extends JFrame {
     private JPanel controlPanel;
     private GroupLayout gl;
     private GroupLayout glcp;
-    private final Dimension minSz = new Dimension(500, 400);
+    private final Dimension minSz = new Dimension(600, 500);
     private JButton SelectFile, OK, Play;
     private JSpinner FPS, Duration;
     private JLabel FPSlbl, Durationlbl;
@@ -22,7 +22,7 @@ public class MovieWindow extends JFrame {
     public MovieWindow(){
         moviePanel = new JPanel();
         controlPanel = new JPanel();
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
         setMinimumSize(minSz);
         moviePanel.setBackground(Color.WHITE);
         GroupLayout gl = new GroupLayout(getContentPane());
@@ -40,14 +40,6 @@ public class MovieWindow extends JFrame {
         controlPanel.setBackground(Color.WHITE);
         controlPanel.setLayout(glcp);
 
-        gl.setHorizontalGroup(gl.createSequentialGroup()
-                .addGap(8)
-                .addGroup(gl.createParallelGroup()
-                        .addComponent(moviePanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
-                        .addComponent(controlPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
-                )
-                .addGap(8)
-        );
 
         files = new ArrayList<>();
 
@@ -73,6 +65,16 @@ public class MovieWindow extends JFrame {
                 //видео запускается (кнопка доступна только после того, как видео создано)
             }
         });
+
+        gl.setHorizontalGroup(gl.createSequentialGroup()
+                .addGap(8)
+                .addGroup(gl.createParallelGroup()
+                        .addComponent(moviePanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                        .addComponent(controlPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                )
+                .addGap(8)
+        );
+
         gl.setVerticalGroup(gl.createSequentialGroup()
                 .addGap(8)
                 .addComponent(moviePanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
@@ -102,19 +104,20 @@ public class MovieWindow extends JFrame {
         glcp.setVerticalGroup(glcp.createSequentialGroup()
                 .addGap(8)
                 .addGroup(glcp.createParallelGroup()
-                        .addComponent(SelectFile, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                        .addComponent(SelectFile, GroupLayout.Alignment.CENTER)
                         .addGap(8)
-                        .addComponent(FPSlbl, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                        .addComponent(FPSlbl, GroupLayout.Alignment.CENTER)
                         .addGap(8)
                         .addComponent(FPS, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
                         .addGap(8)
-                        .addComponent(Durationlbl, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                        .addComponent(Durationlbl, GroupLayout.Alignment.CENTER)
                         .addGap(8)
                         .addComponent(Duration, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
                         .addGap(8)
-                        .addComponent(OK, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                        .addComponent(OK, GroupLayout.Alignment.CENTER)
                         .addGap(8)
-                        .addComponent(Play, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                        .addComponent(Play, GroupLayout.Alignment.CENTER)
+                        .addGap(8)
                 )
                 .addGap(8)
         );

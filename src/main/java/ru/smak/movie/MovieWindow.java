@@ -10,19 +10,23 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class MovieWindow extends JFrame {
-    private final GraphicsPanel moviePanel = new GraphicsPanel();
+    private JPanel moviePanel;
     private JPanel controlPanel;
+    private GroupLayout gl;
+    private GroupLayout glcp;
     private final Dimension minSz = new Dimension(500, 400);
     private JButton SelectFile, OK, Play;
     private JSpinner FPS, Duration;
     private JLabel FPSlbl, Durationlbl;
     private ArrayList<File> files;
     public MovieWindow(){
+        moviePanel = new JPanel();
+        controlPanel = new JPanel();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setMinimumSize(minSz);
         moviePanel.setBackground(Color.WHITE);
         GroupLayout gl = new GroupLayout(getContentPane());
-
+        GroupLayout glcp = new GroupLayout(controlPanel);
         SpinnerNumberModel mdlFPS = new SpinnerNumberModel(30, 1, 1000, 1);
         SpinnerNumberModel mdlDuration = new SpinnerNumberModel(30, 5, 180, 1);
         SelectFile = new JButton("Выбрать файл");
@@ -32,6 +36,18 @@ public class MovieWindow extends JFrame {
         Durationlbl = new JLabel("Duration");
         OK = new JButton("OK");
         Play = new JButton("Play");
+        setLayout(gl);
+        controlPanel.setBackground(Color.WHITE);
+        controlPanel.setLayout(glcp);
+
+        gl.setHorizontalGroup(gl.createSequentialGroup()
+                .addGap(8)
+                .addGroup(gl.createParallelGroup()
+                        .addComponent(moviePanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                        .addComponent(controlPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                )
+                .addGap(8)
+        );
 
         files = new ArrayList<>();
 
@@ -57,5 +73,50 @@ public class MovieWindow extends JFrame {
                 //видео запускается (кнопка доступна только после того, как видео создано)
             }
         });
+        gl.setVerticalGroup(gl.createSequentialGroup()
+                .addGap(8)
+                .addComponent(moviePanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                .addGap(8)
+                .addComponent(controlPanel, 70,70,70)
+                .addGap(8)
+        );
+
+        glcp.setHorizontalGroup(glcp.createSequentialGroup()
+                .addGap(8)
+                .addComponent(SelectFile, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                .addGap(8)
+                .addComponent(FPSlbl, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                .addGap(8)
+                .addComponent(FPS, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                .addGap(8)
+                .addComponent(Durationlbl, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                .addGap(8)
+                .addComponent(Duration, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                .addGap(8)
+                .addComponent(OK, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                .addGap(8)
+                .addComponent(Play, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                .addGap(8)
+        );
+
+        glcp.setVerticalGroup(glcp.createSequentialGroup()
+                .addGap(8)
+                .addGroup(glcp.createParallelGroup()
+                        .addComponent(SelectFile, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                        .addGap(8)
+                        .addComponent(FPSlbl, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                        .addGap(8)
+                        .addComponent(FPS, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                        .addGap(8)
+                        .addComponent(Durationlbl, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                        .addGap(8)
+                        .addComponent(Duration, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                        .addGap(8)
+                        .addComponent(OK, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                        .addGap(8)
+                        .addComponent(Play, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                )
+                .addGap(8)
+        );
     }
 }

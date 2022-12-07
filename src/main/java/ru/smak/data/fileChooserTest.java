@@ -17,8 +17,8 @@ public class fileChooserTest
         FileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         int result = FileChooser.showSaveDialog(graphicsPanel);
         File file = FileChooser.getSelectedFile();
+        if(file == null) {return;}
         path = file.getPath();
-        System.out.println(path);
         // Если файл выбран, то представим его в сообщении
         if (result == JFileChooser.APPROVE_OPTION )
             JOptionPane.showMessageDialog(graphicsPanel,

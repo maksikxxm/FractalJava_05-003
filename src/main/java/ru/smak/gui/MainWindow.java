@@ -3,6 +3,8 @@ package ru.smak.gui;
 import kotlin.Pair;
 import ru.smak.dynamic.MaxIterations;
 
+import ru.smak.data.dataInformationPut;
+import ru.smak.data.fileChooserTest;
 import ru.smak.graphics.*;
 import ru.smak.math.Complex;
 import ru.smak.math.fractals.Mandelbrot;
@@ -54,6 +56,10 @@ public class MainWindow extends JFrame {
         FractalPainter fp = new FractalPainter(plane, m, colorFunc);
 
         mainPanel.setBackground(Color.WHITE);
+        dataInformationPut dataPut = new dataInformationPut(plane,m,colorFunc); // Никитино
+        fileChooserTest fileChooserTest = new fileChooserTest();// Никитино
+        fileChooserTest.getGraphics(mainPanel);// Никитино
+        dataPut.put(); // Никитино
 
         JMenuBar menuBar = new JMenuBar();
         MainMenu menu = new MainMenu(menuBar);

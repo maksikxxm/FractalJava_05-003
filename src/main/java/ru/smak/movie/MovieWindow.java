@@ -3,6 +3,7 @@ package ru.smak.movie;
 import ru.smak.gui.GraphicsPanel;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +20,7 @@ public class MovieWindow extends JFrame {
     private JSpinner FPS, Duration;
     private JLabel FPSlbl, Durationlbl;
     private ArrayList<File> files;
+    private int fps, duration;
     public MovieWindow(){
         moviePanel = new JPanel();
         controlPanel = new JPanel();
@@ -48,8 +50,16 @@ public class MovieWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 //открывается диалоговое окно с выбором файла
                 var a = new JFileChooser();
+                FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                        "JSON Images", "json");
+                a.setFileFilter(filter);
+                a.showOpenDialog(null);
                 files.add(a.getSelectedFile());
             }
+        });
+
+        FPS.addChangeListener(e -> {
+
         });
 
         OK.addActionListener(new ActionListener() {

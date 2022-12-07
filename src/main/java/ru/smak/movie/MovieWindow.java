@@ -59,10 +59,6 @@ public class MovieWindow extends JFrame {
             }
         });
 
-        FPS.addChangeListener(e -> {
-            
-        });
-
         OK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

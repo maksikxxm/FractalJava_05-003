@@ -2,9 +2,11 @@ package ru.smak.gui;
 
 import kotlin.Pair;
 import ru.smak.dynamic.MaxIterations;
+
 import ru.smak.graphics.*;
 import ru.smak.math.Complex;
 import ru.smak.math.fractals.Mandelbrot;
+import ru.smak.math.fractals.MandelbrotX2;
 import ru.smak.math.fractals.MandelbrotX2;
 import ru.smak.menu.InstrumentPanel;
 import ru.smak.menu.MainMenu;
@@ -56,6 +58,7 @@ public class MainWindow extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         MainMenu menu = new MainMenu(menuBar);
         setJMenuBar(menuBar);
+        menu.getMainPanel(mainPanel); // Передача mainPanel в MainMenu
         JToolBar toolBar = new JToolBar();
         tool = new InstrumentPanel(toolBar, this);
 

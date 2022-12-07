@@ -28,13 +28,14 @@ public class MainMenu extends JFrame {
         file.add(save);
         file.add(saveAs);
         file.add(open);
+        fileChooserTest fileChooserTest = new fileChooserTest();// Никитино
+        fileChooserTest.getGraphics(mainPanel);// Никитино
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-//                fileChooserTest fileChooserTest = new fileChooserTest();// Никитино
-//                fileChooserTest.getGraphics(mainPanel);// Никитино
-//                fileChooserTest.SaveFile();
+                //Вызов окошка сохранения файла(пока что без формата)
+                fileChooserTest.SaveFile();
                 //сохранение в собственном формате
             }
         });

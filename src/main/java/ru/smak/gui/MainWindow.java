@@ -1,6 +1,8 @@
 package ru.smak.gui;
 
 import kotlin.Pair;
+import ru.smak.data.dataInformationPut;
+import ru.smak.data.fileChooserTest;
 import ru.smak.graphics.*;
 import ru.smak.math.fractals.Mandelbrot;
 import ru.smak.menu.InstrumentPanel;
@@ -26,34 +28,21 @@ public class MainWindow extends JFrame {
     private int LastButtonPressed;
     private int LastButtonReleased;
 
-    public Plane getPlane() {
-        return plane;
-    }
-
-    public GraphicsPanel getMainPanel()
-    {
-        return mainPanel;
-    }
-
     public MainWindow(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setMinimumSize(minSz);
-
-        MandelbrotX2 m = new MandelbrotX2();
-
+        Mandelbrot m = new Mandelbrot();
         plane = new Plane(-2.0, 1.0, -1.0, 1.0, 0, 0);
-        var colorFunc = new ColorFunctionDark();
+        var colorFunc = new ColorFunction();
         FractalPainter fp = new FractalPainter(plane, m, colorFunc);
         mainPanel.setBackground(Color.WHITE);
-
         JMenuBar menuBar = new JMenuBar();
         MainMenu menu = new MainMenu(menuBar);
         setJMenuBar(menuBar);
+        menu.getMainPanel(mainPanel); // Передача mainPanel в MainMenu
         JToolBar toolBar = new JToolBar();
-        InstrumentPanel tool = new InstrumentPanel(toolBar, this);
-
-        mainPanel.addPainter(fp);
-
+        InstrumentPanel tool = new InstrumentPanel(toolBar);
+        mainPanel.addPainter(fp, Priority.FRONT);
         mainPanel.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {

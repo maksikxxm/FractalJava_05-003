@@ -21,6 +21,8 @@ public class InstrumentPanel extends JToolBar {
         toolBar.addSeparator();
         movie = new JButton("Запись");
         movie.setFocusable(false);
+
+
         fractal = new JComboBox(new String[]{"x^2","x^3","x^4","x^5"});
         fractal.setFocusable(false);
         toolBar.add(fractal);
@@ -55,6 +57,7 @@ public class InstrumentPanel extends JToolBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //анимированное плавное перемещение по фракталу
+
             }
         });
     }

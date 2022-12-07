@@ -6,6 +6,7 @@ import ru.smak.graphics.*;
 import ru.smak.math.Complex;
 import ru.smak.math.fractals.Mandelbrot;
 import ru.smak.math.fractals.MandelbrotX2;
+import ru.smak.math.fractals.Mandelbrot;
 import ru.smak.menu.InstrumentPanel;
 import ru.smak.menu.MainMenu;
 
@@ -67,11 +68,6 @@ public class MainWindow extends JFrame {
         tool = new InstrumentPanel(toolBar, this);
 
         //mainPanel.addPainter(fp);
-
-        InstrumentPanel tool = new InstrumentPanel(toolBar);
-        mainPanel.addPainter(fp, Priority.FRONT);
-        InstrumentPanel tool = new InstrumentPanel(toolBar, this);
-
         mainPanel.addPainter(fp);
 
         mainPanel.addComponentListener(new ComponentAdapter() {
@@ -106,7 +102,7 @@ public class MainWindow extends JFrame {
                         .addGap(4)
         );
         setLayout(gl);
-        //endregion
+
         mainPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -141,8 +137,6 @@ public class MainWindow extends JFrame {
                     plane.setYEdges(new Pair<>(yMin, yMax));
                     lastScalePoint = firstScalePoint = null;
                     MaxIterations maxIterations = new MaxIterations(MainWindow.this);
-                    pp = p1 = null;
-                    menu.getPlaneSaveMainMenu(plane);
                     lastScalePoint = firstScalePoint = null;
                     mainPanel.repaint();
                 }

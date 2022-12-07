@@ -1,5 +1,8 @@
 package ru.smak.menu;
 
+import ru.smak.data.fileChooserTest;
+import ru.smak.gui.GraphicsPanel;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +11,7 @@ import java.awt.event.MouseEvent;
 
 public class MainMenu extends JFrame {
     private JMenuBar menuBar;
+    private GraphicsPanel mainPanel;
 
     public MainMenu(JMenuBar m) {
         menuBar = m;
@@ -28,7 +32,9 @@ public class MainMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-
+//                fileChooserTest fileChooserTest = new fileChooserTest();// Никитино
+//                fileChooserTest.getGraphics(mainPanel);// Никитино
+//                fileChooserTest.SaveFile();
                 //сохранение в собственном формате
             }
         });
@@ -70,5 +76,9 @@ public class MainMenu extends JFrame {
             }
         });
         return help;
+    }
+    public void getMainPanel(GraphicsPanel mainPanel) // Передача mainPanel(Никита)
+    {
+        this.mainPanel = mainPanel;
     }
 }

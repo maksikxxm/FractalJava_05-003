@@ -110,5 +110,11 @@ public class MainMenu extends JFrame {
     {
         this.window= window;
     }
+    public void getPlaneSaveMainMenu(Plane planeSave)
+    {
+
+      this.PlaneSave= planeSave;
+        System.out.println(PlaneSave.getXMax()+"Plane");
+    }
 
 }

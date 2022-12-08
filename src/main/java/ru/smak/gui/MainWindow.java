@@ -132,6 +132,8 @@ public class MainWindow extends JFrame {
                     plane.setYEdges(new Pair<>(yMin, yMax));
                     lastScalePoint = firstScalePoint = null;
                     MaxIterations maxIterations = new MaxIterations(MainWindow.this);
+                    pp = p1 = null;
+                    menu.getPlaneSaveMainMenu(plane);
                     mainPanel.repaint();
                 }
             }

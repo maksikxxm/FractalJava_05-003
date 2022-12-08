@@ -42,10 +42,9 @@ public class dataInformationPut
     // Записывает данные о фрактале в папку "DataInformationFile"
     public void put(Plane  PlaneSave,Mandelbrot MandelbrotSave,ColorFunction ColorSave)
     {
-        String path = pathDontName +".txt";
+        String path = pathDontName +".json";
         if(path != null) {
             dataInformationPut data = new dataInformationPut(PlaneSave, MandelbrotSave, ColorSave);
-            System.out.println(PlaneSave+ "PLANE");
             try (PrintWriter out = new PrintWriter(new FileWriter(path))) {
                 Gson gson = new Gson();
                 String jsonString = gson.toJson(data);

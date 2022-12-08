@@ -1,16 +1,13 @@
 package ru.smak.menu;
 
-import ru.smak.data.fileChooserTest;
+import ru.smak.data.fileChooser;
 import ru.smak.graphics.ColorFunction;
 import ru.smak.graphics.Plane;
 import ru.smak.gui.GraphicsPanel;
 import ru.smak.math.fractals.Mandelbrot;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class MainMenu extends JFrame {
     private JMenuBar menuBar;
@@ -34,18 +31,15 @@ public class MainMenu extends JFrame {
         file.add(save);
         file.add(saveAs);
         file.add(open);
-        fileChooserTest fileChooserTest = new fileChooserTest(mainPanel);// Никитино
-
-
-        // Никитино
-       // fileChooserTest.setDataPut(PlaneSave, MandelbrotSave, ColorSave);
+        fileChooser fileChooser = new fileChooser(mainPanel);// Никитино
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                fileChooserTest.setDataPut(PlaneSave,MandelbrotSave,ColorSave);
-                fileChooserTest.SaveFile();
                 //сохранение в собственном формате
+                fileChooser.setDataPut(PlaneSave,MandelbrotSave,ColorSave);
+                fileChooser.SaveFile();
+
             }
         });
         saveAs.addActionListener(new ActionListener() {
@@ -97,6 +91,12 @@ public class MainMenu extends JFrame {
         this.MandelbrotSave = MandelbrotSave;
         this.ColorSave = ColorSave;
 
+    }
+    public void getPlaneSaveMainMenu(Plane planeSave)
+    {
+
+      this.PlaneSave= planeSave;
+        System.out.println(PlaneSave.getXMax()+"Plane");
     }
 
 }

@@ -40,9 +40,11 @@ public class MainWindow extends JFrame {
         MainMenu menu = new MainMenu(menuBar);
         setJMenuBar(menuBar);
         menu.getMainPanel(mainPanel); // Передача mainPanel в MainMenu
+        menu.setDataPutMainMenu(plane,m,colorFunc);
         JToolBar toolBar = new JToolBar();
         InstrumentPanel tool = new InstrumentPanel(toolBar);
         mainPanel.addPainter(fp, Priority.FRONT);
+
         mainPanel.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {

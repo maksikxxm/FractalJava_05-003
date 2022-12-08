@@ -42,7 +42,7 @@ public class MainWindow extends JFrame {
         MandelbrotX2 m = new MandelbrotX2();
 
         plane = new Plane(-2.0, 1.0, -1.0, 1.0, 0, 0);
-        var colorFunc = new ColorFunction();
+        var colorFunc = new ColorFunctionDark();
         FractalPainter fp = new FractalPainter(plane, m, colorFunc);
         mainPanel.setBackground(Color.WHITE);
 

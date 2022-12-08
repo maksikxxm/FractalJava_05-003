@@ -1,8 +1,6 @@
 package ru.smak.menu;
 
-import ru.smak.graphics.ColorFunction;
-import ru.smak.graphics.FractalPainter;
-import ru.smak.graphics.Plane;
+import ru.smak.graphics.*;
 import ru.smak.gui.GraphicsPanel;
 
 import ru.smak.gui.MainWindow;
@@ -22,6 +20,8 @@ public class InstrumentPanel extends JToolBar {
     private JComboBox color;
     private JButton movie;
     private GraphicsPanel mainPanel;
+    private Fractal currentFractal = new MandelbrotX2();
+    private Colorizer currentColorizer = new ColorFunctionDark();
     public InstrumentPanel(JToolBar tool, MainWindow mainWindow){
         this.mainPanel = mainWindow.getMainPanel();
         toolBar = tool;
@@ -33,14 +33,21 @@ public class InstrumentPanel extends JToolBar {
         toolBar.addSeparator();
         movie = new JButton("Запись");
         movie.setFocusable(false);
+
         fractal = new JComboBox();
-        var a = FractalFunctions.values();
-        for(int i =0;i <a.length;i++)
-            fractal.addItem(a[i].toString());
+        var fractalFunctions = FractalFunctions.values();
+        for(int i =0;i <fractalFunctions.length;i++)
+            fractal.addItem(fractalFunctions[i].toString());
+
         fractal.setFocusable(false);
         toolBar.add(fractal);
         toolBar.addSeparator();
-        color = new JComboBox(new String[]{"Красный", "Зеленый", "Синий", "Желтый"});
+
+        color = new JComboBox();
+        var colorizers = Colorizers.values();
+        for(int i =0;i <colorizers.length;i++)
+            color.addItem(colorizers[i].toString());
+
         color.setFocusable(false);
         color.setSelectedItem(color.getItemAt(1));
         toolBar.add(color);
@@ -58,6 +65,14 @@ public class InstrumentPanel extends JToolBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //передача различных цветовых схем
+                mainPanel.removePaintersByType("class ru.smak.graphics.FractalPainter");
+                Plane plane = mainWindow.getPlane();
+                switch (color.getSelectedIndex()) {
+                    case 0 -> currentColorizer = new ColorFunctionDark();
+                    case 1 -> currentColorizer = new ColorFunctionBlack();
+                }
+                mainPanel.addPainter(new  FractalPainter(plane, currentFractal, currentColorizer));
+                mainPanel.repaint();
             }
         });
 
@@ -67,25 +82,12 @@ public class InstrumentPanel extends JToolBar {
                 //передача различных функций
                 mainPanel.removePaintersByType("class ru.smak.graphics.FractalPainter");
                 Plane plane = mainWindow.getPlane();
-                var colorFunc = new ColorFunction();
-                switch (fractal.getSelectedIndex())
-                {
-                    case 0:
-                        MandelbrotX2 mX2 = new MandelbrotX2();
-                        FractalPainter mx2 = new  FractalPainter(plane, mX2, colorFunc);
-
-                        mainPanel.addPainter(mx2);
-                        mainPanel.repaint();
-                        break;
-                    case 1:
-                        MandelbrotX3 mX3 = new MandelbrotX3();
-                        FractalPainter mx3 = new  FractalPainter(plane, mX3, colorFunc);
-
-                        mainPanel.addPainter(mx3);
-                        mainPanel.repaint();
-                        break;
+                switch (fractal.getSelectedIndex()) {
+                    case 0 -> currentFractal = new MandelbrotX2();
+                    case 1 -> currentFractal = new MandelbrotX3();
                 }
-
+                mainPanel.addPainter(new  FractalPainter(plane, currentFractal, currentColorizer));
+                mainPanel.repaint();
             }
         });
         movie.addActionListener(new ActionListener() {

@@ -1,19 +1,14 @@
 package ru.smak.gui;
 
 import kotlin.Pair;
-import ru.smak.data.fileChooser;
 import ru.smak.graphics.*;
-
-import ru.smak.math.fractals.MandelbrotX2;
+import ru.smak.math.fractals.Mandelbrot;
 import ru.smak.menu.InstrumentPanel;
 import ru.smak.menu.MainMenu;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class MainWindow extends JFrame {
     private final GraphicsPanel mainPanel = new GraphicsPanel();
@@ -89,7 +84,7 @@ public class MainWindow extends JFrame {
                         .addGap(4)
         );
         setLayout(gl);
-        //endregion
+
         mainPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {

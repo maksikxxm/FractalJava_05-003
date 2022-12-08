@@ -1,6 +1,8 @@
 package ru.smak.menu;
 
 import ru.smak.data.fileChooser;
+import ru.smak.graphics.ColorFunction;
+import ru.smak.data.fileChooser;
 import ru.smak.graphics.ColorFunctionDark;
 import ru.smak.graphics.Plane;
 import ru.smak.gui.GraphicsPanel;
@@ -87,7 +89,7 @@ public class MainMenu extends JFrame {
     {
         this.mainPanel = mainPanel;
     }
-    public void setDataPutMainMenu(Plane PlaneSave, MandelbrotX2 MandelbrotSave, ColorFunctionDark ColorSave)
+    public void setDataPutMainMenu(Plane PlaneSave, Mandelbrot MandelbrotSave, ColorFunction ColorSave)
     {
         this.PlaneSave = PlaneSave;
         this.MandelbrotSave = MandelbrotSave;
@@ -97,6 +99,12 @@ public class MainMenu extends JFrame {
     public void getPlaneSaveMainMenu(Plane planeSave)
     {
       this.PlaneSave= planeSave;
+    }
+    public void getPlaneSaveMainMenu(Plane planeSave)
+    {
+
+      this.PlaneSave= planeSave;
+        System.out.println(PlaneSave.getXMax()+"Plane");
     }
 
 }

@@ -71,6 +71,9 @@ public class MainWindow extends JFrame {
 
         //mainPanel.addPainter(fp);
 
+        InstrumentPanel tool = new InstrumentPanel(toolBar);
+        mainPanel.addPainter(fp, Priority.FRONT);
+
         mainPanel.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {

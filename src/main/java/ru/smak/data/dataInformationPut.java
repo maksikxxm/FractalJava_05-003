@@ -20,13 +20,9 @@ public class dataInformationPut
         this.PlaneSave = plane;
         this.MandelbrotSave = m;
         this.ColorSave = color;
-        System.out.println(PlaneSave+ "Plane");
 
     }
-    public dataInformationPut()
-    {
 
-    }
     public  Plane getPlaneSave()
     {
         return PlaneSave;

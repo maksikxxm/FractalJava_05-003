@@ -91,6 +91,12 @@ public class MainMenu extends JFrame {
         this.ColorSave = ColorSave;
 
     }
+    public void getPlaneSaveMainMenu(Plane planeSave)
+    {
+
+      this.PlaneSave= planeSave;
+        System.out.println(PlaneSave.getXMax()+"Plane");
+    }
 
     public void setDataPutMainMenu(Plane PlaneSave, Mandelbrot MandelbrotSave, ColorFunction ColorSave)
     {

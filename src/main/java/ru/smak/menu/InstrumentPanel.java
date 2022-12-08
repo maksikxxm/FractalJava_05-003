@@ -1,8 +1,18 @@
 package ru.smak.menu;
 
+import ru.smak.graphics.ColorFunction;
+import ru.smak.graphics.FractalPainter;
+import ru.smak.graphics.Plane;
+import ru.smak.gui.GraphicsPanel;
+
+import ru.smak.math.fractals.FractalFunctions;
+import ru.smak.math.fractals.*;
+
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 
 public class InstrumentPanel extends JToolBar {
     private JToolBar toolBar;
@@ -10,8 +20,9 @@ public class InstrumentPanel extends JToolBar {
     private JComboBox fractal;
     private JComboBox color;
     private JButton movie;
-
-    public InstrumentPanel(JToolBar tool){
+    private GraphicsPanel mainPanel;
+    public InstrumentPanel(JToolBar tool, GraphicsPanel mainPanel){
+        this.mainPanel = mainPanel;
         toolBar = tool;
         toolBar.setRollover(true);
         dynamicStep = new JCheckBox("Динамический шаг", false);
@@ -21,7 +32,10 @@ public class InstrumentPanel extends JToolBar {
         toolBar.addSeparator();
         movie = new JButton("Запись");
         movie.setFocusable(false);
-        fractal = new JComboBox(new String[]{"x^2","x^3","x^4","x^5"});
+        fractal = new JComboBox();
+        var a = FractalFunctions.values();
+        for(int i =0;i <a.length;i++)
+            fractal.addItem(a[i].toString());
         fractal.setFocusable(false);
         toolBar.add(fractal);
         toolBar.addSeparator();
@@ -45,10 +59,31 @@ public class InstrumentPanel extends JToolBar {
                 //передача различных цветовых схем
             }
         });
+
         fractal.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //передача различных функций
+                Plane plane = new Plane(-2.0, 1.0, -1.0, 1.0, mainPanel.getWidth(), mainPanel.getHeight());
+                var colorFunc = new ColorFunction();
+                switch (fractal.getSelectedIndex())
+                {
+                    case 0:
+                        MandelbrotX2 mX2 = new MandelbrotX2();
+                        FractalPainter a = new  FractalPainter(plane, mX2, colorFunc);
+                        mainPanel.removePaintersByType(a.getClass().toString());
+                        mainPanel.addPainter(a);
+                        mainPanel.repaint();
+                        break;
+                    case 1:
+                        MandelbrotX3 mX3 = new MandelbrotX3();
+                        FractalPainter b = new  FractalPainter(plane, mX3, colorFunc);
+                        mainPanel.removePaintersByType(b.getClass().toString());
+                        mainPanel.addPainter(b);
+                        mainPanel.repaint();
+                        break;
+                }
+
             }
         });
         movie.addActionListener(new ActionListener() {

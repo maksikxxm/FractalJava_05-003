@@ -59,6 +59,7 @@ public class MainWindow extends JFrame {
         MainMenu menu = new MainMenu(menuBar);
         setJMenuBar(menuBar);
         menu.getMainPanel(mainPanel); // Передача mainPanel в MainMenu
+        menu.setDataPutMainMenu(plane,m,colorFunc);
         JToolBar toolBar = new JToolBar();
         tool = new InstrumentPanel(toolBar, this);
 
@@ -177,7 +178,6 @@ public class MainWindow extends JFrame {
         plane.setWidth(mainPanel.getWidth());
         plane.setHeight(mainPanel.getHeight());
         var g = mainPanel.getGraphics();
-        //костыль
         g.setXORMode(Color.WHITE);
         g.drawRect(-1000, -1000, 1, 1);
         g.setPaintMode();

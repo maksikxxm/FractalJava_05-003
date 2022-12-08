@@ -49,7 +49,7 @@ public class InstrumentPanel extends JToolBar {
             color.addItem(colorizers[i].toString());
 
         color.setFocusable(false);
-        color.setSelectedItem(color.getItemAt(1));
+
         toolBar.add(color);
         toolBar.addSeparator();
         toolBar.add(movie);

@@ -6,6 +6,7 @@ import ru.smak.gui.GraphicsPanel;
 import ru.smak.math.fractals.MandelbrotX2;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 
@@ -36,7 +37,9 @@ public class fileChooser
 
     public void SaveFile()
     {
+
         int result = FileChooser.showSaveDialog(graphicsPanel);
+        System.out.println(result);
         File file = FileChooser.getSelectedFile();
         if(file == null) {return;}
         path = file.getPath();

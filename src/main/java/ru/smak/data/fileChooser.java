@@ -6,11 +6,10 @@ import ru.smak.gui.GraphicsPanel;
 import ru.smak.math.fractals.Mandelbrot;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 
-public class fileChooserTest
+public class fileChooser
 {
     private Plane PlaneSave;
     private Mandelbrot MandelbrotSave;
@@ -19,11 +18,8 @@ public class fileChooserTest
     private GraphicsPanel graphicsPanel;
     private  String path;
     private  dataInformationPut dataPut = new dataInformationPut();
-    public fileChooserTest()
-    {
 
-    }
-    public  fileChooserTest(GraphicsPanel graphicsPanel)
+    public fileChooser(GraphicsPanel graphicsPanel)
     {
         this.graphicsPanel = graphicsPanel;
         FileChooser.setDialogTitle("Сохранение файла");
@@ -45,7 +41,6 @@ public class fileChooserTest
         path = file.getPath();
         dataPut.getPath(path);
         dataPut.put(PlaneSave,MandelbrotSave,ColorSave); // Никитино
-        System.out.println(PlaneSave.getXMax()+" PlaneSaveFile");
         // Если файл выбран, то представим его в сообщении
         if (result == JFileChooser.APPROVE_OPTION )
             JOptionPane.showMessageDialog(graphicsPanel,

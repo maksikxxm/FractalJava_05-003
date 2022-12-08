@@ -58,4 +58,8 @@ public class InstrumentPanel extends JToolBar {
             }
         });
     }
+
+    public boolean getDynamicStepStatus(){
+        return dynamicStep.isSelected();
+    }
 }

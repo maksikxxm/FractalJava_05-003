@@ -16,6 +16,7 @@ import java.awt.event.MouseEvent;
 public class MainWindow extends JFrame {
     private final GraphicsPanel mainPanel = new GraphicsPanel();
     private final Plane plane;
+    private double shape;
     private static final int GROW = GroupLayout.DEFAULT_SIZE;
     private static final int SHRINK = GroupLayout.PREFERRED_SIZE;
     private final Dimension minSz = new Dimension(600, 500);
@@ -101,6 +102,15 @@ public class MainWindow extends JFrame {
                     var yMax = Converter.INSTANCE.yScrToCrt(Math.max(p1.y, pp.y), plane);
                     plane.setXEdges(new Pair<>(xMin, xMax));
                     plane.setYEdges(new Pair<>(yMin, yMax));
+                    if(tool.getDynamicStepStatus()){
+                        int step = (int) Math.log(6/shape);
+                        int w = (int) (200 + 10 * Math.log(6/shape));
+                        m.setMaxIterations(w);
+                        System.out.println("Max iterations= "+ w);
+                    }
+                    else {
+                        m.setMaxIterations(200);
+                    }
                     pp = p1 = null;
                     mainPanel.repaint();
                 }

@@ -11,17 +11,22 @@ import java.io.PrintWriter;
 
 public class dataInformationPut
 {
-    private final ColorFunction ColorSave;
-    private final Plane PlaneSave;
-    private final Mandelbrot MandelbrotSave;
+    private  ColorFunction ColorSave;
+    private  Plane  PlaneSave;
+    private  Mandelbrot MandelbrotSave;
+    private  String pathDontName;
     public dataInformationPut(Plane plane, Mandelbrot m, ColorFunction color)
     {
         this.PlaneSave = plane;
         this.MandelbrotSave = m;
         this.ColorSave = color;
+        System.out.println(PlaneSave+ "Plane");
 
     }
+    public dataInformationPut()
+    {
 
+    }
     public  Plane getPlaneSave()
     {
         return PlaneSave;
@@ -35,18 +40,25 @@ public class dataInformationPut
         return ColorSave;
     }
     // Записывает данные о фрактале в папку "DataInformationFile"
-    public dataInformationPut put()
+    public void put(Plane  PlaneSave,Mandelbrot MandelbrotSave,ColorFunction ColorSave)
     {
-        dataInformationPut data = new dataInformationPut(PlaneSave,MandelbrotSave,ColorSave);
-        String path = "C:\\Users\\nikit\\Desktop\\Прога\\FractalJava-2022\\src\\main\\java\\ru\\smak\\DataInformationFile\\test.json";
-
-        try (PrintWriter out = new PrintWriter(new FileWriter(path))) {
-            Gson gson = new Gson();
-            String jsonString = gson.toJson(data);
-            out.write(jsonString);
-        } catch (Exception e) {
-            e.printStackTrace();
+        String path = pathDontName +".txt";
+        if(path != null) {
+            dataInformationPut data = new dataInformationPut(PlaneSave, MandelbrotSave, ColorSave);
+            System.out.println(PlaneSave+ "PLANE");
+            try (PrintWriter out = new PrintWriter(new FileWriter(path))) {
+                Gson gson = new Gson();
+                String jsonString = gson.toJson(data);
+                out.write(jsonString);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        return null;
     }
+    public void getPath(String path)
+    {
+        this.pathDontName = path;
+
+    }
+
 }

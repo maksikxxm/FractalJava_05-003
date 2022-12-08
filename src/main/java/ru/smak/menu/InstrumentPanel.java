@@ -5,6 +5,7 @@ import ru.smak.graphics.FractalPainter;
 import ru.smak.graphics.Plane;
 import ru.smak.gui.GraphicsPanel;
 
+import ru.smak.gui.MainWindow;
 import ru.smak.math.fractals.FractalFunctions;
 import ru.smak.math.fractals.*;
 
@@ -21,8 +22,8 @@ public class InstrumentPanel extends JToolBar {
     private JComboBox color;
     private JButton movie;
     private GraphicsPanel mainPanel;
-    public InstrumentPanel(JToolBar tool, GraphicsPanel mainPanel){
-        this.mainPanel = mainPanel;
+    public InstrumentPanel(JToolBar tool, MainWindow mainWindow){
+        this.mainPanel = mainWindow.getMainPanel();
         toolBar = tool;
         toolBar.setRollover(true);
         dynamicStep = new JCheckBox("Динамический шаг", false);
@@ -64,22 +65,23 @@ public class InstrumentPanel extends JToolBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //передача различных функций
-                Plane plane = new Plane(-2.0, 1.0, -1.0, 1.0, mainPanel.getWidth(), mainPanel.getHeight());
+                mainPanel.removePaintersByType("class ru.smak.graphics.FractalPainter");
+                Plane plane = mainWindow.getPlane();
                 var colorFunc = new ColorFunction();
                 switch (fractal.getSelectedIndex())
                 {
                     case 0:
                         MandelbrotX2 mX2 = new MandelbrotX2();
-                        FractalPainter a = new  FractalPainter(plane, mX2, colorFunc);
-                        mainPanel.removePaintersByType(a.getClass().toString());
-                        mainPanel.addPainter(a);
+                        FractalPainter mx2 = new  FractalPainter(plane, mX2, colorFunc);
+
+                        mainPanel.addPainter(mx2);
                         mainPanel.repaint();
                         break;
                     case 1:
                         MandelbrotX3 mX3 = new MandelbrotX3();
-                        FractalPainter b = new  FractalPainter(plane, mX3, colorFunc);
-                        mainPanel.removePaintersByType(b.getClass().toString());
-                        mainPanel.addPainter(b);
+                        FractalPainter mx3 = new  FractalPainter(plane, mX3, colorFunc);
+
+                        mainPanel.addPainter(mx3);
                         mainPanel.repaint();
                         break;
                 }

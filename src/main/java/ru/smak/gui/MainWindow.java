@@ -136,7 +136,7 @@ public class MainWindow extends JFrame {
                     plane.setYEdges(new Pair<>(yMin, yMax));
                     lastScalePoint = firstScalePoint = null;
                     MaxIterations maxIterations = new MaxIterations(MainWindow.this);
-                    lastScalePoint = firstScalePoint = null;
+
                     mainPanel.repaint();
                 }
             }

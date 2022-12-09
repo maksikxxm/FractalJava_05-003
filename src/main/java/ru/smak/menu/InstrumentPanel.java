@@ -106,6 +106,6 @@ public class InstrumentPanel extends JToolBar {
         });
     }
 
-    public Mandelbrot getCurrentFractal(){ return (Mandelbrot) currentFractal;}
+    public Mandelbrot getCurrentFractal(){return (Mandelbrot) currentFractal;}
     public boolean getDynamicStepStatus(){return dynamicStep.isSelected();}
 }

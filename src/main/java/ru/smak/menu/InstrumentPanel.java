@@ -59,8 +59,20 @@ public class InstrumentPanel extends JToolBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //динамическое изменение числа итераций
-                MandelbrotX2 m = (MandelbrotX2) currentFractal;
-                mainWindow.setNewMaxIterations(m, getDynamicStepStatus());
+
+                switch (fractal.getSelectedIndex()) {
+                    case 0:
+                    {
+                        MandelbrotX2 m = new MandelbrotX2();
+                        mainWindow.setNewMaxIterations(m, getDynamicStepStatus());
+                        break;
+                    }
+                    case 1:{
+                        MandelbrotX3 m = new MandelbrotX3();
+                        mainWindow.setNewMaxIterations(m, getDynamicStepStatus());
+                        break;
+                    }
+                }
                 mainPanel.repaint();
             }
         });

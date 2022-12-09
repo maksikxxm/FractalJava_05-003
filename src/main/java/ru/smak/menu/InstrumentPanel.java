@@ -1,5 +1,7 @@
 package ru.smak.menu;
 
+import ru.smak.gui.MainWindow;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

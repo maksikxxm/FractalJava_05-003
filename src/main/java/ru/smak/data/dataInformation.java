@@ -9,16 +9,14 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 
 
-public class dataInformation
-{
+public class dataInformation {
     private int MandelbrotXi;
-    private  int CurrentColorI;
-    private  ColorFunctionDark ColorSave;
-    private  Plane  PlaneSave;
-    private  MandelbrotX2 MandelbrotSave;
-    private  String pathDontName;
-    public dataInformation(Plane plane, MandelbrotX2 m, ColorFunctionDark color, Integer MandelbrotXi, Integer CurrentColorI)
-    {
+    private int CurrentColorI;
+    private ColorFunctionDark ColorSave;
+    private Plane PlaneSave;
+    private MandelbrotX2 MandelbrotSave;
+
+    public dataInformation(Plane plane, MandelbrotX2 m, ColorFunctionDark color, int MandelbrotXi, int CurrentColorI) {
         this.PlaneSave = plane;
         this.MandelbrotSave = m;
         this.ColorSave = color;
@@ -26,38 +24,23 @@ public class dataInformation
         this.CurrentColorI = CurrentColorI;
 
     }
-    public dataInformation()
-    {
 
-    }
-    public  Plane getPlaneSave()
-    {
+    public Plane getPlaneSave() {
         return PlaneSave;
     }
-    public  MandelbrotX2 getPMandelbrotX2Save()
-    {
+
+    public MandelbrotX2 getPMandelbrotX2Save() {
         return MandelbrotSave;
     }
-    public  ColorFunctionDark getColorDarkSave()
-    {
+
+    public ColorFunctionDark getColorDarkSave() {
         return ColorSave;
     }
-//    public void put(Plane  PlaneSave, MandelbrotX2 MandelbrotSave, ColorFunctionDark ColorSave,Integer MandelbrotXi,Integer CurrentColorI)
-//    {
-//        String path = pathDontName +".json";
-//        dataInformation data = new dataInformation(PlaneSave, MandelbrotSave, ColorSave,MandelbrotXi,CurrentColorI);
-//        try (PrintWriter out = new PrintWriter(new FileWriter(path))) {
-//            Gson gson = new Gson();
-//            String jsonString = gson.toJson(data);
-//            out.write(jsonString);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//    public void getPath(String path)
-//    {
-//        this.pathDontName = path;
-//
-//    }
-
+    public Integer getPMandelbrotXiSave() {
+        return MandelbrotXi;
+    }
+    public Integer getCCurrentColorISave() {
+        return CurrentColorI;
+    }
 }
+

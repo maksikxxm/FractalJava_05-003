@@ -1,6 +1,10 @@
 package ru.smak.movie;
 
+import ru.smak.graphics.Plane;
+
 import java.awt.*;
+import java.io.File;
+import java.util.ArrayList;
 
 public class MovieMaker {
     /**
@@ -14,8 +18,8 @@ public class MovieMaker {
     /**
      * Массив кадров, передаваемых пользователем.
      */
-    Image[] frames;
-    public MovieMaker(Image[] frames, int time, int fps){
+    ArrayList<File> frames;
+    public MovieMaker(ArrayList<Plane> frames, int time, int fps){
 
     }
 
@@ -43,4 +47,11 @@ public class MovieMaker {
         return fps*time;
     }
 
+    public void create(){
+
+    }
+
+    public void show(){
+
+    }
 }

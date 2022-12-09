@@ -166,7 +166,7 @@ public class MainWindow extends JFrame {
         return (int) (200 + 10 * Math.log(6/shape));
     }
 
-    private void setNewMaxIterations(Mandelbrot m, InstrumentPanel tool){
+    private void setNewMaxIterations(MandelbrotX2 m, InstrumentPanel tool){
         if(tool.getDynamicStepStatus()){
             m.setMaxIterations(getNewMaxIterations(getPlaneShape(plane)));
         }

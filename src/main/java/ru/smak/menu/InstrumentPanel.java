@@ -59,6 +59,13 @@ public class InstrumentPanel extends JToolBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //динамическое изменение числа итераций
+                if(getDynamicStepStatus()){
+
+                }
+                else {
+
+                }
+                mainPanel.repaint();
             }
         });
         color.addActionListener(new ActionListener() {

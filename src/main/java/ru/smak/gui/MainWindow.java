@@ -101,12 +101,6 @@ public class MainWindow extends JFrame {
                     var yMax = Converter.INSTANCE.yScrToCrt(Math.max(p1.y, pp.y), plane);
                     plane.setXEdges(new Pair<>(xMin, xMax));
                     plane.setYEdges(new Pair<>(yMin, yMax));
-                    if(tool.getDynamicStepStatus()){
-                        m.setMaxIterations(getNewMaxIterations(getPlaneShape(plane)));
-                    }
-                    else {
-                        m.setMaxIterations(200);
-                    }
                     pp = p1 = null;
                     mainPanel.repaint();
                 }
@@ -128,6 +122,7 @@ public class MainWindow extends JFrame {
                     g.drawRect(Math.min(p1.x, e.getX()), Math.min(p1.y, e.getY()), Math.abs(e.getX()-p1.x), Math.abs(e.getY()-p1.y));
                     g.setPaintMode();
                     pp = e.getPoint();
+                    setNewMaxIterations(m, tool);
                 }
             }
         });
@@ -155,4 +150,13 @@ public class MainWindow extends JFrame {
         return (int) (200 + 10 * Math.log(6/shape));
     }
 
+    private void setNewMaxIterations(Mandelbrot m, InstrumentPanel tool){
+        if(tool.getDynamicStepStatus()){
+            m.setMaxIterations(getNewMaxIterations(getPlaneShape(plane)));
+        }
+        else {
+            m.setMaxIterations(200);
+        }
+        mainPanel.repaint();
+    }
 }

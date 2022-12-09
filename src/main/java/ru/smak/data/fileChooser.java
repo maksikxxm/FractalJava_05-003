@@ -11,15 +11,15 @@ import java.io.File;
 
 public class fileChooser
 {
-    private int MandelbrotXi;
-    private  int CurrentColorI;
+    public static int MandelbrotXi;
+    public static int CurrentColorI;
     private Plane PlaneSave;
     private MandelbrotX2 MandelbrotSave;
     private ColorFunctionDark ColorSave;
     private final JFileChooser FileChooser = new JFileChooser();
     private GraphicsPanel graphicsPanel;
     private  String path;
-   private  dataPut dataPut = new dataPut();
+    private  dataPut dataPut = new dataPut();
 
     public fileChooser(GraphicsPanel graphicsPanel)
     {
@@ -33,6 +33,7 @@ public class fileChooser
         FileChooser.setFileFilter(filter);
         this.graphicsPanel = graphicsPanel;
     }
+
     public void SaveFile()
     {
         int result = FileChooser.showSaveDialog(graphicsPanel);
@@ -40,6 +41,7 @@ public class fileChooser
         if(file == null) {return;}
         path = file.getPath();
         dataPut.getPath(path);
+        System.out.println(MandelbrotXi + "Path");
         dataPut.put(PlaneSave,MandelbrotSave,ColorSave,MandelbrotXi,CurrentColorI); // Никитино
         // Если файл выбран, то представим его в сообщении
         if (result == JFileChooser.APPROVE_OPTION )
@@ -53,19 +55,5 @@ public class fileChooser
         this.PlaneSave = PlaneSave;
         this.MandelbrotSave = MandelbrotSave;
         this.ColorSave = ColorSave;
-
-
-
     }
-    public void MandelbrotXi( Integer mandelbrotXi)
-    {
-        this.MandelbrotXi = mandelbrotXi;
-    }
-    public void CurrentColorI(Integer currentColorI)
-    {
-      this.CurrentColorI = currentColorI;
-        System.out.println(CurrentColorI);
-    }
-
-
 }

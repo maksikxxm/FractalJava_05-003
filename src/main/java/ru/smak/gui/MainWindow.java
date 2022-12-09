@@ -1,11 +1,9 @@
 package ru.smak.gui;
 
 import kotlin.Pair;
-import ru.smak.dynamic.MaxIterations;
-
-import ru.smak.data.dataInformationPut;
-import ru.smak.data.fileChooserTest;
+import ru.smak.data.fileChooser;
 import ru.smak.graphics.*;
+
 import ru.smak.math.Complex;
 import ru.smak.math.fractals.Mandelbrot;
 import ru.smak.math.fractals.MandelbrotX2;
@@ -68,10 +66,6 @@ public class MainWindow extends JFrame {
         FractalPainter fp = new FractalPainter(plane, m, colorFunc);
 
         mainPanel.setBackground(Color.WHITE);
-        dataInformationPut dataPut = new dataInformationPut(plane,m,colorFunc); // Никитино
-        fileChooserTest fileChooserTest = new fileChooserTest();// Никитино
-        fileChooserTest.getGraphics(mainPanel);// Никитино
-        dataPut.put(); // Никитино
 
         JMenuBar menuBar = new JMenuBar();
         MainMenu menu = new MainMenu(menuBar);
@@ -158,6 +152,7 @@ public class MainWindow extends JFrame {
                     MaxIterations maxIterations = new MaxIterations(MainWindow.this);
                     pp = p1 = null;
                     menu.getPlaneSaveMainMenu(plane);
+                    lastScalePoint = firstScalePoint = null;
                     mainPanel.repaint();
                 }
             }
@@ -185,6 +180,11 @@ public class MainWindow extends JFrame {
                     Drag a =new Drag(plane,firstDragPoint,lastDragPoint);
                     firstDragPoint = new Point(lastDragPoint);
                     mainPanel.repaint();
+                    lastScalePoint = e.getPoint();
+                }
+                if(LastButtonPressed == 2)
+                {
+
                 }
             }
         });
@@ -204,6 +204,7 @@ public class MainWindow extends JFrame {
         plane.setWidth(mainPanel.getWidth());
         plane.setHeight(mainPanel.getHeight());
         var g = mainPanel.getGraphics();
+        //костыль
         g.setXORMode(Color.WHITE);
         g.drawRect(-1000, -1000, 1, 1);
         g.setPaintMode();

@@ -18,6 +18,8 @@ public class MovieMaker {
      * Количество сменяемых кадров за одну секунду.
      */
     int fps;
+    int N;//общее количество добавляемых кадров
+    double K;//суммарное изменение фрактала(его площади)
     /**
      * Массив кадров, передаваемых пользователем.
      */
@@ -33,6 +35,8 @@ public class MovieMaker {
         this.coefficients = coefficients();
         this.time = time;
         this.fps = fps;
+        N = numberOfFrames();
+        K = sumCoeff();
     }
 
     public void create(){
@@ -53,7 +57,8 @@ public class MovieMaker {
         }
         return coefficients();
     }
-    public double sumCoeff(ArrayList<Double> coefficients){
+
+    public double sumCoeff(){
         double res = 0;
         for (int i = 0; i < coefficients.size(); i++){
             res +=coefficients.get(i);
@@ -64,8 +69,9 @@ public class MovieMaker {
     public ArrayList<Integer> countOfFrames(){
 
         for(int i = 0; i < keyFrames.size(); i++){
-            countOfFrames().add();
+            countOfFrames().add((int)(coefficients.get(i)*N/K));
         }
+        return countOfFrames();
     }
     public int getFps() {
         return fps;
@@ -81,7 +87,7 @@ public class MovieMaker {
         this.time = time;
     }
 
-    public int CountOfFrames(){
+    public int numberOfFrames(){
         return fps*time-keyFrames.size();
     }
 

@@ -1,7 +1,9 @@
 package ru.smak.movie;
 
+import ru.smak.graphics.Colorizer;
 import ru.smak.graphics.FractalPainter;
 import ru.smak.graphics.Plane;
+import ru.smak.math.fractals.Fractal;
 
 import java.awt.*;
 import java.io.File;
@@ -19,11 +21,52 @@ public class MovieMaker {
     /**
      * Массив кадров, передаваемых пользователем.
      */
-    ArrayList<File> frames;
-    public MovieMaker(ArrayList<FractalPainter> frames, int time, int fps){
+    private ArrayList<FractalPainter> keyFrames;
+    private Colorizer color;
+    private Fractal fractal;
+    private ArrayList<Double> coefficients;
 
+    ArrayList<FractalPainter> frames;
+
+    public MovieMaker(ArrayList<FractalPainter> keyFrames, int time, int fps){
+        this.keyFrames = keyFrames;
+        this.coefficients = coefficients();
+        this.time = time;
+        this.fps = fps;
     }
 
+    public void create(){
+        for (FractalPainter keyFrame : keyFrames){
+            frames.add(keyFrame);
+            frames.add();
+        }
+    }
+
+    //метод, который возвращает коэффициент - во сколько раз изменилась плоскость
+    public double getCoeff(FractalPainter p1, FractalPainter p2){
+        return (p1.getPlane().getXMax()-p2.getPlane().getXMax())*(p1.getPlane().getYMax()-p2.getPlane().getYMax());
+    }
+    //массив коэффициентов
+    public ArrayList<Double> coefficients(){
+        for (int i = 0; i < keyFrames.size()-1; i++){
+            coefficients().add(getCoeff(keyFrames.get(i), keyFrames.get(i+1)));
+        }
+        return coefficients();
+    }
+    public double sumCoeff(ArrayList<Double> coefficients){
+        double res = 0;
+        for (int i = 0; i < coefficients.size(); i++){
+            res +=coefficients.get(i);
+        }
+        return res;
+    }
+    //массив количества кадров
+    public ArrayList<Integer> countOfFrames(){
+
+        for(int i = 0; i < keyFrames.size(); i++){
+            countOfFrames().add();
+        }
+    }
     public int getFps() {
         return fps;
     }
@@ -38,18 +81,8 @@ public class MovieMaker {
         this.time = time;
     }
 
-    /**
-     * Метод, который возвращает общее количество кадров.
-     * @param fps
-     * @param time
-     * @return
-     */
-    public int CountOfFrames(int fps, int time){
-        return fps*time;
-    }
-
-    public void create(){
-
+    public int CountOfFrames(){
+        return fps*time-keyFrames.size();
     }
 
     public void show(){

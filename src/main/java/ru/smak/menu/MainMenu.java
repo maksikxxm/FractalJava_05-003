@@ -1,10 +1,13 @@
 package ru.smak.menu;
 
 import ru.smak.data.fileChooser;
-import ru.smak.graphics.ColorFunction;
+import ru.smak.graphics.ColorFunctionBlack;
+import ru.smak.graphics.ColorFunctionDark;
+import ru.smak.graphics.Colorizers;
 import ru.smak.graphics.Plane;
 import ru.smak.gui.GraphicsPanel;
-import ru.smak.math.fractals.Mandelbrot;
+import ru.smak.math.fractals.MandelbrotX2;
+import ru.smak.math.fractals.MandelbrotX3;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -13,8 +16,8 @@ public class MainMenu extends JFrame {
     private JMenuBar menuBar;
     private GraphicsPanel mainPanel;
     private Plane PlaneSave;
-    private Mandelbrot MandelbrotSave;
-    private ColorFunction ColorSave;
+    private MandelbrotX2 MandelbrotSave;
+    private ColorFunctionDark ColorSave;
 
     public MainMenu(JMenuBar m) {
         menuBar = m;
@@ -37,6 +40,7 @@ public class MainMenu extends JFrame {
             public void actionPerformed(ActionEvent e)
             {
                 //сохранение в собственном формате
+
                 fileChooser.setDataPut(PlaneSave,MandelbrotSave,ColorSave);
                 fileChooser.SaveFile();
 
@@ -85,7 +89,7 @@ public class MainMenu extends JFrame {
     {
         this.mainPanel = mainPanel;
     }
-    public void setDataPutMainMenu(Plane PlaneSave, Mandelbrot MandelbrotSave, ColorFunction ColorSave)
+    public void setDataPutMainMenu(Plane PlaneSave, MandelbrotX2 MandelbrotSave, ColorFunctionDark ColorSave)
     {
         this.PlaneSave = PlaneSave;
         this.MandelbrotSave = MandelbrotSave;
@@ -94,9 +98,7 @@ public class MainMenu extends JFrame {
     }
     public void getPlaneSaveMainMenu(Plane planeSave)
     {
-
       this.PlaneSave= planeSave;
-        System.out.println(PlaneSave.getXMax()+"Plane");
     }
 
 }

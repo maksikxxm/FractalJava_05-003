@@ -2,13 +2,16 @@ package ru.smak.gui;
 
 import kotlin.Pair;
 import ru.smak.graphics.*;
-import ru.smak.math.fractals.Mandelbrot;
+import ru.smak.math.fractals.MandelbrotX2;
 import ru.smak.menu.InstrumentPanel;
 import ru.smak.menu.MainMenu;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainWindow extends JFrame {
     private final GraphicsPanel mainPanel = new GraphicsPanel();
@@ -23,22 +26,35 @@ public class MainWindow extends JFrame {
     private int LastButtonPressed;
     private int LastButtonReleased;
 
+    public Plane getPlane() {
+        return plane;
+    }
+
+    public GraphicsPanel getMainPanel()
+    {
+        return mainPanel;
+    }
+
     public MainWindow(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setMinimumSize(minSz);
-        Mandelbrot m = new Mandelbrot();
+
+        MandelbrotX2 m = new MandelbrotX2();
+
         plane = new Plane(-2.0, 1.0, -1.0, 1.0, 0, 0);
-        var colorFunc = new ColorFunction();
+        var colorFunc = new ColorFunctionDark();
         FractalPainter fp = new FractalPainter(plane, m, colorFunc);
         mainPanel.setBackground(Color.WHITE);
+
         JMenuBar menuBar = new JMenuBar();
         MainMenu menu = new MainMenu(menuBar);
-        setJMenuBar(menuBar);
         menu.getMainPanel(mainPanel); // Передача mainPanel в MainMenu
         menu.setDataPutMainMenu(plane,m,colorFunc);
+        setJMenuBar(menuBar);
         JToolBar toolBar = new JToolBar();
-        InstrumentPanel tool = new InstrumentPanel(toolBar);
-        mainPanel.addPainter(fp, Priority.FRONT);
+        InstrumentPanel tool = new InstrumentPanel(toolBar, this);
+
+        mainPanel.addPainter(fp);
 
         mainPanel.addComponentListener(new ComponentAdapter() {
             @Override
@@ -48,6 +64,7 @@ public class MainWindow extends JFrame {
                 plane.setHeight(mainPanel.getHeight());
             }
         });
+        //region Расположение
         GroupLayout gl = new GroupLayout(getContentPane());
         gl.setHorizontalGroup(
                 gl.createSequentialGroup()
@@ -68,8 +85,7 @@ public class MainWindow extends JFrame {
                         .addGap(4)
         );
         setLayout(gl);
-
-
+        //endregion
         mainPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -136,6 +152,7 @@ public class MainWindow extends JFrame {
         plane.setWidth(mainPanel.getWidth());
         plane.setHeight(mainPanel.getHeight());
         var g = mainPanel.getGraphics();
+        //костыль
         g.setXORMode(Color.WHITE);
         g.drawRect(-1000, -1000, 1, 1);
         g.setPaintMode();

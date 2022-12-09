@@ -23,11 +23,14 @@ public class MovieWindow extends JFrame {
     private JSpinner FPS, Duration;
     private JLabel FPSlbl, Durationlbl;
     private ArrayList<FractalPainter> frames;
+    private Container container;
     private int fps, duration;
     private MovieMaker movie;
     public MovieWindow(MainWindow mainWindow){
         //moviePanel = new GraphicsPanel();
-        moviePanel.setBackground(Color.WHITE);
+        super("FlowLayout");
+        container = moviePanel;
+        container.setLayout(new FlowLayout(FlowLayout.CENTER));
         controlPanel = new JPanel();
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         setMinimumSize(minSz);
@@ -54,8 +57,11 @@ public class MovieWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 //добавление файла в список ключевых файлов
                 frames.add((FractalPainter)mainWindow.getMainPanel().getAllPainters("class ru.smak.graphics.FractalPainter").get(0));
-                moviePanel.addPainter(frames.get(frames.size()-1));
-                moviePanel.repaint();
+                GraphicsPanel moviePanel1 = new GraphicsPanel();
+                moviePanel1.setBackground(Color.WHITE);
+                moviePanel1.addPainter((FractalPainter)mainWindow.getMainPanel().getAllPainters("class ru.smak.graphics.FractalPainter").get(0));
+                container.add(moviePanel1);
+                container.repaint();
             }
         });
 

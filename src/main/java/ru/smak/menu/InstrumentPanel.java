@@ -1,6 +1,7 @@
 package ru.smak.menu;
 
 
+import ru.smak.dynamic.MaxIterations;
 import ru.smak.movie.MovieWindow;
 
 import ru.smak.graphics.*;
@@ -62,20 +63,7 @@ public class InstrumentPanel extends JToolBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //динамическое изменение числа итераций
-
-                switch (fractal.getSelectedIndex()) {
-                    case 0:
-                    {
-                        MandelbrotX2 m = new MandelbrotX2();
-                        mainWindow.setNewMaxIterations(m, getDynamicStepStatus());
-                        break;
-                    }
-                    case 1:{
-                        MandelbrotX3 m = new MandelbrotX3();
-                        mainWindow.setNewMaxIterations(m, getDynamicStepStatus());
-                        break;
-                    }
-                }
+                MaxIterations maxIterations =  new MaxIterations(mainWindow);
                 mainPanel.repaint();
             }
         });
@@ -118,7 +106,6 @@ public class InstrumentPanel extends JToolBar {
         });
     }
 
-    public boolean getDynamicStepStatus(){
-        return dynamicStep.isSelected();
-    }
+    public Mandelbrot getCurrentFractal(){ return (Mandelbrot) currentFractal;}
+    public boolean getDynamicStepStatus(){return dynamicStep.isSelected();}
 }

@@ -1,6 +1,7 @@
 package ru.smak.gui;
 
 import kotlin.Pair;
+import ru.smak.dynamic.MaxIterations;
 import ru.smak.graphics.*;
 import ru.smak.math.fractals.Mandelbrot;
 import ru.smak.math.fractals.MandelbrotX2;
@@ -16,6 +17,7 @@ import java.awt.event.MouseEvent;
 
 public class MainWindow extends JFrame {
     private final GraphicsPanel mainPanel = new GraphicsPanel();
+    private InstrumentPanel tool;
     private final Plane plane;
     private static final int GROW = GroupLayout.DEFAULT_SIZE;
     private static final int SHRINK = GroupLayout.PREFERRED_SIZE;
@@ -35,6 +37,7 @@ public class MainWindow extends JFrame {
     {
         return mainPanel;
     }
+    public InstrumentPanel getInstrumentPanel(){return tool;}
 
     private Color test(float x) { return Color.GREEN;}
 
@@ -54,7 +57,7 @@ public class MainWindow extends JFrame {
         MainMenu menu = new MainMenu(menuBar);
         setJMenuBar(menuBar);
         JToolBar toolBar = new JToolBar();
-        InstrumentPanel tool = new InstrumentPanel(toolBar, this);
+        tool = new InstrumentPanel(toolBar, this);
 
         mainPanel.addPainter(fp);
 
@@ -123,8 +126,8 @@ public class MainWindow extends JFrame {
                     plane.setXEdges(new Pair<>(xMin, xMax));
                     plane.setYEdges(new Pair<>(yMin, yMax));
                     pp = p1 = null;
-                    System.out.println(getPlaneShape(plane));
-                    setNewMaxIterations(m, tool.getDynamicStepStatus());
+                    MaxIterations maxIterations =  new MaxIterations(MainWindow.this);
+                    mainPanel.repaint();
                 }
             }
         });
@@ -160,25 +163,5 @@ public class MainWindow extends JFrame {
         g.setXORMode(Color.WHITE);
         g.drawRect(-1000, -1000, 1, 1);
         g.setPaintMode();
-    }
-
-    private double getPlaneShape(Plane plane){
-        double xSize = plane.getXMax() - plane.getXMin();
-        double ySize = plane.getYMax() - plane.getYMin();
-        return xSize*ySize;
-    }
-
-    public static int getNewMaxIterations(double shape){
-        return (int) (200 + 20 * Math.log(6/shape));
-    }
-
-    public void setNewMaxIterations(MandelbrotX2 m, boolean isSelected){
-        if(isSelected){
-            m.setMaxIterations(getNewMaxIterations(getPlaneShape(plane)));
-        }
-        else {
-            m.setMaxIterations(200);
-        }
-        mainPanel.repaint();
     }
 }

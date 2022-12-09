@@ -3,6 +3,7 @@ package ru.smak.data;
 import ru.smak.graphics.ColorFunctionDark;
 import ru.smak.graphics.Plane;
 import ru.smak.gui.GraphicsPanel;
+import ru.smak.math.fractals.Mandelbrot;
 import ru.smak.math.fractals.MandelbrotX2;
 
 import javax.swing.*;
@@ -14,7 +15,7 @@ public class fileChooser
     public static int MandelbrotXi;
     public static int CurrentColorI;
     private Plane PlaneSave;
-    private MandelbrotX2 MandelbrotSave;
+    private Mandelbrot MandelbrotSave;
     private ColorFunctionDark ColorSave;
     private final JFileChooser FileChooser = new JFileChooser();
     private GraphicsPanel graphicsPanel;
@@ -52,7 +53,7 @@ public class fileChooser
                             " ) сохранен");
 
     }
-    public void setDataPut(Plane PlaneSave, MandelbrotX2 MandelbrotSave, ColorFunctionDark ColorSave)
+    public void setDataPut(Plane PlaneSave, Mandelbrot MandelbrotSave, ColorFunctionDark ColorSave)
     {
         this.PlaneSave = PlaneSave;
         this.MandelbrotSave = MandelbrotSave;

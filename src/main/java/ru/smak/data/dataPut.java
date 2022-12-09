@@ -3,6 +3,7 @@ package ru.smak.data;
 import com.google.gson.Gson;
 import ru.smak.graphics.ColorFunctionDark;
 import ru.smak.graphics.Plane;
+import ru.smak.math.fractals.Mandelbrot;
 import ru.smak.math.fractals.MandelbrotX2;
 
 import java.io.FileWriter;
@@ -10,7 +11,7 @@ import java.io.PrintWriter;
 public class dataPut {
     private String pathDontName;
 
-    public void put(Plane PlaneSave, MandelbrotX2 MandelbrotSave, ColorFunctionDark ColorSave, int MandelbrotXi, int ColorXi ) {
+    public void put(Plane PlaneSave, Mandelbrot MandelbrotSave, ColorFunctionDark ColorSave, int MandelbrotXi, int ColorXi ) {
         String path = pathDontName + ".txt";
         dataInformation data = new dataInformation(PlaneSave, MandelbrotSave, ColorSave,MandelbrotXi,ColorXi);
         System.out.println(MandelbrotXi + "put");

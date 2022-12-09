@@ -4,6 +4,7 @@ import ru.smak.data.fileChooser;
 import ru.smak.graphics.ColorFunctionDark;
 import ru.smak.graphics.Plane;
 import ru.smak.gui.GraphicsPanel;
+import ru.smak.math.fractals.Mandelbrot;
 import ru.smak.math.fractals.MandelbrotX2;
 
 import javax.swing.*;
@@ -16,7 +17,7 @@ public class MainMenu extends JFrame {
     private JMenuBar menuBar;
     private GraphicsPanel mainPanel;
     private Plane PlaneSave;
-    private MandelbrotX2 MandelbrotSave;
+    private Mandelbrot MandelbrotSave;
     private ColorFunctionDark ColorSave;
 
     public MainMenu(JMenuBar m) {
@@ -87,7 +88,7 @@ public class MainMenu extends JFrame {
     {
         this.mainPanel = mainPanel;
     }
-    public void setDataPutMainMenu(Plane PlaneSave, MandelbrotX2 MandelbrotSave, ColorFunctionDark ColorSave)
+    public void setDataPutMainMenu(Plane PlaneSave, Mandelbrot MandelbrotSave, ColorFunctionDark ColorSave)
     {
         this.PlaneSave = PlaneSave;
         this.MandelbrotSave = MandelbrotSave;

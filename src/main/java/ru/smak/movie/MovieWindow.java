@@ -55,6 +55,7 @@ public class MovieWindow extends JFrame {
                 //добавление файла в список ключевых файлов
                 frames.add((FractalPainter)mainWindow.getMainPanel().getAllPainters("class ru.smak.graphics.FractalPainter").get(0));
                 moviePanel.addPainter(frames.get(frames.size()-1));
+                moviePanel.repaint();
             }
         });
 

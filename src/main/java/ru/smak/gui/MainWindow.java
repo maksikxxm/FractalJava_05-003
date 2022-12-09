@@ -161,7 +161,4 @@ public class MainWindow extends JFrame {
         g.setPaintMode();
     }
 
-    public Plane getPlane(){
-        return this.plane;
-    }
 }

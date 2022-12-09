@@ -137,7 +137,7 @@ public class MainWindow extends JFrame {
                     g.drawRect(Math.min(p1.x, e.getX()), Math.min(p1.y, e.getY()), Math.abs(e.getX()-p1.x), Math.abs(e.getY()-p1.y));
                     g.setPaintMode();
                     pp = e.getPoint();
-                    setNewMaxIterations(m, tool);
+                    setNewMaxIterations(m, tool.getDynamicStepStatus());
                 }
             }
         });
@@ -166,8 +166,8 @@ public class MainWindow extends JFrame {
         return (int) (200 + 10 * Math.log(6/shape));
     }
 
-    private void setNewMaxIterations(MandelbrotX2 m, InstrumentPanel tool){
-        if(tool.getDynamicStepStatus()){
+    public void setNewMaxIterations(MandelbrotX2 m, boolean isSelected){
+        if(isSelected){
             m.setMaxIterations(getNewMaxIterations(getPlaneShape(plane)));
         }
         else {

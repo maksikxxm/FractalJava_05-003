@@ -1,5 +1,6 @@
 package ru.smak.movie;
 
+import ru.smak.graphics.FractalPainter;
 import ru.smak.graphics.Plane;
 import ru.smak.gui.GraphicsPanel;
 import ru.smak.gui.MainWindow;
@@ -13,7 +14,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class MovieWindow extends JFrame {
-    private JPanel moviePanel;
+    private GraphicsPanel moviePanel = new GraphicsPanel();
     private JPanel controlPanel;
     private GroupLayout gl;
     private GroupLayout glcp;
@@ -21,12 +22,12 @@ public class MovieWindow extends JFrame {
     private JButton AddFile, OK, Play;
     private JSpinner FPS, Duration;
     private JLabel FPSlbl, Durationlbl;
-    private ArrayList<Plane> frames;
+    private ArrayList<FractalPainter> frames;
     private int fps, duration;
-    private MainWindow p;
     private MovieMaker movie;
-    public MovieWindow(){
-        moviePanel = new JPanel();
+    public MovieWindow(MainWindow mainWindow){
+        //moviePanel = new GraphicsPanel();
+        moviePanel.setBackground(Color.WHITE);
         controlPanel = new JPanel();
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         setMinimumSize(minSz);
@@ -46,14 +47,14 @@ public class MovieWindow extends JFrame {
         controlPanel.setBackground(Color.WHITE);
         controlPanel.setLayout(glcp);
         movie = new MovieMaker(frames, duration, fps);
-        p = new MainWindow();
-        frames = new ArrayList<Plane>();
+        frames = new ArrayList<FractalPainter>();
 
         AddFile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //добавление файла в список ключевых файлов
-                frames.add(p.getPlane());
+                frames.add((FractalPainter)mainWindow.getMainPanel().getAllPainters("class ru.smak.graphics.FractalPainter").get(0));
+                moviePanel.addPainter(frames.get(frames.size()-1));
             }
         });
 

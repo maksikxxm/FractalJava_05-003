@@ -1,5 +1,6 @@
 package ru.smak.movie;
 
+import ru.smak.graphics.FractalPainter;
 import ru.smak.graphics.Plane;
 
 import java.awt.*;
@@ -19,7 +20,7 @@ public class MovieMaker {
      * Массив кадров, передаваемых пользователем.
      */
     ArrayList<File> frames;
-    public MovieMaker(ArrayList<Plane> frames, int time, int fps){
+    public MovieMaker(ArrayList<FractalPainter> frames, int time, int fps){
 
     }
 

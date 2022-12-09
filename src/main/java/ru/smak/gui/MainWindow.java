@@ -117,7 +117,8 @@ public class MainWindow extends JFrame {
                     plane.setXEdges(new Pair<>(xMin, xMax));
                     plane.setYEdges(new Pair<>(yMin, yMax));
                     pp = p1 = null;
-                    mainPanel.repaint();
+                    System.out.println(getPlaneShape(plane));
+                    setNewMaxIterations(m, tool.getDynamicStepStatus());
                 }
             }
         });
@@ -137,7 +138,6 @@ public class MainWindow extends JFrame {
                     g.drawRect(Math.min(p1.x, e.getX()), Math.min(p1.y, e.getY()), Math.abs(e.getX()-p1.x), Math.abs(e.getY()-p1.y));
                     g.setPaintMode();
                     pp = e.getPoint();
-                    setNewMaxIterations(m, tool.getDynamicStepStatus());
                 }
             }
         });
@@ -163,7 +163,7 @@ public class MainWindow extends JFrame {
     }
 
     public static int getNewMaxIterations(double shape){
-        return (int) (200 + 10 * Math.log(6/shape));
+        return (int) (200 + 20 * Math.log(6/shape));
     }
 
     public void setNewMaxIterations(MandelbrotX2 m, boolean isSelected){

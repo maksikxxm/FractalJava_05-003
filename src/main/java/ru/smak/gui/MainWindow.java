@@ -15,7 +15,10 @@ import ru.smak.menu.MainMenu;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainWindow extends JFrame {
     private final GraphicsPanel mainPanel = new GraphicsPanel();
@@ -31,6 +34,15 @@ public class MainWindow extends JFrame {
     private Point lastDragPoint = null;
     private int LastButtonPressed;
     private int LastButtonReleased;
+
+    public Plane getPlane() {
+        return plane;
+    }
+
+    public GraphicsPanel getMainPanel()
+    {
+        return mainPanel;
+    }
 
     public Plane getPlane() {
         return plane;
@@ -63,9 +75,9 @@ public class MainWindow extends JFrame {
 
         JMenuBar menuBar = new JMenuBar();
         MainMenu menu = new MainMenu(menuBar);
-        setJMenuBar(menuBar);
         menu.getMainPanel(mainPanel); // Передача mainPanel в MainMenu
         menu.setDataPutMainMenu(plane,m,colorFunc);
+        setJMenuBar(menuBar);
         JToolBar toolBar = new JToolBar();
         tool = new InstrumentPanel(toolBar, this);
 
@@ -73,6 +85,9 @@ public class MainWindow extends JFrame {
 
         InstrumentPanel tool = new InstrumentPanel(toolBar);
         mainPanel.addPainter(fp, Priority.FRONT);
+        InstrumentPanel tool = new InstrumentPanel(toolBar, this);
+
+        mainPanel.addPainter(fp);
 
         mainPanel.addComponentListener(new ComponentAdapter() {
             @Override

@@ -4,6 +4,7 @@ package ru.smak.menu;
 import ru.smak.dynamic.MaxIterations;
 import ru.smak.movie.MovieWindow;
 
+import ru.smak.data.fileChooser;
 import ru.smak.graphics.*;
 import ru.smak.gui.GraphicsPanel;
 
@@ -37,7 +38,7 @@ public class InstrumentPanel extends JToolBar {
         toolBar.addSeparator();
         movie = new JButton("Запись");
         movie.setFocusable(false);
-
+        fileChooser fileChooser = new fileChooser(mainPanel);
         fractal = new JComboBox();
         var fractalFunctions = FractalFunctions.values();
         for(int i =0;i <fractalFunctions.length;i++)
@@ -51,6 +52,7 @@ public class InstrumentPanel extends JToolBar {
         var colorizers = Colorizers.values();
         for(int i =0;i <colorizers.length;i++)
             color.addItem(colorizers[i].toString());
+
 
         color.setFocusable(false);
 
@@ -80,6 +82,9 @@ public class InstrumentPanel extends JToolBar {
                     case 2 -> currentColorizer = new ColorFunctionRed();
                 }
                 mainPanel.addPainter(new FractalPainter(plane, currentFractal, currentColorizer));
+                fileChooser.CurrentColorI(color.getSelectedIndex());
+
+                mainPanel.addPainter(new  FractalPainter(plane, currentFractal, currentColorizer));
                 mainPanel.repaint();
             }
         });
@@ -99,6 +104,8 @@ public class InstrumentPanel extends JToolBar {
                     case 5 -> currentFractal = new MandelbrotCos();
                 }
                 mainPanel.addPainter(new FractalPainter(plane, currentFractal, currentColorizer));
+                fileChooser.MandelbrotXi(fractal.getSelectedIndex());
+                mainPanel.addPainter(new  FractalPainter(plane, currentFractal, currentColorizer));
                 mainPanel.repaint();
             }
         });

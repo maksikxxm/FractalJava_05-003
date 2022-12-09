@@ -6,7 +6,6 @@ import ru.smak.gui.GraphicsPanel;
 import ru.smak.math.fractals.MandelbrotX2;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 

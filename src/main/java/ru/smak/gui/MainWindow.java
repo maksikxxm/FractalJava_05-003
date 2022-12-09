@@ -2,7 +2,6 @@ package ru.smak.gui;
 
 import kotlin.Pair;
 import ru.smak.graphics.*;
-import
 import ru.smak.math.fractals.MandelbrotX2;
 import ru.smak.menu.InstrumentPanel;
 import ru.smak.menu.MainMenu;

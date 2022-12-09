@@ -21,9 +21,10 @@ public class MainWindow extends JFrame {
     private static final int SHRINK = GroupLayout.PREFERRED_SIZE;
     private final Dimension minSz = new Dimension(600, 500);
 
-    private Point p1 = null;
-    private Point pp = null;
-
+    private Point firstScalePoint = null;
+    private Point lastScalePoint = null;
+    private Point firstDragPoint = null;
+    private Point lastDragPoint = null;
     private int LastButtonPressed;
     private int LastButtonReleased;
 
@@ -97,11 +98,11 @@ public class MainWindow extends JFrame {
                 LastButtonPressed = e.getButton();
                 if(LastButtonPressed == 1)
                 {
-                    p1 = e.getPoint();
+                    firstScalePoint = e.getPoint();
                 }
                 else if(LastButtonPressed == 2)
                 {
-
+                    firstDragPoint = e.getPoint();
                 }
             }
 
@@ -110,19 +111,19 @@ public class MainWindow extends JFrame {
                 LastButtonReleased = e.getButton();
                 if(LastButtonReleased == 1)
                 {
-                    if (pp!=null) {
+                    if (lastScalePoint !=null) {
                         var g = mainPanel.getGraphics();
                         g.setXORMode(Color.WHITE);
-                        g.drawRect(Math.min(p1.x, pp.x), Math.min(p1.y, pp.y), Math.abs(pp.x-p1.x), Math.abs(pp.y-p1.y));
+                        g.drawRect(Math.min(firstScalePoint.x, lastScalePoint.x), Math.min(firstScalePoint.y, lastScalePoint.y), Math.abs(lastScalePoint.x- firstScalePoint.x), Math.abs(lastScalePoint.y- firstScalePoint.y));
                         g.setPaintMode();
                     }
-                    var xMin = Converter.INSTANCE.xScrToCrt(Math.min(p1.x, pp.x), plane);
-                    var xMax = Converter.INSTANCE.xScrToCrt(Math.max(p1.x, pp.x), plane);
-                    var yMin = Converter.INSTANCE.yScrToCrt(Math.min(p1.y, pp.y), plane);
-                    var yMax = Converter.INSTANCE.yScrToCrt(Math.max(p1.y, pp.y), plane);
+                    var xMin = Converter.INSTANCE.xScrToCrt(Math.min(firstScalePoint.x, lastScalePoint.x), plane);
+                    var xMax = Converter.INSTANCE.xScrToCrt(Math.max(firstScalePoint.x, lastScalePoint.x), plane);
+                    var yMin = Converter.INSTANCE.yScrToCrt(Math.min(firstScalePoint.y, lastScalePoint.y), plane);
+                    var yMax = Converter.INSTANCE.yScrToCrt(Math.max(firstScalePoint.y, lastScalePoint.y), plane);
                     plane.setXEdges(new Pair<>(xMin, xMax));
                     plane.setYEdges(new Pair<>(yMin, yMax));
-                    pp = p1 = null;
+                    lastScalePoint = firstScalePoint = null;
                     mainPanel.repaint();
                 }
             }
@@ -137,12 +138,16 @@ public class MainWindow extends JFrame {
                     var g = mainPanel.getGraphics();
                     g.setXORMode(Color.WHITE);
                     g.setColor(Color.BLACK);
-                    if (pp!=null) {
-                        g.drawRect(Math.min(p1.x, pp.x), Math.min(p1.y, pp.y), Math.abs(pp.x-p1.x), Math.abs(pp.y-p1.y));
+                    if (lastScalePoint !=null) {
+                        g.drawRect(Math.min(firstScalePoint.x, lastScalePoint.x), Math.min(firstScalePoint.y, lastScalePoint.y), Math.abs(lastScalePoint.x- firstScalePoint.x), Math.abs(lastScalePoint.y- firstScalePoint.y));
                     }
-                    g.drawRect(Math.min(p1.x, e.getX()), Math.min(p1.y, e.getY()), Math.abs(e.getX()-p1.x), Math.abs(e.getY()-p1.y));
+                    g.drawRect(Math.min(firstScalePoint.x, e.getX()), Math.min(firstScalePoint.y, e.getY()), Math.abs(e.getX()- firstScalePoint.x), Math.abs(e.getY()- firstScalePoint.y));
                     g.setPaintMode();
-                    pp = e.getPoint();
+                    lastScalePoint = e.getPoint();
+                }
+                if(LastButtonPressed == 2)
+                {
+
                 }
             }
         });

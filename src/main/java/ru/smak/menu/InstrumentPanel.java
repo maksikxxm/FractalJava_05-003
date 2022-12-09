@@ -1,10 +1,17 @@
 package ru.smak.menu;
 
+import ru.smak.graphics.*;
+import ru.smak.gui.GraphicsPanel;
+
 import ru.smak.gui.MainWindow;
+import ru.smak.math.fractals.FractalFunctions;
+import ru.smak.math.fractals.*;
+
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 
 public class InstrumentPanel extends JToolBar {
     private JToolBar toolBar;
@@ -12,8 +19,11 @@ public class InstrumentPanel extends JToolBar {
     private JComboBox fractal;
     private JComboBox color;
     private JButton movie;
-
-    public InstrumentPanel(JToolBar tool){
+    private GraphicsPanel mainPanel;
+    private Fractal currentFractal = new MandelbrotX2();
+    private Colorizer currentColorizer = new ColorFunctionDark();
+    public InstrumentPanel(JToolBar tool, MainWindow mainWindow){
+        this.mainPanel = mainWindow.getMainPanel();
         toolBar = tool;
         toolBar.setRollover(true);
         dynamicStep = new JCheckBox("Динамический шаг", false);
@@ -23,13 +33,23 @@ public class InstrumentPanel extends JToolBar {
         toolBar.addSeparator();
         movie = new JButton("Запись");
         movie.setFocusable(false);
-        fractal = new JComboBox(new String[]{"x^2","x^3","x^4","x^5"});
+
+        fractal = new JComboBox();
+        var fractalFunctions = FractalFunctions.values();
+        for(int i =0;i <fractalFunctions.length;i++)
+            fractal.addItem(fractalFunctions[i].toString());
+
         fractal.setFocusable(false);
         toolBar.add(fractal);
         toolBar.addSeparator();
-        color = new JComboBox(new String[]{"Красный", "Зеленый", "Синий", "Желтый"});
+
+        color = new JComboBox();
+        var colorizers = Colorizers.values();
+        for(int i =0;i <colorizers.length;i++)
+            color.addItem(colorizers[i].toString());
+
         color.setFocusable(false);
-        color.setSelectedItem(color.getItemAt(1));
+
         toolBar.add(color);
         toolBar.addSeparator();
         toolBar.add(movie);
@@ -45,12 +65,29 @@ public class InstrumentPanel extends JToolBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //передача различных цветовых схем
+                mainPanel.removePaintersByType("class ru.smak.graphics.FractalPainter");
+                Plane plane = mainWindow.getPlane();
+                switch (color.getSelectedIndex()) {
+                    case 0 -> currentColorizer = new ColorFunctionDark();
+                    case 1 -> currentColorizer = new ColorFunctionBlack();
+                }
+                mainPanel.addPainter(new  FractalPainter(plane, currentFractal, currentColorizer));
+                mainPanel.repaint();
             }
         });
+
         fractal.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //передача различных функций
+                mainPanel.removePaintersByType("class ru.smak.graphics.FractalPainter");
+                Plane plane = mainWindow.getPlane();
+                switch (fractal.getSelectedIndex()) {
+                    case 0 -> currentFractal = new MandelbrotX2();
+                    case 1 -> currentFractal = new MandelbrotX3();
+                }
+                mainPanel.addPainter(new  FractalPainter(plane, currentFractal, currentColorizer));
+                mainPanel.repaint();
             }
         });
         movie.addActionListener(new ActionListener() {

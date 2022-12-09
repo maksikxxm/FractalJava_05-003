@@ -2,16 +2,16 @@ package ru.smak.math.fractals;
 
 import ru.smak.math.Complex;
 
-public class Mandelbrot implements Fractal {
+public class MandelbrotX2 implements Fractal {
 
     private int maxIterations;
     private double r;
 
-    public Mandelbrot(){
+    public MandelbrotX2(){
         this(200, 2);
     }
 
-    public Mandelbrot(int maxIterations, double r){
+    public MandelbrotX2(int maxIterations, double r){
         this.maxIterations = maxIterations;
         this.r = r;
     }

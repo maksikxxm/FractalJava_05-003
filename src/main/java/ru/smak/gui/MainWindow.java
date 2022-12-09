@@ -59,7 +59,7 @@ public class MainWindow extends JFrame {
         JToolBar toolBar = new JToolBar();
         tool = new InstrumentPanel(toolBar, this);
 
-        mainPanel.addPainter(fp);
+        //mainPanel.addPainter(fp);
 
         mainPanel.addComponentListener(new ComponentAdapter() {
             @Override

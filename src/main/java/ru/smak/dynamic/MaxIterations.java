@@ -15,12 +15,11 @@ public class MaxIterations {
     private double getPlaneShape(Plane plane){
         double xSize = plane.getXMax() - plane.getXMin();
         double ySize = plane.getYMax() - plane.getYMin();
-        System.out.println(xSize*ySize);
         return xSize*ySize;
     }
 
     private static int getNewMaxIterations(double shape){
-        return (int) (200 * (1 + Math.log(6/shape)));
+        return (int) (200 + 20 * Math.log(6/shape));
     }
 
     private void setNewMaxIterations(Plane plane, Mandelbrot m, boolean isSelected){

@@ -1,6 +1,8 @@
 package ru.smak.movie;
 
+import ru.smak.graphics.Plane;
 import ru.smak.gui.GraphicsPanel;
+import ru.smak.gui.MainWindow;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -16,11 +18,12 @@ public class MovieWindow extends JFrame {
     private GroupLayout gl;
     private GroupLayout glcp;
     private final Dimension minSz = new Dimension(600, 500);
-    private JButton SelectFile, OK, Play;
+    private JButton AddFile, OK, Play;
     private JSpinner FPS, Duration;
     private JLabel FPSlbl, Durationlbl;
-    private ArrayList<File> jsonFiles, jpgFiles;
+    private ArrayList<Plane> frames;
     private int fps, duration;
+    private MainWindow p;
     private MovieMaker movie;
     public MovieWindow(){
         moviePanel = new JPanel();
@@ -32,7 +35,7 @@ public class MovieWindow extends JFrame {
         GroupLayout glcp = new GroupLayout(controlPanel);
         SpinnerNumberModel mdlFPS = new SpinnerNumberModel(30, 1, 1000, 1);
         SpinnerNumberModel mdlDuration = new SpinnerNumberModel(30, 5, 180, 1);
-        SelectFile = new JButton("Выбрать файл");
+        AddFile = new JButton("Добавить файл");
         FPS = new JSpinner(mdlFPS);
         Duration = new JSpinner(mdlDuration);
         FPSlbl = new JLabel("FPS");
@@ -42,21 +45,15 @@ public class MovieWindow extends JFrame {
         setLayout(gl);
         controlPanel.setBackground(Color.WHITE);
         controlPanel.setLayout(glcp);
-        movie = new MovieMaker(jsonFiles, duration, fps);
+        movie = new MovieMaker(frames, duration, fps);
+        p = new MainWindow();
+        frames = new ArrayList<Plane>();
 
-        jsonFiles = new ArrayList<>();
-        jpgFiles = new ArrayList<>();
-
-        SelectFile.addActionListener(new ActionListener() {
+        AddFile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //открывается диалоговое окно с выбором файла
-                var a = new JFileChooser();
-                FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                        "JSON Files", "json");
-                a.setFileFilter(filter);
-                a.showOpenDialog(null);
-                jsonFiles.add(a.getSelectedFile());
+                //добавление файла в список ключевых файлов
+                frames.add(p.getPlane());
             }
         });
 
@@ -95,7 +92,7 @@ public class MovieWindow extends JFrame {
 
         glcp.setHorizontalGroup(glcp.createSequentialGroup()
                 .addGap(8)
-                .addComponent(SelectFile, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                .addComponent(AddFile, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
                 .addGap(8)
                 .addComponent(FPSlbl, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
                 .addGap(8)
@@ -114,7 +111,7 @@ public class MovieWindow extends JFrame {
         glcp.setVerticalGroup(glcp.createSequentialGroup()
                 .addGap(8)
                 .addGroup(glcp.createParallelGroup()
-                        .addComponent(SelectFile, GroupLayout.Alignment.CENTER)
+                        .addComponent(AddFile, GroupLayout.Alignment.CENTER)
                         .addGap(8)
                         .addComponent(FPSlbl, GroupLayout.Alignment.CENTER)
                         .addGap(8)

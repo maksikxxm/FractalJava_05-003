@@ -1,5 +1,8 @@
 package ru.smak.menu;
 
+
+import ru.smak.movie.MovieWindow;
+
 import ru.smak.graphics.*;
 import ru.smak.gui.GraphicsPanel;
 
@@ -109,6 +112,8 @@ public class InstrumentPanel extends JToolBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //анимированное плавное перемещение по фракталу
+                var movieWnd = new MovieWindow();
+                movieWnd.setVisible(true);
             }
         });
     }

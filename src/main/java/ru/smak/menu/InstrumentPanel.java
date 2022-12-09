@@ -8,6 +8,7 @@ import ru.smak.movie.MovieWindow;
 
 import ru.smak.data.fileChooser;
 
+import ru.smak.data.fileChooser;
 import ru.smak.graphics.*;
 import ru.smak.gui.GraphicsPanel;
 
@@ -86,6 +87,8 @@ public class InstrumentPanel extends JToolBar {
                 }
                 mainPanel.addPainter(new FractalPainter(plane, currentFractal, currentColorizer));
                 fileChooser.CurrentColorI(color.getSelectedIndex());
+                fileChooser.CurrentColorI = color.getSelectedIndex();
+                mainPanel.addPainter(new  FractalPainter(plane, currentFractal, currentColorizer));
                 mainPanel.repaint();
             }
         });
@@ -104,7 +107,6 @@ public class InstrumentPanel extends JToolBar {
                     case 4 -> currentFractal = new MandelbrotSin();
                     case 5 -> currentFractal = new MandelbrotCos();
                 }
-                mainPanel.addPainter(new FractalPainter(plane, currentFractal, currentColorizer));
                 fileChooser.MandelbrotXi(fractal.getSelectedIndex());
                 fileChooser.MandelbrotXi = fractal.getSelectedIndex();
                 mainPanel.addPainter(new  FractalPainter(plane, currentFractal, currentColorizer));

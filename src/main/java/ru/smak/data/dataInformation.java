@@ -3,6 +3,7 @@ package ru.smak.data;
 import com.google.gson.Gson;
 import ru.smak.graphics.ColorFunctionDark;
 import ru.smak.graphics.Plane;
+import ru.smak.math.fractals.Mandelbrot;
 import ru.smak.math.fractals.MandelbrotX2;
 
 import java.io.FileWriter;
@@ -14,9 +15,9 @@ public class dataInformation {
     private int CurrentColorI;
     private ColorFunctionDark ColorSave;
     private Plane PlaneSave;
-    private MandelbrotX2 MandelbrotSave;
+    private Mandelbrot MandelbrotSave;
 
-    public dataInformation(Plane plane, MandelbrotX2 m, ColorFunctionDark color, int MandelbrotXi, int CurrentColorI) {
+    public dataInformation(Plane plane, Mandelbrot m, ColorFunctionDark color, int MandelbrotXi, int CurrentColorI) {
         this.PlaneSave = plane;
         this.MandelbrotSave = m;
         this.ColorSave = color;
@@ -29,7 +30,7 @@ public class dataInformation {
         return PlaneSave;
     }
 
-    public MandelbrotX2 getPMandelbrotX2Save() {
+    public Mandelbrot getPMandelbrotX2Save() {
         return MandelbrotSave;
     }
 

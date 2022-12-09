@@ -160,8 +160,4 @@ public class MainWindow extends JFrame {
         g.drawRect(-1000, -1000, 1, 1);
         g.setPaintMode();
     }
-
-    public Plane getPlane(){
-        return this.plane;
-    }
 }

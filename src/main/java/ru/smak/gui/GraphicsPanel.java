@@ -64,15 +64,6 @@ public class GraphicsPanel extends JPanel {
     }
 
     /**
-     *
-     * @return Список всех пэинтеров
-     */
-    public ArrayList<Painter> getAllPainters()
-    {
-        return new ArrayList<>(painters);
-    }
-
-    /**
      * Чтобы узнать индекс используйте метод getAllPainters
      * @param index
      */

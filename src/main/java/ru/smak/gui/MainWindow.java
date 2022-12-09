@@ -169,6 +169,11 @@ public class MainWindow extends JFrame {
                 if(LastButtonPressed == 2)
                 {
 
+                    lastScalePoint = e.getPoint();
+                }
+                if(LastButtonPressed == 2)
+                {
+
                 }
             }
         });
@@ -188,6 +193,7 @@ public class MainWindow extends JFrame {
         plane.setWidth(mainPanel.getWidth());
         plane.setHeight(mainPanel.getHeight());
         var g = mainPanel.getGraphics();
+        //костыль
         g.setXORMode(Color.WHITE);
         g.drawRect(-1000, -1000, 1, 1);
         g.setPaintMode();

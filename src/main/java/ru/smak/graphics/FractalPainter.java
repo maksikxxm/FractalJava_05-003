@@ -15,6 +15,10 @@ public class FractalPainter implements Painter {
     private Fractal f;
     private Graphics g;
 
+    public Plane getPlane() {
+        return plane;
+    }
+
     private Colorizer colorFunc;
 
     public FractalPainter(Plane plane, Fractal f, Colorizer colorFunc) {

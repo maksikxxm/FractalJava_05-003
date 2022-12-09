@@ -42,8 +42,8 @@ public class InstrumentPanel extends JToolBar {
         fileChooser fileChooser = new fileChooser(mainPanel);
         fractal = new JComboBox();
         var fractalFunctions = FractalFunctions.values();
-        for(int i =0;i <fractalFunctions.length;i++) {
-
+        for(int i =0;i <fractalFunctions.length;i++)
+            fractal.addItem(fractalFunctions[i].toString());
 
         fractal.setFocusable(false);
         toolBar.add(fractal);
@@ -53,6 +53,7 @@ public class InstrumentPanel extends JToolBar {
         var colorizers = Colorizers.values();
         for(int i =0;i <colorizers.length;i++)
             color.addItem(colorizers[i].toString());
+
 
         color.setFocusable(false);
 

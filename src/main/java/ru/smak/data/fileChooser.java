@@ -1,9 +1,9 @@
 package ru.smak.data;
 
-import ru.smak.graphics.ColorFunction;
+import ru.smak.graphics.ColorFunctionDark;
 import ru.smak.graphics.Plane;
 import ru.smak.gui.GraphicsPanel;
-import ru.smak.math.fractals.Mandelbrot;
+import ru.smak.math.fractals.MandelbrotX2;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -11,13 +11,15 @@ import java.io.File;
 
 public class fileChooser
 {
+    private int MandelbrotXi;
+    private  int CurrentColorI;
     private Plane PlaneSave;
-    private Mandelbrot MandelbrotSave;
-    private ColorFunction ColorSave;
+    private MandelbrotX2 MandelbrotSave;
+    private ColorFunctionDark ColorSave;
     private final JFileChooser FileChooser = new JFileChooser();
     private GraphicsPanel graphicsPanel;
     private  String path;
-    private  dataInformationPut dataPut = new dataInformationPut();
+   private  dataPut dataPut = new dataPut();
 
     public fileChooser(GraphicsPanel graphicsPanel)
     {
@@ -33,14 +35,12 @@ public class fileChooser
     }
     public void SaveFile()
     {
-
         int result = FileChooser.showSaveDialog(graphicsPanel);
-        System.out.println(result);
         File file = FileChooser.getSelectedFile();
         if(file == null) {return;}
         path = file.getPath();
         dataPut.getPath(path);
-        dataPut.put(PlaneSave,MandelbrotSave,ColorSave); // Никитино
+        dataPut.put(PlaneSave,MandelbrotSave,ColorSave,MandelbrotXi,CurrentColorI); // Никитино
         // Если файл выбран, то представим его в сообщении
         if (result == JFileChooser.APPROVE_OPTION )
             JOptionPane.showMessageDialog(graphicsPanel,
@@ -48,7 +48,7 @@ public class fileChooser
                             " ) сохранен");
 
     }
-    public void setDataPut(Plane PlaneSave, Mandelbrot MandelbrotSave, ColorFunction ColorSave)
+    public void setDataPut(Plane PlaneSave, MandelbrotX2 MandelbrotSave, ColorFunctionDark ColorSave)
     {
         this.PlaneSave = PlaneSave;
         this.MandelbrotSave = MandelbrotSave;
@@ -57,17 +57,15 @@ public class fileChooser
 
 
     }
-    public Plane getPlaneSave()
+    public void MandelbrotXi( Integer mandelbrotXi)
     {
-        return PlaneSave;
+        this.MandelbrotXi = mandelbrotXi;
     }
-    public Mandelbrot getPMandelbrotSave()
+    public void CurrentColorI(Integer currentColorI)
     {
-        return MandelbrotSave;
+      this.CurrentColorI = currentColorI;
+        System.out.println(CurrentColorI);
     }
-    public ColorFunction getColorSave()
-    {
-        return ColorSave;
-    }
+
 
 }

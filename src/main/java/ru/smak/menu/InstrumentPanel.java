@@ -76,7 +76,8 @@ public class InstrumentPanel extends JToolBar {
                 Plane plane = mainWindow.getPlane();
                 switch (color.getSelectedIndex()) {
                     case 0 -> currentColorizer = new ColorFunctionDark();
-                    case 1 -> currentColorizer = new ColorFunctionBlack();
+                    case 1 -> currentColorizer = new ColorFunctionGreen();
+                    case 2 -> currentColorizer = new ColorFunctionRed();
                 }
                 mainPanel.addPainter(new FractalPainter(plane, currentFractal, currentColorizer));
                 mainPanel.repaint();
@@ -92,6 +93,10 @@ public class InstrumentPanel extends JToolBar {
                 switch (fractal.getSelectedIndex()) {
                     case 0 -> currentFractal = new MandelbrotX2();
                     case 1 -> currentFractal = new MandelbrotX3();
+                    case 2 -> currentFractal = new MandelbrotX5();
+                    case 3 -> currentFractal = new MandelbrotX10();
+                    case 4 -> currentFractal = new MandelbrotSin();
+                    case 5 -> currentFractal = new MandelbrotCos();
                 }
                 mainPanel.addPainter(new FractalPainter(plane, currentFractal, currentColorizer));
                 mainPanel.repaint();

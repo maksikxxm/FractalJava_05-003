@@ -83,6 +83,7 @@ public class MainWindow extends JFrame {
                 plane.setWidth(mainPanel.getWidth());
                 plane.setHeight(mainPanel.getHeight());
                 mainPanel.repaint();
+
             }
         });
         //region Расположение

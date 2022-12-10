@@ -29,7 +29,7 @@ public class FractalPainter implements Painter {
 
     public FractalPainter(FractalPainter other) {
         this.plane = new Plane(other.getPlane());
-        this.f = other.getF();
+        this.f = other.getFractal();
         this.colorFunc = other.getColorFunc();
     }
 

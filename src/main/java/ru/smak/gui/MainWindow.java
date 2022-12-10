@@ -13,7 +13,7 @@ import java.awt.event.*;
 
 public class MainWindow extends JFrame {
     private final GraphicsPanel mainPanel = new GraphicsPanel();
-    private final Plane plane;
+    private Plane plane;
     private static final int GROW = GroupLayout.DEFAULT_SIZE;
     private static final int SHRINK = GroupLayout.PREFERRED_SIZE;
     private final Dimension minSz = new Dimension(600, 500);
@@ -33,6 +33,10 @@ public class MainWindow extends JFrame {
     {
         return mainPanel;
     }
+    public  void setPlane(Plane plane)
+    {
+        this.plane = plane;
+    }
 
     private Color test(float x) { return Color.GREEN;}
 
@@ -50,8 +54,9 @@ public class MainWindow extends JFrame {
 
         JMenuBar menuBar = new JMenuBar();
         MainMenu menu = new MainMenu(menuBar);
-        menu.getMainPanel(this.getMainPanel()); // Передача mainPanel в MainMenu
+        menu.setMainPanel(this.getMainPanel()); // Передача mainPanel в MainMenu
         menu.setDataPutMainMenu(plane,m,colorFunc);
+        menu.setWindow(this);
         setJMenuBar(menuBar);
         JToolBar toolBar = new JToolBar();
         InstrumentPanel tool = new InstrumentPanel(toolBar, this);
@@ -64,6 +69,7 @@ public class MainWindow extends JFrame {
                 super.componentResized(e);
                 plane.setWidth(mainPanel.getWidth());
                 plane.setHeight(mainPanel.getHeight());
+                System.out.println(mainPanel.getWidth()+ " plane.setWidth(mainPanel.getWidth())");
             }
         });
         GroupLayout gl = new GroupLayout(getContentPane());
@@ -163,3 +169,4 @@ public class MainWindow extends JFrame {
         g.setPaintMode();
     }
 }
+

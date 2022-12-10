@@ -1,6 +1,7 @@
 package ru.smak.data;
 import ru.smak.graphics.*;
 import ru.smak.gui.GraphicsPanel;
+import ru.smak.gui.MainWindow;
 import ru.smak.math.fractals.Fractal;
 import ru.smak.math.fractals.MandelbrotX2;
 import ru.smak.math.fractals.MandelbrotX3;
@@ -16,6 +17,7 @@ public class fileChooserOpen
     private Colorizer currentColorizer= new ColorFunctionDark();
     private Fractal currentFractal = new MandelbrotX2();
     private  String path;
+    private MainWindow window;
     public fileChooserOpen()
     {
         FileChooser.setDialogTitle("Выберите файл");
@@ -25,7 +27,7 @@ public class fileChooserOpen
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
                 "JSON", "JSON");
         FileChooser.setFileFilter(filter);
-      //  this.graphicsPanel = graphicsPanel;
+        //  this.graphicsPanel = graphicsPanel;
         //System.out.println( this.graphicsPanel + " this.graphicsPanel");
     }
 
@@ -57,7 +59,9 @@ public class fileChooserOpen
         double yMax = rootData.PlaneSave._yMax;
         int width = rootData.PlaneSave._width;
         int height = rootData.PlaneSave._height;
-        Plane planeOpen = new Plane(-xMin, xMax, yMin, yMax, width, height);
+        Plane planeOpen = new Plane(xMin, xMax, yMin, yMax,  graphicsPanel.getWidth(), graphicsPanel.getHeight());
+        MainWindow mainWindow = new MainWindow();
+        mainWindow.setPlane(planeOpen);
         switch (rootData.CurrentColorI) {
             case 0 -> currentColorizer = new ColorFunctionDark();
             case 1 -> currentColorizer = new ColorFunctionBlack();
@@ -66,11 +70,17 @@ public class fileChooserOpen
             case 0 -> currentFractal = new MandelbrotX2();
             case 1 -> currentFractal = new MandelbrotX3();
         }
+        window.setPlane(planeOpen);
         graphicsPanel.addPainter( new FractalPainter(planeOpen,currentFractal, currentColorizer));
+        graphicsPanel.repaint();
     }
     public void Panel(GraphicsPanel GraphicsPanel)
     {
         this.graphicsPanel = GraphicsPanel;
-        System.out.println(graphicsPanel + "this.graphicsPanel");
+
+    }
+    public  void WindowOpen(MainWindow window)
+    {
+        this.window = window;
     }
 }

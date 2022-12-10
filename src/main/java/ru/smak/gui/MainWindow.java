@@ -18,6 +18,7 @@ import java.awt.event.*;
 
 public class MainWindow extends JFrame {
     private final GraphicsPanel mainPanel = new GraphicsPanel();
+    private Plane plane;
     private InstrumentPanel tool;
     private final Plane plane;
     private static final int GROW = GroupLayout.DEFAULT_SIZE;
@@ -49,6 +50,10 @@ public class MainWindow extends JFrame {
         return mainPanel;
     }
     public InstrumentPanel getInstrumentPanel(){return tool;}
+    public  void setPlane(Plane plane)
+    {
+        this.plane = plane;
+    }
 
     private Color test(float x) { return Color.GREEN;}
 
@@ -67,8 +72,9 @@ public class MainWindow extends JFrame {
 
         JMenuBar menuBar = new JMenuBar();
         MainMenu menu = new MainMenu(menuBar);
-        menu.getMainPanel(this.getMainPanel()); // Передача mainPanel в MainMenu
+        menu.setMainPanel(this.getMainPanel()); // Передача mainPanel в MainMenu
         menu.setDataPutMainMenu(plane,m,colorFunc);
+        menu.setWindow(this);
         setJMenuBar(menuBar);
         JToolBar toolBar = new JToolBar();
         tool = new InstrumentPanel(toolBar, this);
@@ -103,6 +109,7 @@ public class MainWindow extends JFrame {
                         )
                         .addGap(4)
         );
+
         gl.setVerticalGroup(
                 gl.createSequentialGroup()
                         .addGap(4)

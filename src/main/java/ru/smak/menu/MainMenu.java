@@ -5,6 +5,7 @@ import ru.smak.data.fileChooserSave;
 import ru.smak.graphics.ColorFunctionDark;
 import ru.smak.graphics.Plane;
 import ru.smak.gui.GraphicsPanel;
+import ru.smak.gui.MainWindow;
 import ru.smak.math.fractals.Mandelbrot;
 
 import javax.swing.*;
@@ -17,6 +18,7 @@ public class MainMenu extends JFrame {
     private JMenuBar menuBar;
     private GraphicsPanel mainPanel;
     private Plane PlaneSave;
+    private MainWindow window;
     private Mandelbrot MandelbrotSave;
     private ColorFunctionDark ColorSave;
 
@@ -55,8 +57,7 @@ public class MainMenu extends JFrame {
         open.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //открыть в собственном формате (загрузить из файла)
-              //  ru.smak.data.fileChooserOpen.graphicsPanel = mainPanel;
+                fileChooserOpen.WindowOpen(window);
                 fileChooserOpen.Panel(mainPanel);
                 fileChooserOpen.OpenFile();
                 mainPanel.repaint();
@@ -90,7 +91,7 @@ public class MainMenu extends JFrame {
         });
         return help;
     }
-    public void getMainPanel(GraphicsPanel mainPanel) // Передача mainPanel(Никита)
+    public void setMainPanel(GraphicsPanel mainPanel) // Передача mainPanel(Никита)
     {
         this.mainPanel = mainPanel;
     }
@@ -101,9 +102,9 @@ public class MainMenu extends JFrame {
         this.ColorSave = ColorSave;
 
     }
-    public void getPlaneSaveMainMenu(Plane planeSave)
+    public void setWindow(MainWindow window)
     {
-      this.PlaneSave= planeSave;
+        this.window= window;
     }
 
     public void setDataPutMainMenu(Plane PlaneSave, Mandelbrot MandelbrotSave, ColorFunction ColorSave)

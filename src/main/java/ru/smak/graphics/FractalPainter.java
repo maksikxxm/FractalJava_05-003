@@ -30,6 +30,7 @@ public class FractalPainter implements Painter {
     public Colorizer getColorFunc() {
         return colorFunc;
     }
+    public Fractal getFractal(){return f;}
     public void setColorFunc(Colorizer colorFunc) {
         this.colorFunc = colorFunc;
     }

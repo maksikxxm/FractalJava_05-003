@@ -1,6 +1,7 @@
 package ru.smak.gui;
 
 import kotlin.Pair;
+import ru.smak.dynamic.MaxIterations;
 import ru.smak.graphics.*;
 import ru.smak.math.Complex;
 import ru.smak.math.fractals.Mandelbrot;
@@ -17,6 +18,7 @@ import java.awt.event.MouseEvent;
 
 public class MainWindow extends JFrame {
     private final GraphicsPanel mainPanel = new GraphicsPanel();
+    private InstrumentPanel tool;
     private final Plane plane;
     private static final int GROW = GroupLayout.DEFAULT_SIZE;
     private static final int SHRINK = GroupLayout.PREFERRED_SIZE;
@@ -37,6 +39,7 @@ public class MainWindow extends JFrame {
     {
         return mainPanel;
     }
+    public InstrumentPanel getInstrumentPanel(){return tool;}
 
     private Color test(float x) { return Color.GREEN;}
 
@@ -56,9 +59,9 @@ public class MainWindow extends JFrame {
         MainMenu menu = new MainMenu(menuBar);
         setJMenuBar(menuBar);
         JToolBar toolBar = new JToolBar();
-        InstrumentPanel tool = new InstrumentPanel(toolBar, this);
+        tool = new InstrumentPanel(toolBar, this);
 
-        mainPanel.addPainter(fp);
+        //mainPanel.addPainter(fp);
 
         mainPanel.addComponentListener(new ComponentAdapter() {
             @Override

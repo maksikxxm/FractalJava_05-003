@@ -11,11 +11,11 @@ import java.io.PrintWriter;
 
 
 public class dataInformation {
-    private int MandelbrotXi;
-    private int CurrentColorI;
-    private ColorFunctionDark ColorSave;
-    private Plane PlaneSave;
-    private Mandelbrot MandelbrotSave;
+    private final int MandelbrotXi;
+    private final int CurrentColorI;
+    private final ColorFunctionDark ColorSave;
+    private final Plane PlaneSave;
+    private final Mandelbrot MandelbrotSave;
 
     public dataInformation(Plane plane, Mandelbrot m, ColorFunctionDark color, int MandelbrotXi, int CurrentColorI) {
         this.PlaneSave = plane;

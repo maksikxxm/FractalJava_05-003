@@ -3,7 +3,6 @@ import ru.smak.graphics.*;
 import ru.smak.gui.GraphicsPanel;
 import ru.smak.gui.MainWindow;
 import ru.smak.math.fractals.*;
-
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
@@ -25,8 +24,6 @@ public class fileChooserOpen
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
                 "JSON", "JSON");
         FileChooser.setFileFilter(filter);
-        //  this.graphicsPanel = graphicsPanel;
-        //System.out.println( this.graphicsPanel + " this.graphicsPanel");
     }
 
     public void OpenFile()

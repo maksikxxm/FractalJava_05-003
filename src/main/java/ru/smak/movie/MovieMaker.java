@@ -22,7 +22,6 @@ public class MovieMaker {
     /**
      * Массив кадров, передаваемых пользователем.
      */
-    private ArrayList<FractalPainter> keyFrames;//массив ключевых кадров
     private Colorizer color;
     private Fractal fractal;
     /**

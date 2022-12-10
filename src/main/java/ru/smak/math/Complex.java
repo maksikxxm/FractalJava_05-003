@@ -72,4 +72,20 @@ public class Complex{
     public Complex sh(Complex z){
         return new Complex((eInPower(z).minus(eInPower(z.times(new Complex(-1,0))))).times(new Complex(0.5,0)));
     }
+
+    /**
+     *
+     * @return аргумент комплексного числа
+     */
+    public float arg()
+    {
+        //return (float)Math.atan(this.getIm()/this.getRe());
+        return (float)Math.acos((this.getRe())/(this.abs()));
+    }
+    public float arg2()
+    {
+        //return (float)Math.atan(this.getIm()/this.getRe());
+        return (float)Math.asin((this.getRe())/(this.abs()));
+    }
 }
+

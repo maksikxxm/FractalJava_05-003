@@ -36,21 +36,31 @@ public class MovieMaker {
     public MovieMaker(ArrayList<FractalPainter> keyFrames, int time, int fps){
         this.frames = new ArrayList<>();
         this.keyFrames = keyFrames;
-        this.coefficients = getCoefficients();
-        this.countOfFrames = getCountOfFrames();
         this.time = time;
         this.fps = fps;
         this.color = keyFrames.get(0).getColorFunc();
         this.fractal = keyFrames.get(0).getFractal();
         this.width = keyFrames.get(0).getWidth();
         this.height = keyFrames.get(0).getHeight();
+        this.coefficients = getCoefficients();
+        this.countOfFrames = getCountOfFrames();
         this.N = numberOfFrames();
         this.K = sumCoeff();
+        System.out.println("Количество ключевых кадров:");
         System.out.println(keyFrames.size());
+        System.out.println("Количество K:");
         System.out.println(coefficients.size());
-        System.out.println(coefficients.get(0));
+        System.out.println("Массив коэффициентов К:");
+        for (int i = 0; i < coefficients.size(); i++){
+            System.out.println(coefficients.get(i));
+        }
+        System.out.println("Количество N:");
         System.out.println(countOfFrames.size());
-        System.out.println(countOfFrames.get(0));
+        System.out.println("Массив номеров N:");
+        for (int i = 0; i < coefficients.size(); i++){
+            System.out.println(coefficients.get(i));
+        }
+        System.out.println("Общий массив кадров(количество):");
         System.out.println(frames.size());
     }
 
@@ -80,36 +90,37 @@ public class MovieMaker {
     //метод, который возвращает коэффициент - во сколько раз изменилась плоскость
     public double getCoeff(FractalPainter p1, FractalPainter p2){
         return Math.abs((p1.getPlane().getXMax()-p1.getPlane().getXMin())*(p1.getPlane().getYMax()-p1.getPlane().getYMin())
-                -(p2.getPlane().getXMax()-p2.getPlane().getXMin())*(p2.getPlane().getYMax()-p2.getPlane().getYMin()));
+                /(p2.getPlane().getXMax()-p2.getPlane().getXMin())/(p2.getPlane().getYMax()-p2.getPlane().getYMin()));
     }
     //массив коэффициентов
     public ArrayList<Double> getCoefficients(){
-        coefficients = new ArrayList<>();
+        ArrayList<Double> c = new ArrayList<>();
         for (int i = 0; i < keyFrames.size()-1; i++){
-            coefficients.add(getCoeff(keyFrames.get(i), keyFrames.get(i+1)));
+            c.add(getCoeff(keyFrames.get(i), keyFrames.get(i+1)));
         }
-        return coefficients;
+        return c;
     }
     //сумма коэффициентов К
     public double sumCoeff(){
         double res = 0;
-        for (int i = 0; i < coefficients.size()-1; i++){
-            res += coefficients.get(i);
+        for (int i = 0; i < this.coefficients.size(); i++){
+            res += this.coefficients.get(i);
         }
         return res;
     }
 
     //массив количества кадров
     public ArrayList<Integer> getCountOfFrames(){
-        countOfFrames = new ArrayList<>();
+        ArrayList<Integer> n = new ArrayList<>();
         for(int i = 0; i < keyFrames.size()-1; i++){
-            countOfFrames.add((int)(coefficients.get(i)*N/K));
+            n.add((int)(coefficients.get(i)*N/K));
         }
-        return countOfFrames;
+        return n;
     }
+    //общее число добавляемых кадров
     public int numberOfFrames(){
         return fps*time-keyFrames.size();
-    }//общее число добавляемых кадров
+    }
     public int getFps() {
         return fps;
     }
@@ -123,8 +134,6 @@ public class MovieMaker {
     public void setTime(int time){
         this.time = time;
     }
-
-
 
     public void show(){
 

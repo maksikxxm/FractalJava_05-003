@@ -14,7 +14,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class MovieWindow extends JFrame {
-    private GraphicsPanel moviePanel = new GraphicsPanel();
+    //private GraphicsPanel moviePanel = new GraphicsPanel();
     private JPanel controlPanel;
     private GroupLayout gl;
     private GroupLayout glcp;
@@ -23,15 +23,20 @@ public class MovieWindow extends JFrame {
     private JSpinner FPS, Duration;
     private JLabel FPSlbl, Durationlbl;
     private ArrayList<FractalPainter> frames;
+    private JPanel container;
     private int fps, duration;
     private MovieMaker movie;
     public MovieWindow(MainWindow mainWindow){
-        //moviePanel = new GraphicsPanel();
-        moviePanel.setBackground(Color.WHITE);
+        super("GridLayoutTest");
+        container = new JPanel();
+        GridLayout layout = new GridLayout(2,0,5,12);
+        container.setBackground(Color.WHITE);
+        container.setLayout(layout);
+        //container.setLayout(new FlowLayout(FlowLayout.CENTER));
         controlPanel = new JPanel();
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         setMinimumSize(minSz);
-        moviePanel.setBackground(Color.WHITE);
+        //moviePanel.setBackground(Color.WHITE);
         GroupLayout gl = new GroupLayout(getContentPane());
         GroupLayout glcp = new GroupLayout(controlPanel);
         SpinnerNumberModel mdlFPS = new SpinnerNumberModel(30, 1, 1000, 1);
@@ -54,8 +59,13 @@ public class MovieWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 //добавление файла в список ключевых файлов
                 frames.add((FractalPainter)mainWindow.getMainPanel().getAllPainters("class ru.smak.graphics.FractalPainter").get(0));
-                moviePanel.addPainter(frames.get(frames.size()-1));
-                moviePanel.repaint();
+                GraphicsPanel moviePanel = new GraphicsPanel();
+                moviePanel.setBackground(Color.WHITE);
+                FractalPainter fp = new FractalPainter((FractalPainter)mainWindow.getMainPanel().getAllPainters("class ru.smak.graphics.FractalPainter").get(0));
+                moviePanel.addPainter(fp);
+                //moviePanel.repaint();
+                container.add(moviePanel);
+                container.revalidate();
             }
         });
 
@@ -78,7 +88,7 @@ public class MovieWindow extends JFrame {
         gl.setHorizontalGroup(gl.createSequentialGroup()
                 .addGap(8)
                 .addGroup(gl.createParallelGroup()
-                        .addComponent(moviePanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                        .addComponent(container, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
                         .addComponent(controlPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
                 )
                 .addGap(8)
@@ -86,7 +96,7 @@ public class MovieWindow extends JFrame {
 
         gl.setVerticalGroup(gl.createSequentialGroup()
                 .addGap(8)
-                .addComponent(moviePanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                .addComponent(container, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
                 .addGap(8)
                 .addComponent(controlPanel, 70,70,70)
                 .addGap(8)

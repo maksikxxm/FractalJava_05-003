@@ -16,7 +16,6 @@ import java.awt.event.*;
 public class MainWindow extends JFrame {
     private final GraphicsPanel mainPanel = new GraphicsPanel();
     private InstrumentPanel tool;
-    private final Plane plane;
     private Plane plane;
     private static final int GROW = GroupLayout.DEFAULT_SIZE;
     private static final int SHRINK = GroupLayout.PREFERRED_SIZE;
@@ -59,6 +58,9 @@ public class MainWindow extends JFrame {
 
         JMenuBar menuBar = new JMenuBar();
         MainMenu menu = new MainMenu(menuBar);
+        menu.setMainPanel(mainPanel); // Передача mainPanel в MainMenu
+        menu.setDataPutMainMenu(plane,m,colorFunc);
+        menu.setWindow(this);
         setJMenuBar(menuBar);
         JToolBar toolBar = new JToolBar();
         tool = new InstrumentPanel(toolBar, this);

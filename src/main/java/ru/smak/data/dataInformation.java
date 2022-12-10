@@ -16,12 +16,7 @@ public class dataInformation {
     private final ColorFunctionDark ColorSave;
     private final Plane PlaneSave;
     private final Mandelbrot MandelbrotSave;
-    private  final boolean MaxIterations;
-    private int MandelbrotXi;
-    private int CurrentColorI;
-    private ColorFunctionDark ColorSave;
-    private Plane PlaneSave;
-    private Mandelbrot MandelbrotSave;
+
 
     public dataInformation(Plane plane, Mandelbrot m, ColorFunctionDark color, int MandelbrotXi, int CurrentColorI,boolean MaxIterations) {
         this.PlaneSave = plane;

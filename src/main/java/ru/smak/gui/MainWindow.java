@@ -2,6 +2,7 @@ package ru.smak.gui;
 
 import kotlin.Pair;
 import ru.smak.graphics.*;
+import ru.smak.math.Complex;
 import ru.smak.math.fractals.Mandelbrot;
 import ru.smak.math.fractals.MandelbrotX2;
 import ru.smak.menu.InstrumentPanel;
@@ -100,7 +101,7 @@ public class MainWindow extends JFrame {
                 {
                     firstScalePoint = e.getPoint();
                 }
-                else if(LastButtonPressed == 2)
+                else if(LastButtonPressed == 3)
                 {
                     firstDragPoint = e.getPoint();
                 }
@@ -145,9 +146,12 @@ public class MainWindow extends JFrame {
                     g.setPaintMode();
                     lastScalePoint = e.getPoint();
                 }
-                if(LastButtonPressed == 2)
+                if(LastButtonPressed == 3)
                 {
-
+                    lastDragPoint = e.getPoint();
+                    Drag a =new Drag(plane,firstDragPoint,lastDragPoint);
+                    firstDragPoint = new Point(lastDragPoint);
+                    mainPanel.repaint();
                 }
             }
         });

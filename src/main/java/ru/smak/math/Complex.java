@@ -75,11 +75,17 @@ public class Complex{
 
     /**
      *
-     * @param c
      * @return аргумент комплексного числа
      */
-    public float arg(Complex c)
+    public float arg()
     {
-        return (float)Math.acos((c.getRe())/(c.abs()));
+        //return (float)Math.atan(this.getIm()/this.getRe());
+        return (float)Math.acos((this.getRe())/(this.abs()));
+    }
+    public float arg2()
+    {
+        //return (float)Math.atan(this.getIm()/this.getRe());
+        return (float)Math.asin((this.getRe())/(this.abs()));
     }
 }
+

@@ -50,7 +50,7 @@ public class MainWindow extends JFrame {
 
         JMenuBar menuBar = new JMenuBar();
         MainMenu menu = new MainMenu(menuBar);
-        menu.getMainPanel(mainPanel); // Передача mainPanel в MainMenu
+        menu.getMainPanel(this.getMainPanel()); // Передача mainPanel в MainMenu
         menu.setDataPutMainMenu(plane,m,colorFunc);
         setJMenuBar(menuBar);
         JToolBar toolBar = new JToolBar();

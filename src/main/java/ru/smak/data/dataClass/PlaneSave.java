@@ -44,7 +44,13 @@ public class PlaneSave
     @Override
     public String toString()
     {
-        return "PlaneSave{"+"_xMin='"+-_xMin+'\''+ ", _xMax="+_xMax +'}';
+        return "PlaneSave{"+"_xMin='"+ _xMin + '\''
+                + ", _xMax='"+_xMax + '\''
+                + ",_yMin='"+_yMin + '\''
+                +",_yMax='"+_yMax +'\''
+                +  ",_width='"+_width +'\''
+                +  ",_height='"+-_height +'\''
+                +'}';
     }
 
 }

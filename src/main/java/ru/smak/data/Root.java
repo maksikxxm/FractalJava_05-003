@@ -57,7 +57,12 @@ public class Root
     public String toString()
     {
 
-        return "Root{"+"PlaneSave='"+PlaneSave+'\''+ ", MandelbrotSave="+ MandelbrotSave +'}';
+        return "Root{"+"MandelbrotXi='"+MandelbrotXi+'\''
+                + ", CurrentColorI='"+ CurrentColorI  +'\''
+                + ", ColorSave='"+ ColorSave +'\''
+                + ", PlaneSave='"+ PlaneSave +'\''
+                + ", MandelbrotSave'="+ MandelbrotSave + '\''
+                + '}'+ '}';
     }
     public void print()
     {

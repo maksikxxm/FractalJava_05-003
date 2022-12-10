@@ -36,7 +36,7 @@ public class MainMenu extends JFrame {
         file.add(saveAs);
         file.add(open);
         fileChooserSave fileChooserSave = new fileChooserSave(mainPanel);// Никитино
-        fileChooserOpen fileChooserOpen = new fileChooserOpen(mainPanel);
+        fileChooserOpen fileChooserOpen = new fileChooserOpen();
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
@@ -56,7 +56,10 @@ public class MainMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //открыть в собственном формате (загрузить из файла)
+              //  ru.smak.data.fileChooserOpen.graphicsPanel = mainPanel;
+                fileChooserOpen.Panel(mainPanel);
                 fileChooserOpen.OpenFile();
+                mainPanel.repaint();
 
             }
         });
@@ -100,9 +103,7 @@ public class MainMenu extends JFrame {
     }
     public void getPlaneSaveMainMenu(Plane planeSave)
     {
-
       this.PlaneSave= planeSave;
-        System.out.println(PlaneSave.getXMax()+"Plane");
     }
 
 }

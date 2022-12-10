@@ -32,10 +32,10 @@ public class MovieMaker {
 
     public MovieMaker(ArrayList<FractalPainter> keyFrames, int time, int fps){
         this.keyFrames = keyFrames;
-        this.coefficients = coefficients();
-        this.countOfFrames = countOfFrames();
         this.time = time;
         this.fps = fps;
+        this.coefficients = coefficients();
+        this.countOfFrames = countOfFrames();
         this.color = keyFrames.get(0).getColorFunc();
         this.fractal = keyFrames.get(0).getFractal();
         this.width = keyFrames.get(0).getWidth();

@@ -4,13 +4,12 @@ import ru.smak.graphics.ColorFunctionDark;
 import ru.smak.graphics.Plane;
 import ru.smak.gui.GraphicsPanel;
 import ru.smak.math.fractals.Mandelbrot;
-import ru.smak.math.fractals.MandelbrotX2;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 
-public class fileChooser
+public class fileChooserSave
 {
     public static int MandelbrotXi;
     public static int CurrentColorI;
@@ -18,13 +17,12 @@ public class fileChooser
     private Mandelbrot MandelbrotSave;
     private ColorFunctionDark ColorSave;
     private final JFileChooser FileChooser = new JFileChooser();
-    private GraphicsPanel graphicsPanel;
+    private final GraphicsPanel graphicsPanel;
     private  String path;
     private  dataPut dataPut = new dataPut();
 
-    public fileChooser(GraphicsPanel graphicsPanel)
+    public fileChooserSave(GraphicsPanel graphicsPanel)
     {
-        this.graphicsPanel = graphicsPanel;
         FileChooser.setDialogTitle("Сохранение файла");
         // Определение режима - только файл
         FileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -40,9 +38,9 @@ public class fileChooser
 
         int result = FileChooser.showSaveDialog(graphicsPanel);
         System.out.println(result);
-        File file = FileChooser.getSelectedFile();
-        if(file == null) {return;}
-        path = file.getPath();
+        File fileSave = FileChooser.getSelectedFile();
+        if(fileSave == null) {return;}
+        path = fileSave.getPath();
         dataPut.getPath(path);
         System.out.println(MandelbrotXi + "Path");
         dataPut.put(PlaneSave,MandelbrotSave,ColorSave,MandelbrotXi,CurrentColorI); // Никитино

@@ -1,11 +1,11 @@
 package ru.smak.menu;
 
-import ru.smak.data.fileChooser;
+import ru.smak.data.fileChooserOpen;
+import ru.smak.data.fileChooserSave;
 import ru.smak.graphics.ColorFunctionDark;
 import ru.smak.graphics.Plane;
 import ru.smak.gui.GraphicsPanel;
 import ru.smak.math.fractals.Mandelbrot;
-import ru.smak.math.fractals.MandelbrotX2;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -35,14 +35,15 @@ public class MainMenu extends JFrame {
         file.add(save);
         file.add(saveAs);
         file.add(open);
-        fileChooser fileChooser = new fileChooser(mainPanel);// Никитино
+        fileChooserSave fileChooserSave = new fileChooserSave(mainPanel);// Никитино
+        fileChooserOpen fileChooserOpen = new fileChooserOpen(mainPanel);
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
             {
                 //Вызов окошка сохранения файла(пока что без формата)
-                fileChooser.setDataPut(PlaneSave,MandelbrotSave,ColorSave);
-                fileChooser.SaveFile();
+                fileChooserSave.setDataPut(PlaneSave,MandelbrotSave,ColorSave);
+                fileChooserSave.SaveFile();
             }
         });
         saveAs.addActionListener(new ActionListener() {
@@ -55,6 +56,8 @@ public class MainMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //открыть в собственном формате (загрузить из файла)
+                fileChooserOpen.OpenFile();
+
             }
         });
         return file;

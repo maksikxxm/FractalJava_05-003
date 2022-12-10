@@ -18,8 +18,6 @@ public class fileChooserOpen
     private Fractal currentFractal = new MandelbrotX2();
     private  String path;
     private MainWindow window;
-    private FractalFunctions[] fractalFunctions;
-
     public fileChooserOpen()
     {
         FileChooser.setDialogTitle("Выберите файл");

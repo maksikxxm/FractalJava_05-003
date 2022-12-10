@@ -1,7 +1,9 @@
 package ru.smak.gui;
 
 import kotlin.Pair;
+import ru.smak.dynamic.MaxIterations;
 import ru.smak.graphics.*;
+import ru.smak.math.Complex;
 import ru.smak.math.fractals.Mandelbrot;
 import ru.smak.math.fractals.MandelbrotX2;
 import ru.smak.menu.InstrumentPanel;
@@ -13,6 +15,8 @@ import java.awt.event.*;
 
 public class MainWindow extends JFrame {
     private final GraphicsPanel mainPanel = new GraphicsPanel();
+    private InstrumentPanel tool;
+    private final Plane plane;
     private Plane plane;
     private static final int GROW = GroupLayout.DEFAULT_SIZE;
     private static final int SHRINK = GroupLayout.PREFERRED_SIZE;
@@ -37,6 +41,7 @@ public class MainWindow extends JFrame {
     {
         this.plane = plane;
     }
+    public InstrumentPanel getInstrumentPanel(){return tool;}
 
     private Color test(float x) { return Color.GREEN;}
 
@@ -54,14 +59,11 @@ public class MainWindow extends JFrame {
 
         JMenuBar menuBar = new JMenuBar();
         MainMenu menu = new MainMenu(menuBar);
-        menu.setMainPanel(this.getMainPanel()); // Передача mainPanel в MainMenu
-        menu.setDataPutMainMenu(plane,m,colorFunc);
-        menu.setWindow(this);
         setJMenuBar(menuBar);
         JToolBar toolBar = new JToolBar();
-        InstrumentPanel tool = new InstrumentPanel(toolBar, this);
+        tool = new InstrumentPanel(toolBar, this);
 
-        mainPanel.addPainter(fp);
+        //mainPanel.addPainter(fp);
 
         mainPanel.addComponentListener(new ComponentAdapter() {
             @Override
@@ -69,9 +71,9 @@ public class MainWindow extends JFrame {
                 super.componentResized(e);
                 plane.setWidth(mainPanel.getWidth());
                 plane.setHeight(mainPanel.getHeight());
-                System.out.println(mainPanel.getWidth()+ " plane.setWidth(mainPanel.getWidth())");
             }
         });
+        //region Расположение
         GroupLayout gl = new GroupLayout(getContentPane());
 
         gl.setHorizontalGroup(
@@ -94,7 +96,7 @@ public class MainWindow extends JFrame {
                         .addGap(4)
         );
         setLayout(gl);
-
+        //endregion
         mainPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -104,7 +106,7 @@ public class MainWindow extends JFrame {
                 {
                     firstScalePoint = e.getPoint();
                 }
-                else if(LastButtonPressed == 2)
+                else if(LastButtonPressed == 3)
                 {
                     firstDragPoint = e.getPoint();
                 }
@@ -149,9 +151,12 @@ public class MainWindow extends JFrame {
                     g.setPaintMode();
                     lastScalePoint = e.getPoint();
                 }
-                if(LastButtonPressed == 2)
+                if(LastButtonPressed == 3)
                 {
-
+                    lastDragPoint = e.getPoint();
+                    Drag a =new Drag(plane,firstDragPoint,lastDragPoint);
+                    firstDragPoint = new Point(lastDragPoint);
+                    mainPanel.repaint();
                 }
             }
         });
@@ -164,9 +169,9 @@ public class MainWindow extends JFrame {
         plane.setWidth(mainPanel.getWidth());
         plane.setHeight(mainPanel.getHeight());
         var g = mainPanel.getGraphics();
+        //костыль
         g.setXORMode(Color.WHITE);
         g.drawRect(-1000, -1000, 1, 1);
         g.setPaintMode();
     }
 }
-

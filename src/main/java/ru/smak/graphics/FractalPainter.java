@@ -57,7 +57,7 @@ public class FractalPainter implements Painter {
     @Override
     public void paint(@NotNull Graphics g) {
         this.g = g;
-        var bt = System.currentTimeMillis();
+        //var bt = System.currentTimeMillis();
         var threadCount = Runtime.getRuntime().availableProcessors();
         var bWidth = getWidth() / threadCount + 1;
         ArrayList<Thread> threads = new ArrayList<>();
@@ -87,7 +87,7 @@ public class FractalPainter implements Painter {
             } catch (InterruptedException ignored) {
             }
         }
-        var et = System.currentTimeMillis();
-        System.out.println(et - bt);
+        //var et = System.currentTimeMillis();
+        //System.out.println(et - bt);
     }
 }

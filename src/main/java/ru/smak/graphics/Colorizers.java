@@ -2,7 +2,8 @@ package ru.smak.graphics;
 
 public enum Colorizers {
     Dark("Темный"),
-    Black("Черный");
+    Green("Зеленый"),
+    Red("Красный");
     private final String color;
     Colorizers(String color){
         this.color = color;

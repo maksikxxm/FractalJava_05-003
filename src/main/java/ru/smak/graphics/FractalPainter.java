@@ -27,9 +27,16 @@ public class FractalPainter implements Painter {
         this.colorFunc = colorFunc;
     }
 
+    public FractalPainter(FractalPainter other) {
+        this.plane = new Plane(other.getPlane());
+        this.f = other.getF();
+        this.colorFunc = other.getColorFunc();
+    }
+
     public Colorizer getColorFunc() {
         return colorFunc;
     }
+    public Fractal getF(){return f;}
     public void setColorFunc(Colorizer colorFunc) {
         this.colorFunc = colorFunc;
     }

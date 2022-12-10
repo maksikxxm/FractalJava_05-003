@@ -32,22 +32,22 @@ public class MovieMaker {
 
     public MovieMaker(ArrayList<FractalPainter> keyFrames, int time, int fps){
         this.keyFrames = keyFrames;
-        this.coefficients = coefficients();
+       // this.coefficients = coefficients();
         this.time = time;
         this.fps = fps;
-        N = numberOfFrames();
-        K = sumCoeff();
+        //N = numberOfFrames();
+        //K = sumCoeff();
     }
 
     public void create(){
         for (FractalPainter keyFrame : keyFrames){
             frames.add(keyFrame);
-            frames.add();
+            //frames.add();
         }
     }
 
     //метод, который возвращает коэффициент - во сколько раз изменилась плоскость
-    public double getCoeff(FractalPainter p1, FractalPainter p2){
+    /*public double getCoeff(FractalPainter p1, FractalPainter p2){
         return (p1.getPlane().getXMax()-p2.getPlane().getXMax())*(p1.getPlane().getYMax()-p2.getPlane().getYMax());
     }
     //массив коэффициентов
@@ -89,7 +89,7 @@ public class MovieMaker {
 
     public int numberOfFrames(){
         return fps*time-keyFrames.size();
-    }
+    }*/
 
     public void show(){
 

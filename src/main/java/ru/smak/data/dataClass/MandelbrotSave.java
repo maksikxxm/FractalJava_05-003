@@ -17,4 +17,11 @@ public class MandelbrotSave {
     {
         return  r;
     }
+    @Override
+    public String toString()
+    {
+
+        return "MandelbrotSave{"+"MaxIterations='"+maxIterations+'\''
+                + ", r='"+ r;
+    }
 }

@@ -12,7 +12,7 @@ public class dataPut {
     private String pathDontName;
 
     public void put(Plane PlaneSave, Mandelbrot MandelbrotSave, ColorFunctionDark ColorSave, int MandelbrotXi, int ColorXi ) {
-        String path = pathDontName + ".txt";
+        String path = pathDontName + ".json";
         dataInformation data = new dataInformation(PlaneSave, MandelbrotSave, ColorSave,MandelbrotXi,ColorXi);
         System.out.println(MandelbrotXi + "put");
         try (PrintWriter out = new PrintWriter(new FileWriter(path))) {

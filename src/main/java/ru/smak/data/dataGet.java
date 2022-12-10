@@ -6,11 +6,11 @@ import java.io.FileReader;
 
 public class dataGet
 {
+    public static String pathDontName;
     public Root parser()
     {
         Gson gson = new Gson();
-        try(FileReader reader = new FileReader(
-                "C:\\Users\\nikit\\Desktop\\Прога\\FractalJava_05-003\\src\\main\\java\\ru\\smak\\data\\dataInformationFile\\new.json")) {
+        try(FileReader reader = new FileReader(pathDontName)) {
             Root Root = gson.fromJson(reader,Root.class);
             return Root;
         }

@@ -43,5 +43,16 @@ public class dataInformation {
     public Integer getCCurrentColorISave() {
         return CurrentColorI;
     }
+//    @Override
+//    public String toString()
+//    {
+//
+//        return "Data{"+"Plane='"+PlaneSave+'\''+
+//                ", Mandelbrot="+ MandelbrotSave + '\'' +
+//                ", Color="+ ColorSave + + '\'' +
+//                ", MandelbrotXi="+ MandelbrotXi +
+//                ", CurrentColorI="+ CurrentColorI +
+//                '}';
+//    }
 }
 

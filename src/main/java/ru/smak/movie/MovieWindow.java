@@ -10,6 +10,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -40,7 +42,7 @@ public class MovieWindow extends JFrame {
         GroupLayout glcp = new GroupLayout(controlPanel);
         SpinnerNumberModel mdlFPS = new SpinnerNumberModel(30, 1, 1000, 1);
         SpinnerNumberModel mdlDuration = new SpinnerNumberModel(30, 5, 180, 1);
-        AddFile = new JButton("Добавить файл");
+        AddFile = new JButton("Добавить кадр");
         FPS = new JSpinner(mdlFPS);
         Duration = new JSpinner(mdlDuration);
         FPSlbl = new JLabel("FPS");
@@ -55,12 +57,22 @@ public class MovieWindow extends JFrame {
         AddFile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //добавление файла в список ключевых файлов
+                //добавление кадра в список ключевых кадров
                 frames.add((FractalPainter)mainWindow.getMainPanel().getAllPainters("class ru.smak.graphics.FractalPainter").get(0));
                 GraphicsPanel moviePanel = new GraphicsPanel();
                 moviePanel.setBackground(Color.WHITE);
                 FractalPainter fp = new FractalPainter((FractalPainter)mainWindow.getMainPanel().getAllPainters("class ru.smak.graphics.FractalPainter").get(0));
                 moviePanel.addPainter(fp);
+                //удаление кадра из списка ключевых кадров
+                moviePanel.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        frames.remove(frames.get(frames.size()-1));
+                        container.remove(moviePanel);
+                        container.revalidate();
+                        container.repaint();
+                    }
+                });
                 container.add(moviePanel);
                 container.revalidate();
             }

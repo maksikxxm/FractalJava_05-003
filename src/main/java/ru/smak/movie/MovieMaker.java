@@ -19,6 +19,10 @@ public class MovieMaker {
     int fps;
     int N,width,height;//общее количество добавляемых кадров, ширина и высота
     double K;//суммарное изменение фрактала(его площади)
+    /**
+     * Массив кадров, передаваемых пользователем.
+     */
+    private ArrayList<FractalPainter> keyFrames;//массив ключевых кадров
     private Colorizer color;
     private Fractal fractal;
     /**

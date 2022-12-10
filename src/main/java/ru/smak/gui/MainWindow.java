@@ -67,8 +67,22 @@ public class MainWindow extends JFrame {
             @Override
             public void componentResized(ComponentEvent e) {
                 super.componentResized(e);
+                double newWidth = mainPanel.getWidth();
+                double newHeight = mainPanel.getHeight();
+                double widht = minSz.getWidth();
+                double height = minSz.getHeight();
+                double xResizeCoeff = newWidth/widht;
+                double yResizeCoeff = newHeight/height;
+                double xMinNew = -2 * xResizeCoeff;
+                double xMaxNew = 1 * xResizeCoeff;
+                double yMinNew = -1 * yResizeCoeff;
+                double yMaxNew = 1 * yResizeCoeff;
+
+                plane.setXEdges(new Pair<>(xMinNew, xMaxNew));
+                plane.setYEdges(new Pair<>(yMinNew, yMaxNew));
                 plane.setWidth(mainPanel.getWidth());
                 plane.setHeight(mainPanel.getHeight());
+                mainPanel.repaint();
             }
         });
         //region Расположение

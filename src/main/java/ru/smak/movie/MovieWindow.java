@@ -27,7 +27,6 @@ public class MovieWindow extends JFrame {
     private int fps, duration;
     private MovieMaker movie;
     public MovieWindow(MainWindow mainWindow){
-        super("GridLayoutTest");
         container = new JPanel();
         GridLayout layout = new GridLayout(2,0,5,12);
         container.setBackground(Color.WHITE);
@@ -51,7 +50,6 @@ public class MovieWindow extends JFrame {
         setLayout(gl);
         controlPanel.setBackground(Color.WHITE);
         controlPanel.setLayout(glcp);
-        movie = new MovieMaker(frames, duration, fps);
         frames = new ArrayList<FractalPainter>();
 
         AddFile.addActionListener(new ActionListener() {
@@ -63,7 +61,6 @@ public class MovieWindow extends JFrame {
                 moviePanel.setBackground(Color.WHITE);
                 FractalPainter fp = new FractalPainter((FractalPainter)mainWindow.getMainPanel().getAllPainters("class ru.smak.graphics.FractalPainter").get(0));
                 moviePanel.addPainter(fp);
-                //moviePanel.repaint();
                 container.add(moviePanel);
                 container.revalidate();
             }
@@ -73,6 +70,9 @@ public class MovieWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //видео начинает создаваться
+                duration = (int)(Duration.getValue());
+                fps = (int)(FPS.getValue());
+                movie = new MovieMaker(frames, duration, fps);
                 movie.create();
             }
         });

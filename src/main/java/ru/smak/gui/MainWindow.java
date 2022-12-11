@@ -47,6 +47,7 @@ public class MainWindow extends JFrame {
     }
 
     private Color test(float x) { return Color.GREEN;}
+    Double xMin = -2.0, xMax = 1.0, yMin = -1.0, yMax = 1.0;
 
     public MainWindow(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -55,7 +56,7 @@ public class MainWindow extends JFrame {
 
         Mandelbrot m = new MandelbrotX2();
 
-        plane = new Plane(-2.0, 1.0, -1.0, 1.0, 0, 0);
+        plane = new Plane(xMin, xMax, yMin, yMax, 0, 0);
         var colorFunc = new ColorFunctionDark();
         FractalPainter fp = new FractalPainter(plane, m, colorFunc);
 
@@ -214,4 +215,20 @@ public class MainWindow extends JFrame {
         g.drawRect(-1000, -1000, 1, 1);
         g.setPaintMode();
     }
+    public Double getxMin() {
+        return xMin;
+    }
+
+    public Double getxMax() {
+        return xMax;
+    }
+
+    public Double getyMin() {
+        return yMin;
+    }
+
+    public Double getyMax() {
+        return yMax;
+    }
+
 }

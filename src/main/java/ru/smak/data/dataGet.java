@@ -18,8 +18,6 @@ public class dataGet
         {
             System.out.println("Parsing error" + e.toString());
         }
-
-
         return null;
     }
 }

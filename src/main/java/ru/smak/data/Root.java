@@ -4,9 +4,6 @@ import ru.smak.data.dataClass.ColorSave;
 import ru.smak.data.dataClass.MandelbrotSave;
 import ru.smak.data.dataClass.PlaneSave;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Root
 {
     public Integer MandelbrotXi;
@@ -14,8 +11,7 @@ public class Root
     public ColorSave ColorSave;
     public PlaneSave PlaneSave;
     public MandelbrotSave MandelbrotSave;
-
-
+    public  Boolean MaxIterations;
     public  Integer getMandelbrotXi()
     {
         return  MandelbrotXi;
@@ -30,6 +26,7 @@ public class Root
     }
     public PlaneSave getPlaneSave() {return  PlaneSave;}
     public MandelbrotSave getMandelbrotSave() {return  MandelbrotSave;}
+    public Boolean getMaxIterationsSave() {return  MaxIterations;}
 
     public void setMandelbrotXi(Integer MandelbrotXi)
     {
@@ -52,6 +49,10 @@ public class Root
     {
         this.MandelbrotSave = MandelbrotSave;
     }
+    public  void setMaxIterationsSave(Boolean MaxIterationsSave)
+    {
+        this.MaxIterations = MaxIterationsSave;
+    }
 
     @Override
     public String toString()
@@ -61,12 +62,7 @@ public class Root
                 + ", CurrentColorI='"+ CurrentColorI  +'\''
                 + ", ColorSave='"+ ColorSave +'\''
                 + ", PlaneSave='"+ PlaneSave +'\''
-                + ", MandelbrotSave'="+ MandelbrotSave + '\''
-                + '}'+ '}';
-    }
-    public void print()
-    {
-
-        System.out.println(PlaneSave._xMax + "What?");
+                + ", MandelbrotSave='"+ MandelbrotSave + '\''
+                + ", MaxIterationsSave='"+ MaxIterations + '\'' + '}';
     }
 }

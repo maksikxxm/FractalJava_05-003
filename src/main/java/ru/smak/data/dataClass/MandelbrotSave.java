@@ -22,6 +22,6 @@ public class MandelbrotSave {
     {
 
         return "MandelbrotSave{"+"MaxIterations='"+maxIterations+'\''
-                + ", r='"+ r;
+                + ", r='"+ r +'}';
     }
 }

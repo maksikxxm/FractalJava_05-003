@@ -8,10 +8,9 @@ import java.io.PrintWriter;
 public class dataPut {
     private String pathDontName;
 
-    public void put(Plane PlaneSave, Mandelbrot MandelbrotSave, ColorFunctionDark ColorSave, int MandelbrotXi, int ColorXi ) {
+    public void put(Plane PlaneSave, Mandelbrot MandelbrotSave, ColorFunctionDark ColorSave, int MandelbrotXi, int ColorXi,boolean MaxIterations ) {
         String path = pathDontName + ".json";
-        dataInformation data = new dataInformation(PlaneSave, MandelbrotSave, ColorSave,MandelbrotXi,ColorXi);
-        System.out.println(MandelbrotXi + "put");
+        dataInformation data = new dataInformation(PlaneSave, MandelbrotSave, ColorSave,MandelbrotXi,ColorXi,MaxIterations);
         try (PrintWriter out = new PrintWriter(new FileWriter(path))) {
             Gson gson = new Gson();
             String jsonString = gson.toJson(data);
@@ -20,7 +19,6 @@ public class dataPut {
             e.printStackTrace();
         }
     }
-
     public void getPath(String path) {
         this.pathDontName = path;
     }

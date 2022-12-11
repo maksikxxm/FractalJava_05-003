@@ -3,8 +3,6 @@ package ru.smak.menu;
 import ru.smak.data.fileChooserOpen;
 import ru.smak.data.fileChooserSave;
 import ru.smak.graphics.ColorFunctionDark;
-import ru.smak.data.fileChooser;
-import ru.smak.graphics.ColorFunctionBlack;
 import ru.smak.graphics.ColorFunctionDark;
 import ru.smak.graphics.Colorizers;
 import ru.smak.graphics.Plane;
@@ -23,8 +21,6 @@ public class MainMenu extends JFrame {
     private Plane PlaneSave;
     private MainWindow window;
     private Mandelbrot MandelbrotSave;
-    private ColorFunctionDark ColorSave;
-    private MandelbrotX2 MandelbrotSave;
     private ColorFunctionDark ColorSave;
 
     public MainMenu(JMenuBar m) {

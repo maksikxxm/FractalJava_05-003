@@ -67,6 +67,7 @@ public class MainWindow extends JFrame {
                 super.componentResized(e);
                 plane.setWidth(mainPanel.getWidth());
                 plane.setHeight(mainPanel.getHeight());
+                mainPanel.repaint();
             }
         });
         //region Расположение

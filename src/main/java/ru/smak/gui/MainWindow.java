@@ -11,10 +11,7 @@ import ru.smak.menu.MainMenu;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class MainWindow extends JFrame {
     private final GraphicsPanel mainPanel = new GraphicsPanel();
@@ -46,6 +43,7 @@ public class MainWindow extends JFrame {
     public MainWindow(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setMinimumSize(minSz);
+        mainPanel.setFocusable(true); // Флаг focusable указывает, что mainPanel может получить фокус
 
         Mandelbrot m = new MandelbrotX2();
 
@@ -160,6 +158,13 @@ public class MainWindow extends JFrame {
             }
         });
 
+        mainPanel.addKeyListener(new KeyAdapter() {     //слушатель для прослушивания событий клавиатуры
+            public void keyReleased(KeyEvent e){
+                if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Z){
+
+                }
+            }
+        });
     }
 
     @Override

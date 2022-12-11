@@ -68,12 +68,6 @@ public class MainWindow extends JFrame {
 
         //mainPanel.addPainter(fp);
 
-        InstrumentPanel tool = new InstrumentPanel(toolBar);
-        mainPanel.addPainter(fp, Priority.FRONT);
-        InstrumentPanel tool = new InstrumentPanel(toolBar, this);
-
-        mainPanel.addPainter(fp);
-
         mainPanel.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -141,9 +135,6 @@ public class MainWindow extends JFrame {
                     plane.setYEdges(new Pair<>(yMin, yMax));
                     lastScalePoint = firstScalePoint = null;
                     MaxIterations maxIterations = new MaxIterations(MainWindow.this);
-                    pp = p1 = null;
-                    menu.getPlaneSaveMainMenu(plane);
-                    lastScalePoint = firstScalePoint = null;
                     mainPanel.repaint();
                 }
             }

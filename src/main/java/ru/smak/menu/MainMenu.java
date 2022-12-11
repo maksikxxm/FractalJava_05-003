@@ -60,7 +60,6 @@ public class MainMenu extends JFrame {
                 fileChooserOpen.WindowOpen(window);
                 fileChooserOpen.Panel(mainPanel);
                 fileChooserOpen.OpenFile();
-                mainPanel.repaint();
 
             }
         });
@@ -106,5 +105,6 @@ public class MainMenu extends JFrame {
     {
         this.window= window;
     }
+
 
 }

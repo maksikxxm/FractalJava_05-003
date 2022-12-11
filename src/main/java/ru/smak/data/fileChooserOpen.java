@@ -3,6 +3,8 @@ import ru.smak.graphics.*;
 import ru.smak.gui.GraphicsPanel;
 import ru.smak.gui.MainWindow;
 import ru.smak.math.fractals.*;
+import ru.smak.menu.InstrumentPanel;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
@@ -10,11 +12,13 @@ import java.io.File;
 public class fileChooserOpen
 {
     private final JFileChooser FileChooser = new JFileChooser();
-    public  GraphicsPanel graphicsPanel;
+    private   GraphicsPanel graphicsPanel;
     private Colorizer currentColorizer= new ColorFunctionDark();
     private Fractal currentFractal = new MandelbrotX2();
     private  String path;
     private MainWindow window;
+    private FractalFunctions[] fractalFunctions;
+
     public fileChooserOpen()
     {
         FileChooser.setDialogTitle("Выберите файл");
@@ -48,13 +52,13 @@ public class fileChooserOpen
     public void OpenPainter(Root rootData)
     {
         graphicsPanel.removePaintersByType("class ru.smak.graphics.FractalPainter");
+        InstrumentPanel instrumentPanel = window.getInstrumentPanel();
         double xMin = rootData.PlaneSave._xMin;
         double xMax = rootData.PlaneSave._xMax;
         double yMin = rootData.PlaneSave._yMin;
         double yMax = rootData.PlaneSave._yMax;
         Plane planeOpen = new Plane(xMin, xMax, yMin, yMax,  graphicsPanel.getWidth(), graphicsPanel.getHeight());
-        MainWindow mainWindow = new MainWindow();
-        mainWindow.setPlane(planeOpen);
+
         switch (rootData.CurrentColorI) {
             case 0 -> currentColorizer = new ColorFunctionDark();
             case 1 -> currentColorizer = new ColorFunctionGreen();
@@ -68,6 +72,10 @@ public class fileChooserOpen
             case 4 -> currentFractal = new MandelbrotSin();
             case 5 -> currentFractal = new MandelbrotCos();
         }
+
+        instrumentPanel.getJComboBoxMandelbrot().setSelectedIndex(rootData.MandelbrotXi);
+
+        instrumentPanel.getJComboBoxColorizer().setSelectedIndex(rootData.CurrentColorI);
         window.setPlane(planeOpen);
         graphicsPanel.addPainter( new FractalPainter(planeOpen,currentFractal, currentColorizer));
         graphicsPanel.repaint();
@@ -77,7 +85,7 @@ public class fileChooserOpen
         this.graphicsPanel = GraphicsPanel;
 
     }
-    public  void WindowOpen(MainWindow window)
+    public void WindowOpen(MainWindow window)
     {
         this.window = window;
     }

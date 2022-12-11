@@ -1,13 +1,9 @@
 package ru.smak.menu;
 
+import ru.smak.data.Root;
+import ru.smak.data.fileChooserOpen;
 import ru.smak.data.fileChooserSave;
-
-
-
 import ru.smak.dynamic.MaxIterations;
-import ru.smak.movie.MovieWindow;
-
-import ru.smak.data.fileChooser;
 import ru.smak.graphics.*;
 import ru.smak.gui.GraphicsPanel;
 
@@ -118,7 +114,14 @@ public class InstrumentPanel extends JToolBar {
             }
         });
     }
-
+   public JComboBox getJComboBoxMandelbrot()
+   {
+        return  fractal;
+   }
+    public JComboBox getJComboBoxColorizer()
+    {
+        return  color;
+    }
     public Mandelbrot getCurrentFractal(){return (Mandelbrot) currentFractal;}
     public boolean getDynamicStepStatus(){return dynamicStep.isSelected();}
 }

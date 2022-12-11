@@ -47,6 +47,7 @@ public class MainWindow extends JFrame {
     public MainWindow(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setMinimumSize(minSz);
+        mainPanel.setFocusable(true); // Флаг focusable указывает, что mainPanel может получить фокус
 
         Mandelbrot m = new MandelbrotX2();
 
@@ -73,6 +74,7 @@ public class MainWindow extends JFrame {
                 super.componentResized(e);
                 plane.setWidth(mainPanel.getWidth());
                 plane.setHeight(mainPanel.getHeight());
+                mainPanel.repaint();
             }
         });
         //region Расположение
@@ -163,6 +165,13 @@ public class MainWindow extends JFrame {
             }
         });
 
+        mainPanel.addKeyListener(new KeyAdapter() {     //слушатель для прослушивания событий клавиатуры
+            public void keyReleased(KeyEvent e){
+                if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Z){
+
+                }
+            }
+        });
     }
 
     @Override

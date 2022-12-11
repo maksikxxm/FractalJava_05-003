@@ -39,7 +39,7 @@ public class fileChooserOpen
             dataGet.pathDontName = path;
             dataGet parser = new dataGet();
             Root Root = parser.parser();
-            System.out.println("Data= "+ Root.toString());
+           // System.out.println("Data= "+ Root.toString());
             OpenPainter(Root);
         }
         // Если файл выбран, то представим его в сообщении

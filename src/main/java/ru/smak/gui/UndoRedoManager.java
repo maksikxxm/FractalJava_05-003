@@ -22,6 +22,12 @@ public class UndoRedoManager {
         yEdgesStack.push(plane.getYEdges());
         undoRedoPointer++;
     }
+    public void insertState(Pair<Double,Double> xEdges, Pair<Double,Double> yEdges){
+        deleteStatesAfterPointer(undoRedoPointer);
+        xEdgesStack.push(xEdges);
+        yEdgesStack.push(yEdges);
+        undoRedoPointer++;
+    }
 
     private void deleteStatesAfterPointer(int undoRedoPointer) {
         if(xEdgesStack.size() < 1)

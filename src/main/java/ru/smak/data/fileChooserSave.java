@@ -4,6 +4,9 @@ import ru.smak.graphics.ColorFunctionDark;
 import ru.smak.graphics.Plane;
 import ru.smak.gui.GraphicsPanel;
 import ru.smak.math.fractals.Mandelbrot;
+import ru.smak.math.fractals.MandelbrotCos;
+import ru.smak.math.fractals.MandelbrotX2;
+import ru.smak.math.fractals.MandelbrotX3;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -12,6 +15,7 @@ import java.io.File;
 public class fileChooserSave
 {
     public static int MandelbrotXi;
+    public static int MandelbrotInt;
     public static int CurrentColorI;
     public  static  boolean MaxIterationsSave;
     private Plane PlaneSave;
@@ -19,8 +23,7 @@ public class fileChooserSave
     private ColorFunctionDark ColorSave;
     private final JFileChooser FileChooser = new JFileChooser();
     private final GraphicsPanel graphicsPanel;
-    private  String path;
-    private  dataPut dataPut = new dataPut();
+    private final dataPut dataPut = new dataPut();
 
     public fileChooserSave(GraphicsPanel graphicsPanel)
     {
@@ -38,17 +41,22 @@ public class fileChooserSave
     {
 
         int result = FileChooser.showSaveDialog(graphicsPanel);
-        System.out.println(result);
         File fileSave = FileChooser.getSelectedFile();
-        if(fileSave == null) {return;}
-        path = fileSave.getPath();
-        dataPut.getPath(path);
-        System.out.println(MandelbrotXi + "Path");
-        dataPut.put(PlaneSave,MandelbrotSave,ColorSave,MandelbrotXi,CurrentColorI,MaxIterationsSave); // Никитино
+        if (result == JFileChooser.APPROVE_OPTION) {
+            String path = fileSave.getPath();
+            dataPut.getPath(path);
+            System.out.println(MandelbrotInt + "MandelbrotInt");
+            if (MandelbrotInt == 0) {
+                dataPut.put(PlaneSave, MandelbrotSave, ColorSave, MandelbrotXi, CurrentColorI, MaxIterationsSave); // Никитино
+            } else {
+                MandelbrotSave.setMaxIterations(MandelbrotInt);
+                dataPut.put(PlaneSave, MandelbrotSave, ColorSave, MandelbrotXi, CurrentColorI, MaxIterationsSave);
+            }
+        }
         // Если файл выбран, то представим его в сообщении
         if (result == JFileChooser.APPROVE_OPTION )
             JOptionPane.showMessageDialog(graphicsPanel,
-                    "Файл (" + FileChooser.getSelectedFile() +
+                    "Файл (" + FileChooser.getSelectedFile().getName() +".json"+
                             " ) сохранен");
 
     }

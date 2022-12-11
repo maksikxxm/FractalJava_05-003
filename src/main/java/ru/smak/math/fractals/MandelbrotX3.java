@@ -3,6 +3,8 @@ package ru.smak.math.fractals;
 import ru.smak.math.Complex;
 
 public class MandelbrotX3 extends Mandelbrot{
+
+
     @Override
     public float isInSet(Complex c) {
         Complex z = new Complex(0.0);

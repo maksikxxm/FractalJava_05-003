@@ -1,4 +1,5 @@
 package ru.smak.data;
+import ru.smak.dynamic.MaxIterations;
 import ru.smak.graphics.*;
 import ru.smak.gui.GraphicsPanel;
 import ru.smak.gui.MainWindow;
@@ -35,18 +36,18 @@ public class fileChooserOpen
 
         int result = FileChooser.showOpenDialog(graphicsPanel);
         File fileOpen = FileChooser.getSelectedFile();
-        if(fileOpen == null) {return;}
-        path = fileOpen.getPath();
-        dataGet.pathDontName = path;
-        dataGet parser = new dataGet();
-        Root Root = parser.parser();
-        System.out.println("Data= "+ Root.toString());
-        OpenPainter(Root);
-
+        if (result == JFileChooser.APPROVE_OPTION) {
+            path = fileOpen.getPath();
+            dataGet.pathDontName = path;
+            dataGet parser = new dataGet();
+            Root Root = parser.parser();
+            System.out.println("Data= "+ Root.toString());
+            OpenPainter(Root);
+        }
         // Если файл выбран, то представим его в сообщении
         if (result == JFileChooser.APPROVE_OPTION )
             JOptionPane.showMessageDialog(graphicsPanel,
-                    "Файл (" + FileChooser.getSelectedFile() +
+                    "Файл (" + FileChooser.getSelectedFile().getName() +
                             " ) открыт");
 
     }
@@ -73,10 +74,9 @@ public class fileChooserOpen
             case 4 -> currentFractal = new MandelbrotSin();
             case 5 -> currentFractal = new MandelbrotCos();
         }
-
+        MaxIterations maxIterations = new MaxIterations(window);
         instrumentPanel.getJComboBoxMandelbrot().setSelectedIndex(rootData.MandelbrotXi);
         instrumentPanel.getJComboBoxColorizer().setSelectedIndex(rootData.CurrentColorI);
-        System.out.println(rootData.MaxIterations + " fileChooserSave.MaxIterationsSave Kek");
         instrumentPanel.getJCheckBoxMaxIterations().setSelected(rootData.MaxIterations);
         window.setPlane(planeOpen);
         graphicsPanel.addPainter( new FractalPainter(planeOpen,currentFractal, currentColorizer));

@@ -69,6 +69,7 @@ public class InstrumentPanel extends JToolBar {
             public void actionPerformed(ActionEvent e) {
                 //динамическое изменение числа итераций
                 MaxIterations maxIterations =  new MaxIterations(mainWindow);
+                System.out.println(maxIterations+" rootData.MandelbrotSave.maxIterations");
                 fileChooserSave.MaxIterationsSave = maxIterations.getMaxIterationsSave();
                 if(maxIterations.getMaxIterationsSave())
                 {

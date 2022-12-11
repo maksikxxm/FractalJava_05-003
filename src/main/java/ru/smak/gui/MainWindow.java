@@ -27,6 +27,7 @@ public class MainWindow extends JFrame {
     private Point lastDragPoint = null;
     private int LastButtonPressed;
     private int LastButtonReleased;
+    private UndoRedoManager urm;
 
     public Plane getPlane() {
         return plane;
@@ -50,6 +51,8 @@ public class MainWindow extends JFrame {
         plane = new Plane(-2.0, 1.0, -1.0, 1.0, 0, 0);
         var colorFunc = new ColorFunctionDark();
         FractalPainter fp = new FractalPainter(plane, m, colorFunc);
+
+        urm = new UndoRedoManager(plane);
 
         mainPanel.setBackground(Color.WHITE);
 
@@ -115,9 +118,10 @@ public class MainWindow extends JFrame {
                 if(LastButtonReleased == 1)
                 {
                     if (lastScalePoint !=null) {
+                        urm.addState();
                         var g = mainPanel.getGraphics();
                         g.setXORMode(Color.WHITE);
-                        g.drawRect(Math.min(firstScalePoint.x, lastScalePoint.x), Math.min(firstScalePoint.y, lastScalePoint.y), Math.abs(lastScalePoint.x- firstScalePoint.x), Math.abs(lastScalePoint.y- firstScalePoint.y));
+                        g.drawRect(Math.min(firstScalePoint.x, lastScalePoint.x), Math.min(firstScalePoint.y, lastScalePoint.y), Math.abs(lastScalePoint.x - firstScalePoint.x), Math.abs(lastScalePoint.y - firstScalePoint.y));
                         g.setPaintMode();
                     }
                     var xMin = Converter.INSTANCE.xScrToCrt(Math.min(firstScalePoint.x, lastScalePoint.x), plane);
@@ -162,7 +166,8 @@ public class MainWindow extends JFrame {
         mainPanel.addKeyListener(new KeyAdapter() {     //слушатель для прослушивания событий клавиатуры
             public void keyReleased(KeyEvent e){
                 if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Z){
-
+                    urm.undo();
+                    mainPanel.repaint();
                 }
             }
         });

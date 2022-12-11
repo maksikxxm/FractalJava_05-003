@@ -97,11 +97,12 @@ public class MainWindow extends JFrame {
         setLayout(gl);
         //endregion
         mainPanel.addMouseListener(new MouseAdapter() {
+            Pair<Double,Double> xEdgesBeforeDrag;
+            Pair<Double,Double> yEdgesBeforeDrag;
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
                 LastButtonPressed = e.getButton();
-                undoRedoManager.insertState();
                 if(LastButtonPressed == 1)
                 {
                     firstScalePoint = e.getPoint();
@@ -109,6 +110,8 @@ public class MainWindow extends JFrame {
                 else if(LastButtonPressed == 3)
                 {
                     firstDragPoint = e.getPoint();
+                    xEdgesBeforeDrag = plane.getXEdges();
+                    yEdgesBeforeDrag = plane.getYEdges();
                 }
             }
 
@@ -116,6 +119,7 @@ public class MainWindow extends JFrame {
                 super.mouseReleased(e);
                 LastButtonReleased = e.getButton();
                 if(LastButtonReleased == 1 && lastScalePoint != null) {
+                    undoRedoManager.insertState();
                     var g = mainPanel.getGraphics();
                     g.setXORMode(Color.WHITE);
                     g.drawRect(Math.min(firstScalePoint.x, lastScalePoint.x), Math.min(firstScalePoint.y, lastScalePoint.y), Math.abs(lastScalePoint.x - firstScalePoint.x), Math.abs(lastScalePoint.y - firstScalePoint.y));
@@ -129,6 +133,10 @@ public class MainWindow extends JFrame {
                     lastScalePoint = firstScalePoint = null;
                     MaxIterations maxIterations = new MaxIterations(MainWindow.this);
                     mainPanel.repaint();
+                }
+                if(LastButtonPressed == 3 && lastDragPoint != null){
+                    undoRedoManager.insertState(xEdgesBeforeDrag, yEdgesBeforeDrag);
+                    lastDragPoint = null;
                 }
             }
         });

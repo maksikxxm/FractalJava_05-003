@@ -2,9 +2,6 @@ package ru.smak.gui;
 
 import kotlin.Pair;
 import ru.smak.graphics.Plane;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 public class UndoRedoManager {

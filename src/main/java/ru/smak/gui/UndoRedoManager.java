@@ -5,28 +5,47 @@ import ru.smak.graphics.Plane;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class UndoRedoManager {
     private Plane plane;
-    private List<Pair<Double, Double>> UndoRedoListX;
-    private List<Pair<Double, Double>> UndoRedoListY;
+    private int undoRedoPointer = -1;
+    private Stack<Pair<Double, Double>> xEdgesStack;
+    private Stack<Pair<Double, Double>> yEdgesStack;
 
     public UndoRedoManager(Plane plane) {
         this.plane = plane;
-        UndoRedoListX = new ArrayList<>();
-        UndoRedoListY = new ArrayList<>();
+        xEdgesStack = new Stack<>();
+        yEdgesStack = new Stack<>();
     }
 
-    public void addState() {
-        UndoRedoListX.add(new Pair<>(plane.getXMin(), plane.getXMax()));
-        UndoRedoListY.add(new Pair<>(plane.getYMin(), plane.getYMax()));
+    public void insertState() {
+        deleteStatesAfterPointer(undoRedoPointer);
+        xEdgesStack.push(plane.getXEdges());
+        yEdgesStack.push(plane.getYEdges());
+        undoRedoPointer++;
     }
 
-    public void undo() {     //  Ctrl + Z
-        plane.setXEdges(UndoRedoListX.get(0));
-        plane.setYEdges(UndoRedoListY.get(0));
+    private void deleteStatesAfterPointer(int undoRedoPointer) {
+        if(xEdgesStack.size() < 1)
+            return;
+        for(int i = xEdgesStack.size() - 1; i > undoRedoPointer; i--) {
+            xEdgesStack.pop();
+            yEdgesStack.pop();
+        }
     }
 
-    public void redo() {
-    }    //  Ctrl + Y
+    public void undo() {    //  Ctrl + Z
+        plane.setXEdges(xEdgesStack.get(undoRedoPointer));
+        plane.setYEdges(yEdgesStack.get(undoRedoPointer));
+        undoRedoPointer--;
+    }
+
+    public void redo() {    //  Ctrl + Y
+        if(undoRedoPointer == xEdgesStack.size() - 1)
+            return;
+        undoRedoPointer++;
+        plane.setXEdges(xEdgesStack.get(undoRedoPointer));
+        plane.setYEdges(yEdgesStack.get(undoRedoPointer));
+    }
 }

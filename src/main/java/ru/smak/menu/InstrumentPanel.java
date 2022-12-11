@@ -41,9 +41,10 @@ public class InstrumentPanel extends JToolBar {
         movie.setFocusable(false);
         fileChooser fileChooser = new fileChooser(mainPanel);
         fractal = new JComboBox();
-        var fractalFunctions = FractalFunctions.values();
+        fractalFunctions = FractalFunctions.values();
         for(int i =0;i <fractalFunctions.length;i++)
             fractal.addItem(fractalFunctions[i].toString());
+
 
         fractal.setFocusable(false);
         toolBar.add(fractal);
@@ -68,7 +69,6 @@ public class InstrumentPanel extends JToolBar {
             public void actionPerformed(ActionEvent e) {
                 //динамическое изменение числа итераций
                 MaxIterations maxIterations =  new MaxIterations(mainWindow);
-                System.out.println(maxIterations+" rootData.MandelbrotSave.maxIterations");
                 fileChooserSave.MaxIterationsSave = maxIterations.getMaxIterationsSave();
                 if(maxIterations.getMaxIterationsSave())
                 {

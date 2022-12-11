@@ -7,6 +7,7 @@ import ru.smak.menu.InstrumentPanel;
 
 public class MaxIterations {
     MainWindow mainWindow;
+    private boolean MaxIterationsSave;
     public MaxIterations(MainWindow mainWindow){
         this.mainWindow = mainWindow;
         InstrumentPanel instrumentPanel = mainWindow.getInstrumentPanel();
@@ -29,5 +30,11 @@ public class MaxIterations {
         else {
             m.setMaxIterations(200);
         }
+        this.MaxIterationsSave = isSelected;
     }
+    public Boolean getMaxIterationsSave()
+    {
+        return MaxIterationsSave;
+    }
+
 }

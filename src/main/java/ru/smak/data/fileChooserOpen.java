@@ -40,8 +40,9 @@ public class fileChooserOpen
         dataGet.pathDontName = path;
         dataGet parser = new dataGet();
         Root Root = parser.parser();
-        OpenPainter(Root);
         System.out.println("Data= "+ Root.toString());
+        OpenPainter(Root);
+
         // Если файл выбран, то представим его в сообщении
         if (result == JFileChooser.APPROVE_OPTION )
             JOptionPane.showMessageDialog(graphicsPanel,
@@ -74,8 +75,9 @@ public class fileChooserOpen
         }
 
         instrumentPanel.getJComboBoxMandelbrot().setSelectedIndex(rootData.MandelbrotXi);
-
         instrumentPanel.getJComboBoxColorizer().setSelectedIndex(rootData.CurrentColorI);
+        System.out.println(rootData.MaxIterations + " fileChooserSave.MaxIterationsSave Kek");
+        instrumentPanel.getJCheckBoxMaxIterations().setSelected(rootData.MaxIterations);
         window.setPlane(planeOpen);
         graphicsPanel.addPainter( new FractalPainter(planeOpen,currentFractal, currentColorizer));
         graphicsPanel.repaint();

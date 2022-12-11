@@ -25,7 +25,7 @@ public class InstrumentPanel extends JToolBar {
     private JComboBox color;
     private JButton movie;
     private GraphicsPanel mainPanel;
-    private FractalFunctions[] fractalFunctions;
+
     private Fractal currentFractal = new MandelbrotX2();
     private Colorizer currentColorizer = new ColorFunctionDark();
     public InstrumentPanel(JToolBar tool, MainWindow mainWindow){
@@ -40,7 +40,7 @@ public class InstrumentPanel extends JToolBar {
         movie = new JButton("Запись");
         movie.setFocusable(false);
         fractal = new JComboBox();
-        fractalFunctions = FractalFunctions.values();
+        var fractalFunctions = FractalFunctions.values();
         for(int i =0;i <fractalFunctions.length;i++) {
             fractal.addItem(fractalFunctions[i].toString());
         }
@@ -68,6 +68,8 @@ public class InstrumentPanel extends JToolBar {
             public void actionPerformed(ActionEvent e) {
                 //динамическое изменение числа итераций
                 MaxIterations maxIterations =  new MaxIterations(mainWindow);
+                fileChooserSave.MaxIterationsSave = maxIterations.getMaxIterationsSave();
+                System.out.println(  maxIterations.getMaxIterationsSave() + " fileChooserSave.MaxIterationsSave ");
                 mainPanel.repaint();
             }
         });
@@ -128,4 +130,8 @@ public class InstrumentPanel extends JToolBar {
     }
     public Mandelbrot getCurrentFractal(){return (Mandelbrot) currentFractal;}
     public boolean getDynamicStepStatus(){return dynamicStep.isSelected();}
+    public JCheckBox getJCheckBoxMaxIterations()
+    {
+        return dynamicStep;
+    }
 }

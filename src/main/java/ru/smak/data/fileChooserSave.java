@@ -13,6 +13,7 @@ public class fileChooserSave
 {
     public static int MandelbrotXi;
     public static int CurrentColorI;
+    public  static  boolean MaxIterationsSave;
     private Plane PlaneSave;
     private Mandelbrot MandelbrotSave;
     private ColorFunctionDark ColorSave;
@@ -43,7 +44,7 @@ public class fileChooserSave
         path = fileSave.getPath();
         dataPut.getPath(path);
         System.out.println(MandelbrotXi + "Path");
-        dataPut.put(PlaneSave,MandelbrotSave,ColorSave,MandelbrotXi,CurrentColorI); // Никитино
+        dataPut.put(PlaneSave,MandelbrotSave,ColorSave,MandelbrotXi,CurrentColorI,MaxIterationsSave); // Никитино
         // Если файл выбран, то представим его в сообщении
         if (result == JFileChooser.APPROVE_OPTION )
             JOptionPane.showMessageDialog(graphicsPanel,

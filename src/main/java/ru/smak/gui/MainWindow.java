@@ -50,6 +50,8 @@ public class MainWindow extends JFrame {
     Double xMin = -2.0, xMax = 1.0, yMin = -1.0, yMax = 1.0;
 
     public MainWindow(){
+        Data.frame = this;
+        Data.panel = mainPanel;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setMinimumSize(minSz);
         mainPanel.setFocusable(true); // Флаг focusable указывает, что mainPanel может получить фокус

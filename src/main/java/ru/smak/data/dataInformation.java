@@ -16,6 +16,7 @@ public class dataInformation {
     private final ColorFunctionDark ColorSave;
     private final Plane PlaneSave;
     private final Mandelbrot MandelbrotSave;
+    private  final boolean MaxIterations;
 
 
     public dataInformation(Plane plane, Mandelbrot m, ColorFunctionDark color, int MandelbrotXi, int CurrentColorI,boolean MaxIterations) {

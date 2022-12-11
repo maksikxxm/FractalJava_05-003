@@ -8,6 +8,7 @@ import ru.smak.menu.InstrumentPanel;
 public class MaxIterations {
     MainWindow mainWindow;
     private boolean MaxIterationsSave;
+    private boolean MaxIterationsSave;
     private Integer MaxIterationsSaveInt;
     public MaxIterations(MainWindow mainWindow){
         this.mainWindow = mainWindow;

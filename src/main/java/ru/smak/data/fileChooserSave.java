@@ -45,7 +45,6 @@ public class fileChooserSave
         if (result == JFileChooser.APPROVE_OPTION) {
             String path = fileSave.getPath();
             dataPut.getPath(path);
-            System.out.println(MandelbrotInt + "MandelbrotInt");
             if (MandelbrotInt == 0) {
                 dataPut.put(PlaneSave, MandelbrotSave, ColorSave, MandelbrotXi, CurrentColorI, MaxIterationsSave); // Никитино
             } else {

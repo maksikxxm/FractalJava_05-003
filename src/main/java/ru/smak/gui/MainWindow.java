@@ -22,7 +22,7 @@ public class MainWindow extends JFrame {
     private final Plane plane;
     private static final int GROW = GroupLayout.DEFAULT_SIZE;
     private static final int SHRINK = GroupLayout.PREFERRED_SIZE;
-    private final Dimension minSz = new Dimension(600, 500);
+    private final Dimension minSz = new Dimension(600, 400);
 
     private Point firstScalePoint = null;
     private Point lastScalePoint = null;
@@ -35,15 +35,19 @@ public class MainWindow extends JFrame {
         return plane;
     }
 
-    public GraphicsPanel getMainPanel()
-    {
+    public GraphicsPanel getMainPanel() {
         return mainPanel;
     }
-    public InstrumentPanel getInstrumentPanel(){return tool;}
 
-    private Color test(float x) { return Color.GREEN;}
+    public InstrumentPanel getInstrumentPanel() {
+        return tool;
+    }
 
-    public MainWindow(){
+    private Color test(float x) {
+        return Color.GREEN;
+    }
+
+    public MainWindow() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setMinimumSize(minSz);
 
@@ -71,14 +75,17 @@ public class MainWindow extends JFrame {
                 double newHeight = mainPanel.getHeight();
                 double widht = minSz.getWidth();
                 double height = minSz.getHeight();
-                double xResizeCoeff = newWidth/widht;
-                double yResizeCoeff = newHeight/height;
-                double xMinNew = -2 * xResizeCoeff;
-                double xMaxNew = 1 * xResizeCoeff;
-                double yMinNew = -1 * yResizeCoeff;
-                double yMaxNew = 1 * yResizeCoeff;
+                double xResizeCoeff = newWidth / widht;
+                double yResizeCoeff = newHeight / height;
+                double minCoeff = Math.min(xResizeCoeff, yResizeCoeff);
 
-                plane.setXEdges(new Pair<>(xMinNew, xMaxNew));
+                    double xMinNew = -2 * xResizeCoeff / minCoeff ;
+                    double xMaxNew = 1 * xResizeCoeff / minCoeff ;
+                    double yMinNew = -1 * yResizeCoeff / minCoeff;
+                    double yMaxNew = 1 * yResizeCoeff / minCoeff;
+
+
+                    plane.setXEdges(new Pair<>(xMinNew, xMaxNew));
                 plane.setYEdges(new Pair<>(yMinNew, yMaxNew));
                 plane.setWidth(mainPanel.getWidth());
                 plane.setHeight(mainPanel.getHeight());
@@ -95,7 +102,7 @@ public class MainWindow extends JFrame {
                         .addGroup(gl.createParallelGroup()
                                 .addComponent(toolBar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
                                 .addGap(4)
-                                .addComponent(mainPanel,GROW, GROW, GROW)
+                                .addComponent(mainPanel, GROW, GROW, GROW)
                         )
                         .addGap(4)
         );
@@ -115,12 +122,9 @@ public class MainWindow extends JFrame {
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
                 LastButtonPressed = e.getButton();
-                if(LastButtonPressed == 1)
-                {
+                if (LastButtonPressed == 1) {
                     firstScalePoint = e.getPoint();
-                }
-                else if(LastButtonPressed == 3)
-                {
+                } else if (LastButtonPressed == 3) {
                     firstDragPoint = e.getPoint();
                 }
             }
@@ -128,12 +132,11 @@ public class MainWindow extends JFrame {
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
                 LastButtonReleased = e.getButton();
-                if(LastButtonReleased == 1)
-                {
-                    if (lastScalePoint !=null) {
+                if (LastButtonReleased == 1) {
+                    if (lastScalePoint != null) {
                         var g = mainPanel.getGraphics();
                         g.setXORMode(Color.WHITE);
-                        g.drawRect(Math.min(firstScalePoint.x, lastScalePoint.x), Math.min(firstScalePoint.y, lastScalePoint.y), Math.abs(lastScalePoint.x- firstScalePoint.x), Math.abs(lastScalePoint.y- firstScalePoint.y));
+                        g.drawRect(Math.min(firstScalePoint.x, lastScalePoint.x), Math.min(firstScalePoint.y, lastScalePoint.y), Math.abs(lastScalePoint.x - firstScalePoint.x), Math.abs(lastScalePoint.y - firstScalePoint.y));
                         g.setPaintMode();
                     }
                     var xMin = Converter.INSTANCE.xScrToCrt(Math.min(firstScalePoint.x, lastScalePoint.x), plane);
@@ -153,22 +156,20 @@ public class MainWindow extends JFrame {
             @Override
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
-                if(LastButtonPressed == 1)
-                {
+                if (LastButtonPressed == 1) {
                     var g = mainPanel.getGraphics();
                     g.setXORMode(Color.WHITE);
                     g.setColor(Color.BLACK);
-                    if (lastScalePoint !=null) {
-                        g.drawRect(Math.min(firstScalePoint.x, lastScalePoint.x), Math.min(firstScalePoint.y, lastScalePoint.y), Math.abs(lastScalePoint.x- firstScalePoint.x), Math.abs(lastScalePoint.y- firstScalePoint.y));
+                    if (lastScalePoint != null) {
+                        g.drawRect(Math.min(firstScalePoint.x, lastScalePoint.x), Math.min(firstScalePoint.y, lastScalePoint.y), Math.abs(lastScalePoint.x - firstScalePoint.x), Math.abs(lastScalePoint.y - firstScalePoint.y));
                     }
-                    g.drawRect(Math.min(firstScalePoint.x, e.getX()), Math.min(firstScalePoint.y, e.getY()), Math.abs(e.getX()- firstScalePoint.x), Math.abs(e.getY()- firstScalePoint.y));
+                    g.drawRect(Math.min(firstScalePoint.x, e.getX()), Math.min(firstScalePoint.y, e.getY()), Math.abs(e.getX() - firstScalePoint.x), Math.abs(e.getY() - firstScalePoint.y));
                     g.setPaintMode();
                     lastScalePoint = e.getPoint();
                 }
-                if(LastButtonPressed == 3)
-                {
+                if (LastButtonPressed == 3) {
                     lastDragPoint = e.getPoint();
-                    Drag a =new Drag(plane,firstDragPoint,lastDragPoint);
+                    Drag a = new Drag(plane, firstDragPoint, lastDragPoint);
                     firstDragPoint = new Point(lastDragPoint);
                     mainPanel.repaint();
                 }
@@ -178,7 +179,7 @@ public class MainWindow extends JFrame {
     }
 
     @Override
-    public void setVisible(boolean v){
+    public void setVisible(boolean v) {
         super.setVisible(v);
         plane.setWidth(mainPanel.getWidth());
         plane.setHeight(mainPanel.getHeight());

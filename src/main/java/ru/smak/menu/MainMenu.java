@@ -141,7 +141,7 @@ public class MainMenu extends JFrame {
 
 
 
-}
+
     protected static ImageIcon createIcon(String path) {
         URL imgURL = MainMenu.class.getResource(path);
         if (imgURL != null) {

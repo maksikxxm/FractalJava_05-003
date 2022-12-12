@@ -164,7 +164,6 @@ public class MainWindow extends JFrame {
                     Drag a =new Drag(plane,firstDragPoint,lastDragPoint);
                     firstDragPoint = new Point(lastDragPoint);
                     mainPanel.repaint();
-                    lastScalePoint = e.getPoint();
                 }
                 if(LastButtonPressed == 2)
                 {

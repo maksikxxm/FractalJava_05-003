@@ -97,8 +97,8 @@ public class MainMenu extends JFrame {
         undo.setIcon(createIcon("icons/cancel.png"));
         undo.addMouseListener(new MouseAdapter() {      //  отмена операции
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
                 undoRedoManager.undo();
                 MaxIterations maxIterations = new MaxIterations(window);
                 mainPanel.repaint();
@@ -106,8 +106,8 @@ public class MainMenu extends JFrame {
         });
         redo.addMouseListener(new MouseAdapter() {      //  возвращение операции
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
                 undoRedoManager.redo();
                 MaxIterations maxIterations = new MaxIterations(window);
                 mainPanel.repaint();

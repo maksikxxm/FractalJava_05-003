@@ -20,10 +20,13 @@ import ru.smak.math.fractals.MandelbrotX2;
 import ru.smak.math.fractals.MandelbrotX3;
 
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 import java.net.URL;
@@ -79,13 +82,27 @@ public class MainMenu extends JFrame {
                 //сохранение в формате картинки jpg
                 BufferedImage bufferedImage = getBufferedImage();
                 // тут сохраняем изображение
-
-                //try {
-
-                //}
-                //catch (IOException ex) {
-                //    JOptionPane.showMessageDialog(null, "Не удалось сохранить файл");
-                //}
+                try {
+                    // создаем диалог сохранения файла
+                    JFileChooser jfc = new JFileChooser();
+                    // диалог только для jpg-файлов
+                    jfc.addChoosableFileFilter(new FileNameExtensionFilter("Изображения", "jpg"));
+                    // показываем диалог
+                    int retVal = jfc.showSaveDialog(null);
+                    // если файл выбран
+                    if(retVal==JFileChooser.APPROVE_OPTION) {
+                        // получаем данные выбранного файла
+                        File f = jfc.getSelectedFile();
+                        String test = f.getAbsolutePath();
+                        // сохраняем изображение в файл
+                        var res = ImageIO.write(bufferedImage, "jpg", new File(test));
+                        // если не удалось сохранить выводим предупреждение
+                        if(!res)
+                            JOptionPane.showMessageDialog(null, "Не удалось сохранить файл");
+                    }
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Не удалось сохранить файл");
+                }
             }
         });
         open.addActionListener(new ActionListener() {
@@ -221,7 +238,6 @@ public class MainMenu extends JFrame {
         y = height - 20;
         // рисуем строку на изображении
         g.drawString(yStr, x, y);
-
 
         // освобождаем обект для рисования
         g.dispose();

@@ -1,5 +1,7 @@
 package ru.smak.menu;
 
+import ru.smak.gui.Data;
+
 
 import ru.smak.gui.GraphicsPanel;
 import ru.smak.gui.MainWindow;
@@ -19,7 +21,10 @@ import ru.smak.math.fractals.MandelbrotX3;
 
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import java.net.URL;
 
@@ -72,6 +77,15 @@ public class MainMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //сохранение в формате картинки jpg
+                BufferedImage bufferedImage = getBufferedImage();
+                // тут сохраняем изображение
+
+                //try {
+
+                //}
+                //catch (IOException ex) {
+                //    JOptionPane.showMessageDialog(null, "Не удалось сохранить файл");
+                //}
             }
         });
         open.addActionListener(new ActionListener() {
@@ -171,5 +185,31 @@ public class MainMenu extends JFrame {
             System.err.println("File not found " + path);
             return null;
         }
+    }
+    private static BufferedImage getBufferedImage() {
+        // размеры изображения:
+        // как главная панель(оттуда и беру размеры) + область снизу для записи координат
+        int width = Data.panel.getWidth();
+        int height = Data.panel.getHeight() + 60;
+        // создаем пустое изображение
+        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        // из изображения вытаскиваем объект на котором можно рисовать
+        Graphics2D g = bufferedImage.createGraphics();
+        // задаем цвет
+        g.setPaint ( Color.white );
+        // заливаем изображение цветом
+        g.fillRect ( 0, 0, bufferedImage.getWidth(), bufferedImage.getHeight() );
+        // записываем изображение главной панели на изображение,
+        // так как мы задали изображение больше в высоту(чем у главной панели)
+        // снизу остается пространство для подписей
+        Data.panel.print(g);
+
+        //надо понять как добавить подписи
+
+
+
+        // освобождаем обект для рисования
+        g.dispose();
+        return bufferedImage;
     }
 }

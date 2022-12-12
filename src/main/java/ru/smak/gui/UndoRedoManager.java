@@ -34,11 +34,11 @@ public class UndoRedoManager {
     }
 
     public void undo() {    //  Ctrl + Z
-        if(undoRedoPointer < 0)
+        if(undoRedoPointer < 1)
             return;
+        undoRedoPointer--;
         plane.setXEdges(xEdgesStack.get(undoRedoPointer));
         plane.setYEdges(yEdgesStack.get(undoRedoPointer));
-        undoRedoPointer--;
     }
 
     public void redo() {    //  Ctrl + Y

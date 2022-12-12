@@ -3,7 +3,6 @@ package ru.smak.gui;
 import kotlin.Pair;
 import ru.smak.dynamic.MaxIterations;
 import ru.smak.graphics.*;
-import ru.smak.math.Complex;
 import ru.smak.math.fractals.Mandelbrot;
 import ru.smak.math.fractals.MandelbrotX2;
 import ru.smak.math.fractals.Mandelbrot;
@@ -28,6 +27,7 @@ public class MainWindow extends JFrame {
     private Point lastDragPoint = null;
     private int LastButtonPressed;
     private int LastButtonReleased;
+    private UndoRedoManager undoRedoManager;    //  "управляющий" методами отмены и повторного выполнения действий
 
     public Plane getPlane() {
         return plane;
@@ -42,6 +42,9 @@ public class MainWindow extends JFrame {
         this.plane = plane;
     }
     public InstrumentPanel getInstrumentPanel(){return tool;}
+    public UndoRedoManager getUndoRedoManager(){
+        return undoRedoManager;
+    }
 
     private Color test(float x) { return Color.GREEN;}
 
@@ -56,13 +59,19 @@ public class MainWindow extends JFrame {
         var colorFunc = new ColorFunctionDark();
         FractalPainter fp = new FractalPainter(plane, m, colorFunc);
 
+        undoRedoManager = new UndoRedoManager(plane);
+
         mainPanel.setBackground(Color.WHITE);
 
         JMenuBar menuBar = new JMenuBar();
-        MainMenu menu = new MainMenu(menuBar);
+
+        MainMenu menu = new MainMenu(menuBar, this);
+
+
         menu.setMainPanel(mainPanel); // Передача mainPanel в MainMenu
         menu.setDataPutMainMenu(plane,m,colorFunc);
         menu.setWindow(this);
+
         setJMenuBar(menuBar);
         JToolBar toolBar = new JToolBar();
         tool = new InstrumentPanel(toolBar, this);
@@ -120,24 +129,26 @@ public class MainWindow extends JFrame {
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
                 LastButtonReleased = e.getButton();
-                if(LastButtonReleased == 1)
-                {
-                    if (lastScalePoint !=null) {
-                        var g = mainPanel.getGraphics();
-                        g.setXORMode(Color.WHITE);
-                        g.drawRect(Math.min(firstScalePoint.x, lastScalePoint.x), Math.min(firstScalePoint.y, lastScalePoint.y), Math.abs(lastScalePoint.x- firstScalePoint.x), Math.abs(lastScalePoint.y- firstScalePoint.y));
-                        g.setPaintMode();
-                    }
+                if(LastButtonReleased == 1 && lastScalePoint != null) {
+                    var g = mainPanel.getGraphics();
+                    g.setXORMode(Color.WHITE);
+                    g.drawRect(Math.min(firstScalePoint.x, lastScalePoint.x), Math.min(firstScalePoint.y, lastScalePoint.y), Math.abs(lastScalePoint.x - firstScalePoint.x), Math.abs(lastScalePoint.y - firstScalePoint.y));
+                    g.setPaintMode();
                     var xMin = Converter.INSTANCE.xScrToCrt(Math.min(firstScalePoint.x, lastScalePoint.x), plane);
                     var xMax = Converter.INSTANCE.xScrToCrt(Math.max(firstScalePoint.x, lastScalePoint.x), plane);
                     var yMin = Converter.INSTANCE.yScrToCrt(Math.min(firstScalePoint.y, lastScalePoint.y), plane);
                     var yMax = Converter.INSTANCE.yScrToCrt(Math.max(firstScalePoint.y, lastScalePoint.y), plane);
                     plane.setXEdges(new Pair<>(xMin, xMax));
                     plane.setYEdges(new Pair<>(yMin, yMax));
+                    undoRedoManager.insertState();
                     lastScalePoint = firstScalePoint = null;
                     MaxIterations maxIterations = new MaxIterations(MainWindow.this);
 
                     mainPanel.repaint();
+                }
+                if(LastButtonPressed == 3 && lastDragPoint != null){
+                    undoRedoManager.insertState();
+                    lastDragPoint = firstDragPoint = null;
                 }
             }
         });
@@ -178,9 +189,15 @@ public class MainWindow extends JFrame {
         });
 
         mainPanel.addKeyListener(new KeyAdapter() {     //слушатель для прослушивания событий клавиатуры
-            public void keyReleased(KeyEvent e){
+            @Override
+            public void keyPressed(KeyEvent e){
                 if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Z){
-
+                    undoRedoManager.undo();
+                    mainPanel.repaint();
+                }
+                if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Y){
+                    undoRedoManager.redo();
+                    mainPanel.repaint();
                 }
             }
         });

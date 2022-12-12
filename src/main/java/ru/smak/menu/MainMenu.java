@@ -50,11 +50,21 @@ public class MainMenu extends JFrame {
     public JMenu createEditMenu() {
         JMenu edit = new JMenu("Правка");
         JMenuItem cancel = new JMenuItem("Отмена");
+        JMenuItem redo = new JMenuItem("Повтор");
         edit.add(cancel);
+        edit.add(redo);
         edit.setIcon(createIcon("icons/edit.png"));
         cancel.setIcon(createIcon("icons/cancel.png"));
+        cancel.setIcon(createIcon("icons/redo.png"));
         //отмена операции
         cancel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+            }
+        });
+        //повтор операции
+        redo.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);

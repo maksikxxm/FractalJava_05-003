@@ -204,8 +204,23 @@ public class MainMenu extends JFrame {
         // снизу остается пространство для подписей
         Data.panel.print(g);
 
-        //надо понять как добавить подписи
-
+        // задаем цвет текста
+        g.setPaint(Color.black);
+        // задаем шрифт
+        g.setFont(new Font("Serif", Font.PLAIN, 20));
+        // создаем строку для х
+        String xStr = "X ∈ [" + Data.frame.getxMin() + "," + Data.frame.getxMax() + "]";
+        // указываем координаты
+        int x = 20;
+        int y = height - 40;
+        // рисуем строку на изображении
+        g.drawString(xStr, x, y);
+        // создаем строку для y
+        String yStr = "Y ∈ [" + Data.frame.getyMin() + "," + Data.frame.getyMax() + "]";
+        // координата х не меняется поэтому указываем только координату y
+        y = height - 20;
+        // рисуем строку на изображении
+        g.drawString(yStr, x, y);
 
 
         // освобождаем обект для рисования

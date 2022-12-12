@@ -15,6 +15,9 @@ import ru.smak.math.fractals.MandelbrotX3;
 import javax.swing.*;
 import java.awt.event.*;
 
+import java.net.URL;
+
+
 public class MainMenu extends JFrame {
     private JMenuBar menuBar;
     private GraphicsPanel mainPanel;
@@ -38,8 +41,14 @@ public class MainMenu extends JFrame {
         file.add(save);
         file.add(saveAs);
         file.add(open);
+
         fileChooserSave fileChooserSave = new fileChooserSave(mainPanel);// Никитино
         fileChooserOpen fileChooserOpen = new fileChooserOpen();
+
+        //save.setIcon(new ImageIcon(getClass().getResource("/icons/save.png")));
+        save.setIcon(new ImageIcon("icons/save.png"));
+        saveAs.setIcon(new ImageIcon("icons/saveAs.png"));
+
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
@@ -71,6 +80,8 @@ public class MainMenu extends JFrame {
         JMenu edit = new JMenu("Правка");
         JMenuItem cancel = new JMenuItem("Отмена");
         edit.add(cancel);
+        edit.setIcon(createIcon("icons/edit.png"));
+        cancel.setIcon(createIcon("icons/cancel.png"));
         //отмена операции
         cancel.addMouseListener(new MouseAdapter() {
             @Override
@@ -83,14 +94,29 @@ public class MainMenu extends JFrame {
 
     public JMenu createHelpMenu() {
         JMenu help = new JMenu("О программе");
-        help.addActionListener(new ActionListener() {
+        help.setIcon(createIcon("icons/about.png"));
+        help.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                //вывод текста о программе
+            public void mouseClicked(MouseEvent e) {
+                String about =
+                        "Над программой работали:\n"
+                                + "КФУ ИМиМ группа 05-003\n"
+                                    + "Антонов Максим - 5-6 задание\n"
+                                    + "Депресов Артём - 7 задание\n"
+                                    + "Иванова Инна - 1 задание\n"
+                                    + "Игнатьев Вадим - 8 задание\n"
+                                    + "Кушаева Алиса - 10 задание\n"
+                                    + "Кушаева Камила - 10 задание\n"
+                                    + "Марданова Альбина - 2 задание\n"
+                                    + "Сошников Никита - 3 задание\n"
+                                    + "Филиппов Артур - 4 задание\n"
+                                    + "Шумихина Анна - 9 задание";
+                JOptionPane.showMessageDialog(null, about);
             }
         });
         return help;
     }
+
     public void setMainPanel(GraphicsPanel mainPanel) // Передача mainPanel(Никита)
     {
         this.mainPanel = mainPanel;
@@ -115,4 +141,14 @@ public class MainMenu extends JFrame {
 
 
 
+}
+    protected static ImageIcon createIcon(String path) {
+        URL imgURL = MainMenu.class.getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL);
+        } else {
+            System.err.println("File not found " + path);
+            return null;
+        }
+    }
 }

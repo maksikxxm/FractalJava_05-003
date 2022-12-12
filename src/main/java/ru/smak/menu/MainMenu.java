@@ -1,34 +1,26 @@
 package ru.smak.menu;
 
-import ru.smak.gui.Data;
-
-
-import ru.smak.gui.GraphicsPanel;
-import ru.smak.gui.MainWindow;
-import ru.smak.gui.UndoRedoManager;
-
 import ru.smak.data.fileChooserOpen;
 import ru.smak.data.fileChooserSave;
 import ru.smak.graphics.ColorFunctionDark;
-import ru.smak.graphics.ColorFunctionDark;
-import ru.smak.graphics.Colorizers;
 import ru.smak.graphics.Plane;
+import ru.smak.gui.Data;
 import ru.smak.gui.GraphicsPanel;
 import ru.smak.gui.MainWindow;
+import ru.smak.gui.UndoRedoManager;
 import ru.smak.math.fractals.Mandelbrot;
-import ru.smak.math.fractals.MandelbrotX2;
-import ru.smak.math.fractals.MandelbrotX3;
-
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import java.net.URL;
 
 

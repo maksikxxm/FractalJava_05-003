@@ -1,6 +1,7 @@
 package ru.smak.menu;
 
 
+import ru.smak.dynamic.MaxIterations;
 import ru.smak.gui.GraphicsPanel;
 import ru.smak.gui.MainWindow;
 import ru.smak.gui.UndoRedoManager;
@@ -96,17 +97,19 @@ public class MainMenu extends JFrame {
         undo.setIcon(createIcon("icons/cancel.png"));
         undo.addMouseListener(new MouseAdapter() {      //  отмена операции
             @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
                 undoRedoManager.undo();
+                MaxIterations maxIterations = new MaxIterations(window);
                 mainPanel.repaint();
             }
         });
         redo.addMouseListener(new MouseAdapter() {      //  возвращение операции
             @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
                 undoRedoManager.redo();
+                MaxIterations maxIterations = new MaxIterations(window);
                 mainPanel.repaint();
             }
         });

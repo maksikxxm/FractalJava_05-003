@@ -14,18 +14,13 @@ public class UndoRedoManager {
         this.plane = plane;
         xEdgesStack = new Stack<>();
         yEdgesStack = new Stack<>();
+        insertState();
     }
 
     public void insertState() {
         deleteStatesAfterPointer(undoRedoPointer);
         xEdgesStack.push(plane.getXEdges());
         yEdgesStack.push(plane.getYEdges());
-        undoRedoPointer++;
-    }
-    public void insertState(Pair<Double,Double> xEdges, Pair<Double,Double> yEdges){
-        deleteStatesAfterPointer(undoRedoPointer);
-        xEdgesStack.push(xEdges);
-        yEdgesStack.push(yEdges);
         undoRedoPointer++;
     }
 

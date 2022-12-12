@@ -1,13 +1,20 @@
 package ru.smak.menu;
 
+import ru.smak.gui.GraphicsPanel;
+import ru.smak.gui.MainWindow;
+import ru.smak.gui.UndoRedoManager;
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.net.URL;
 
 public class MainMenu extends JFrame {
     private JMenuBar menuBar;
-
-    public MainMenu(JMenuBar m) {
+    private GraphicsPanel mainPanel;
+    private UndoRedoManager undoRedoManager;
+    public MainMenu(JMenuBar m, MainWindow mainWindow) {
+        this.mainPanel = mainWindow.getMainPanel();
+        this.undoRedoManager = mainWindow.getUndoRedoManager();
         menuBar = m;
         menuBar.add(createFileMenu());
         menuBar.add(createEditMenu());
@@ -49,15 +56,26 @@ public class MainMenu extends JFrame {
 
     public JMenu createEditMenu() {
         JMenu edit = new JMenu("Правка");
-        JMenuItem cancel = new JMenuItem("Отмена");
-        edit.add(cancel);
+        JMenuItem undo = new JMenuItem("Отменить (Ctrl + Z)");
+        JMenuItem redo = new JMenuItem("Вернуть (Ctrl + Y)");
+        edit.add(undo);
+        edit.add(redo);
         edit.setIcon(createIcon("icons/edit.png"));
-        cancel.setIcon(createIcon("icons/cancel.png"));
-        //отмена операции
-        cancel.addMouseListener(new MouseAdapter() {
+        undo.setIcon(createIcon("icons/cancel.png"));
+        undo.addMouseListener(new MouseAdapter() {      //  отмена операции
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                undoRedoManager.undo();
+                mainPanel.repaint();
+            }
+        });
+        redo.addMouseListener(new MouseAdapter() {      //  возвращение операции
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                undoRedoManager.redo();
+                mainPanel.repaint();
             }
         });
         return edit;

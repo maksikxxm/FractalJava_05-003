@@ -37,6 +37,9 @@ public class MainWindow extends JFrame {
         return mainPanel;
     }
     public InstrumentPanel getInstrumentPanel(){return tool;}
+    public UndoRedoManager getUndoRedoManager(){
+        return undoRedoManager;
+    }
 
     private Color test(float x) { return Color.GREEN;}
 
@@ -56,7 +59,7 @@ public class MainWindow extends JFrame {
         mainPanel.setBackground(Color.WHITE);
 
         JMenuBar menuBar = new JMenuBar();
-        MainMenu menu = new MainMenu(menuBar);
+        MainMenu menu = new MainMenu(menuBar, this);
         setJMenuBar(menuBar);
         JToolBar toolBar = new JToolBar();
         tool = new InstrumentPanel(toolBar, this);
@@ -97,8 +100,6 @@ public class MainWindow extends JFrame {
         setLayout(gl);
         //endregion
         mainPanel.addMouseListener(new MouseAdapter() {
-            Pair<Double,Double> xEdgesBeforeDrag;
-            Pair<Double,Double> yEdgesBeforeDrag;
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
@@ -110,8 +111,6 @@ public class MainWindow extends JFrame {
                 else if(LastButtonPressed == 3)
                 {
                     firstDragPoint = e.getPoint();
-                    xEdgesBeforeDrag = plane.getXEdges();
-                    yEdgesBeforeDrag = plane.getYEdges();
                 }
             }
 
@@ -119,7 +118,6 @@ public class MainWindow extends JFrame {
                 super.mouseReleased(e);
                 LastButtonReleased = e.getButton();
                 if(LastButtonReleased == 1 && lastScalePoint != null) {
-                    undoRedoManager.insertState();
                     var g = mainPanel.getGraphics();
                     g.setXORMode(Color.WHITE);
                     g.drawRect(Math.min(firstScalePoint.x, lastScalePoint.x), Math.min(firstScalePoint.y, lastScalePoint.y), Math.abs(lastScalePoint.x - firstScalePoint.x), Math.abs(lastScalePoint.y - firstScalePoint.y));
@@ -130,13 +128,14 @@ public class MainWindow extends JFrame {
                     var yMax = Converter.INSTANCE.yScrToCrt(Math.max(firstScalePoint.y, lastScalePoint.y), plane);
                     plane.setXEdges(new Pair<>(xMin, xMax));
                     plane.setYEdges(new Pair<>(yMin, yMax));
+                    undoRedoManager.insertState();
                     lastScalePoint = firstScalePoint = null;
                     MaxIterations maxIterations = new MaxIterations(MainWindow.this);
                     mainPanel.repaint();
                 }
                 if(LastButtonPressed == 3 && lastDragPoint != null){
-                    undoRedoManager.insertState(xEdgesBeforeDrag, yEdgesBeforeDrag);
-                    lastDragPoint = null;
+                    undoRedoManager.insertState();
+                    lastDragPoint = firstDragPoint = null;
                 }
             }
         });

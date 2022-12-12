@@ -5,6 +5,7 @@ import ru.smak.dynamic.MaxIterations;
 import ru.smak.graphics.*;
 import ru.smak.math.fractals.Mandelbrot;
 import ru.smak.math.fractals.MandelbrotX2;
+import ru.smak.math.fractals.Mandelbrot;
 import ru.smak.menu.InstrumentPanel;
 import ru.smak.menu.MainMenu;
 
@@ -14,8 +15,8 @@ import java.awt.event.*;
 
 public class MainWindow extends JFrame {
     private final GraphicsPanel mainPanel = new GraphicsPanel();
+    private Plane plane;
     private InstrumentPanel tool;
-    private final Plane plane;
     private static final int GROW = GroupLayout.DEFAULT_SIZE;
     private static final int SHRINK = GroupLayout.PREFERRED_SIZE;
     private final Dimension minSz = new Dimension(600, 500);
@@ -35,6 +36,10 @@ public class MainWindow extends JFrame {
     public GraphicsPanel getMainPanel()
     {
         return mainPanel;
+    }
+    public  void setPlane(Plane plane)
+    {
+        this.plane = plane;
     }
     public InstrumentPanel getInstrumentPanel(){return tool;}
     public UndoRedoManager getUndoRedoManager(){
@@ -59,7 +64,14 @@ public class MainWindow extends JFrame {
         mainPanel.setBackground(Color.WHITE);
 
         JMenuBar menuBar = new JMenuBar();
+
         MainMenu menu = new MainMenu(menuBar, this);
+
+
+        menu.setMainPanel(mainPanel); // Передача mainPanel в MainMenu
+        menu.setDataPutMainMenu(plane,m,colorFunc);
+        menu.setWindow(this);
+
         setJMenuBar(menuBar);
         JToolBar toolBar = new JToolBar();
         tool = new InstrumentPanel(toolBar, this);
@@ -131,6 +143,7 @@ public class MainWindow extends JFrame {
                     undoRedoManager.insertState();
                     lastScalePoint = firstScalePoint = null;
                     MaxIterations maxIterations = new MaxIterations(MainWindow.this);
+
                     mainPanel.repaint();
                 }
                 if(LastButtonPressed == 3 && lastDragPoint != null){
@@ -162,6 +175,15 @@ public class MainWindow extends JFrame {
                     Drag a =new Drag(plane,firstDragPoint,lastDragPoint);
                     firstDragPoint = new Point(lastDragPoint);
                     mainPanel.repaint();
+                }
+                if(LastButtonPressed == 2)
+                {
+
+                    lastScalePoint = e.getPoint();
+                }
+                if(LastButtonPressed == 2)
+                {
+
                 }
             }
         });

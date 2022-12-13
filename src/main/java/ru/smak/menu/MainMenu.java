@@ -29,21 +29,19 @@ public class MainMenu extends JFrame {
     private GraphicsPanel mainPanel;
 
     private UndoRedoManager undoRedoManager;
-    public MainMenu(JMenuBar m, MainWindow mainWindow) {
-        this.mainPanel = mainWindow.getMainPanel();
-        this.undoRedoManager = mainWindow.getUndoRedoManager();
-
     private Plane PlaneSave;
     private MainWindow window;
     private Mandelbrot MandelbrotSave;
     private ColorFunctionDark ColorSave;
-
-    public MainMenu(JMenuBar m) {
+    public MainMenu(JMenuBar m, MainWindow mainWindow) {
+        this.mainPanel = mainWindow.getMainPanel();
+        this.undoRedoManager = mainWindow.getUndoRedoManager();
 
         menuBar = m;
         menuBar.add(createFileMenu());
         menuBar.add(createEditMenu());
         menuBar.add(createHelpMenu());
+
     }
 
     public JMenu createFileMenu() {

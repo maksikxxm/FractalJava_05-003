@@ -146,7 +146,6 @@ public class MainWindow extends JFrame {
                     undoRedoManager.insertState();
                     lastScalePoint = firstScalePoint = null;
                     MaxIterations maxIterations = new MaxIterations(MainWindow.this);
-
                     mainPanel.repaint();
                 }
                 if(LastButtonPressed == 3 && lastDragPoint != null){
@@ -196,10 +195,12 @@ public class MainWindow extends JFrame {
             public void keyPressed(KeyEvent e){
                 if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Z){
                     undoRedoManager.undo();
+                    MaxIterations maxIterations = new MaxIterations(MainWindow.this);
                     mainPanel.repaint();
                 }
                 if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Y){
                     undoRedoManager.redo();
+                    MaxIterations maxIterations = new MaxIterations(MainWindow.this);
                     mainPanel.repaint();
                 }
             }

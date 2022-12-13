@@ -1,6 +1,12 @@
 package ru.smak.menu;
 
 
+
+import ru.smak.dynamic.MaxIterations;
+import ru.smak.gui.GraphicsPanel;
+import ru.smak.gui.MainWindow;
+import ru.smak.gui.UndoRedoManager;
+
 import ru.smak.data.fileChooserOpen;
 import ru.smak.data.fileChooserSave;
 import ru.smak.graphics.ColorFunctionDark;
@@ -124,6 +130,7 @@ public class MainMenu extends JFrame {
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
                 undoRedoManager.undo();
+                MaxIterations maxIterations = new MaxIterations(window);
                 mainPanel.repaint();
             }
         });
@@ -132,6 +139,7 @@ public class MainMenu extends JFrame {
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
                 undoRedoManager.redo();
+                MaxIterations maxIterations = new MaxIterations(window);
                 mainPanel.repaint();
             }
         });

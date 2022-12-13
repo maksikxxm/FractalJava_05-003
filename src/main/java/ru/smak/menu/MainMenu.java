@@ -37,6 +37,7 @@ public class MainMenu extends JFrame {
     public MainMenu(JMenuBar m, MainWindow mainWindow) {
         this.mainPanel = mainWindow.getMainPanel();
         this.undoRedoManager = mainWindow.getUndoRedoManager();
+
         menuBar = m;
         menuBar.add(createFileMenu());
         menuBar.add(createEditMenu());

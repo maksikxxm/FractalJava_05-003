@@ -34,15 +34,8 @@ public class MovieMaker {
     private ArrayList<FractalPainter> frames;//массив всех кадров
 
     public MovieMaker(ArrayList<FractalPainter> keyFrames, int time, int fps){
+        this.keyFrames = keyFrames;
         this.frames = new ArrayList<>();
-        try{
-            if(keyFrames.size() != 0) this.keyFrames = keyFrames;
-            else throw new Exception("Ключевые кадры не добавлены");
-        }
-        catch (Exception e){
-            System.out.println("Ключевые кадры не добавлены");
-        }
-        //if(keyFrames == null) throw new NullPointerException("Ключевые кадры не добавлены");
         this.time = time;
         this.fps = fps;
         this.color = keyFrames.get(0).getColorFunc();
@@ -50,12 +43,8 @@ public class MovieMaker {
         this.width = keyFrames.get(0).getWidth();
         this.height = keyFrames.get(0).getHeight();
         this.coefficients = (ArrayList<Double>)(getCoefficients().clone());
-        //this.countOfFrames = (ArrayList<Integer>)(getCountOfFrames().clone());
         this.N = numberOfFrames();
         this.K = sumCoeff();
-        System.out.println("xmax 1 кадра " + keyFrames.get(0).getPlane().getXMax());
-        System.out.println("xmax 2 кадра " + keyFrames.get(1).getPlane().getXMax());
-
     }
 
     public void create(){
@@ -81,35 +70,8 @@ public class MovieMaker {
             }
         }
         frames.add((new FractalPainter(keyFrames.get(keyFrames.size()-1))));
-        //
-        System.out.println("Количество ключевых кадров: " + keyFrames.size());
 
-        System.out.println("Массив коэффициентов К:");
-        for (int i = 0; i < coefficients.size(); i++){
-            System.out.println(coefficients.get(i));
-        }
 
-        System.out.println("Общий массив кадров (количество): " + frames.size());
-
-        for (int i = 0; i < getCoefficients().size(); i++){
-            System.out.println("getCoefficients[" + i + "] " + getCoefficients().get(i));
-            System.out.println("coefficients[" + i + "] " + coefficients.get(i));
-        }
-
-        System.out.println("N " + N);
-        System.out.println("K " + K);
-
-        for (int i = 0; i < getCoefficients().size(); i++){
-            System.out.println("getCountOfFrames[" + i + "] " + getCountOfFrames().get(i));
-            System.out.println("countOfFrames[" + i + "] " + countOfFrames.get(i));
-        }
-
-        for (int i = 0; i < getCoefficients().size(); i++){
-            System.out.println("getCountOfFrames[" + i + "] " + getCountOfFrames().get(i));
-            System.out.println("countOfFrames[" + i + "] " + countOfFrames.get(i));
-        }
-        System.out.println(frames.get(0).getPlane().getXMax());
-        System.out.println(frames.get(1).getPlane().getXMax());
     }
 
     //метод, который возвращает коэффициент - во сколько раз изменилась плоскость

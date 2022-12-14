@@ -35,7 +35,14 @@ public class MovieMaker {
 
     public MovieMaker(ArrayList<FractalPainter> keyFrames, int time, int fps){
         this.frames = new ArrayList<>();
-        this.keyFrames = keyFrames;
+        try{
+            if(keyFrames.size() != 0) this.keyFrames = keyFrames;
+            else throw new Exception("Ключевые кадры не добавлены");
+        }
+        catch (Exception e){
+            System.out.println("Ключевые кадры не добавлены");
+        }
+        //if(keyFrames == null) throw new NullPointerException("Ключевые кадры не добавлены");
         this.time = time;
         this.fps = fps;
         this.color = keyFrames.get(0).getColorFunc();

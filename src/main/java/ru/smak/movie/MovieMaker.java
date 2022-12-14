@@ -134,17 +134,17 @@ public class MovieMaker {
     }
 
     public void show(){
-        /*AWTSequenceEncoder encoder = null;
+        AWTSequenceEncoder encoder = null;
         try {
             encoder = AWTSequenceEncoder.createSequenceEncoder(new File("E:\\4.mp4"), fps);
             for (BufferedImage image : images) {
-                for(int i = 0; i < (int)((double)time/(N+keyFrames.size())); i++)
+                for(int i = 0; i < time*25; i++)
                 encoder.encodeImage(image);
             }
+            //encoder.finish();
         } catch (Exception e) {
             System.out.println("Fail to generate video!");
-
         }
-        encoder.finish();*/
+        encoder.finish();
     }
 }

@@ -11,7 +11,7 @@ import org.jcodec.common.Format;
 import org.jcodec.common.io.NIOUtils;
 import org.jcodec.common.io.SeekableByteChannel;
 import org.jcodec.common.model.Rational;
-import org.jcodec.javase.scale.AWTUtil;
+//import org.jcodec.javase.scale.AWTUtil;
 
 public class AWTSequenceEncoder extends SequenceEncoder {
 

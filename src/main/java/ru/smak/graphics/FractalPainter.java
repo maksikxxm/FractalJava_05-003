@@ -97,4 +97,11 @@ public class FractalPainter implements Painter {
         //var et = System.currentTimeMillis();
         //System.out.println(et - bt);
     }
+
+    public BufferedImage getBufferedImage(){
+        var img = new BufferedImage(plane.getWidth(), plane.getHeight(), BufferedImage.TYPE_INT_RGB);
+        var tGr = img.createGraphics();
+        this.paint(tGr);
+        return img;
+    }
 }

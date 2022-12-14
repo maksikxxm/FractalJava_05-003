@@ -7,8 +7,10 @@ import org.jcodec.common.model.Rational;
 import ru.smak.graphics.Colorizer;
 import ru.smak.graphics.FractalPainter;
 import ru.smak.graphics.Plane;
+import ru.smak.gui.GraphicsPanel;
 import ru.smak.math.fractals.Fractal;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import java.io.File;
@@ -59,6 +61,7 @@ public class MovieMaker {
         this.countOfFrames = (ArrayList<Integer>)(getCountOfFrames().clone());
         for (int i = 0; i < keyFrames.size()-1; i++){
             frames.add(new FractalPainter(keyFrames.get(i)));
+            images.add(frames.get(0).getBufferedImage());
             int k = 1;
             double deltaXMin = keyFrames.get(i+1).getPlane().getXMin() - keyFrames.get(i).getPlane().getXMin();
             double deltaXMax = keyFrames.get(i).getPlane().getXMax() - keyFrames.get(i+1).getPlane().getXMax();
@@ -75,9 +78,11 @@ public class MovieMaker {
                 color = keyFrames.get(i).getColorFunc();
                 Plane p = new Plane(xMin, xMax, yMin, yMax, width, height);
                 frames.add(new FractalPainter(p,fractal, color));
+                images.add(frames.get(j).getBufferedImage());
             }
         }
         frames.add((new FractalPainter(keyFrames.get(keyFrames.size()-1))));
+        images.add(frames.get(frames.size()-1).getBufferedImage());
     }
 
     //метод, который возвращает коэффициент - во сколько раз изменилась плоскость
@@ -128,14 +133,8 @@ public class MovieMaker {
         this.time = time;
     }
 
-    public void getBufferedImage(FractalPainter fp){
-        var img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        var tGr = img.createGraphics();
-        fp.paint(tGr);
-    }
-
     public void show(){
-        AWTSequenceEncoder encoder = null;
+        /*AWTSequenceEncoder encoder = null;
         try {
             encoder = AWTSequenceEncoder.createSequenceEncoder(new File("E:\\4.mp4"), fps);
             for (BufferedImage image : images) {
@@ -146,6 +145,6 @@ public class MovieMaker {
             System.out.println("Fail to generate video!");
 
         }
-        encoder.finish();
+        encoder.finish();*/
     }
 }

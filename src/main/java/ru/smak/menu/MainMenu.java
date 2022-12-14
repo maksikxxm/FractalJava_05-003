@@ -40,6 +40,7 @@ public class MainMenu extends JFrame {
     private MainWindow window;
     private Mandelbrot MandelbrotSave;
     private ColorFunctionDark ColorSave;
+    private InstrumentPanel instrumentPanel;
     public MainMenu(JMenuBar m, MainWindow mainWindow) {
         this.mainPanel = mainWindow.getMainPanel();
         this.undoRedoManager = mainWindow.getUndoRedoManager();
@@ -108,6 +109,7 @@ public class MainMenu extends JFrame {
         open.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //fileChooserOpen.InstrumentPanel();
                 fileChooserOpen.WindowOpen(window);
                 fileChooserOpen.Panel(mainPanel);
                 fileChooserOpen.OpenFile();
@@ -186,14 +188,6 @@ public class MainMenu extends JFrame {
     {
         this.window= window;
     }
-    public void getPlaneSaveMainMenu(Plane planeSave)
-    {
-
-      this.PlaneSave= planeSave;
-        System.out.println(PlaneSave.getXMax()+"Plane");
-    }
-
-
 
 
     protected static ImageIcon createIcon(String path) {

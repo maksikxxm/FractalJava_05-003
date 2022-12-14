@@ -7,6 +7,8 @@ import ru.smak.menu.InstrumentPanel;
 
 public class MaxIterations {
     MainWindow mainWindow;
+    private boolean MaxIterationsSave;
+    private Integer MaxIterationsSaveInt;
     public MaxIterations(MainWindow mainWindow){
         this.mainWindow = mainWindow;
         InstrumentPanel instrumentPanel = mainWindow.getInstrumentPanel();
@@ -22,12 +24,22 @@ public class MaxIterations {
         return (int) (200 + 20 * Math.log(6/shape));
     }
 
-    private void setNewMaxIterations(Plane plane, Mandelbrot m, boolean isSelected){
+    public void setNewMaxIterations(Plane plane, Mandelbrot m, boolean isSelected){
         if(isSelected){
             m.setMaxIterations(getNewMaxIterations(getPlaneShape(plane)));
         }
         else {
             m.setMaxIterations(200);
         }
+        this.MaxIterationsSave = isSelected;
+        this.MaxIterationsSaveInt = getNewMaxIterations(getPlaneShape(plane));
+    }
+    public Boolean getMaxIterationsSave()
+    {
+        return MaxIterationsSave;
+    }
+    public Integer getMaxIterationsInt()
+    {
+        return MaxIterationsSaveInt;
     }
 }

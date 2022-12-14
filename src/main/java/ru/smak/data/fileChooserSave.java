@@ -12,7 +12,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 
-public class fileChooserSave
+public class fileChooserSave extends dataPut
 {
     public static int MandelbrotXi;
     public static int MandelbrotInt;
@@ -24,7 +24,6 @@ public class fileChooserSave
     private final JFileChooser FileChooser = new JFileChooser();
     private final GraphicsPanel graphicsPanel;
     private final dataPut dataPut = new dataPut();
-
     public fileChooserSave(GraphicsPanel graphicsPanel)
     {
         FileChooser.setDialogTitle("Сохранение файла");

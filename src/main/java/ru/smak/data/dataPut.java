@@ -21,6 +21,7 @@ public class dataPut {
     }
     public void getPath(String path) {
         this.pathDontName = path;
+        System.out.println(path);
     }
 }
 

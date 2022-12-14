@@ -46,6 +46,7 @@ public class MainWindow extends JFrame {
         return undoRedoManager;
     }
 
+
     private Color test(float x) { return Color.GREEN;}
     Double xMin = -2.0, xMax = 1.0, yMin = -1.0, yMax = 1.0;
 
@@ -233,5 +234,10 @@ public class MainWindow extends JFrame {
     public Double getyMax() {
         return yMax;
     }
+    public void setUndoRedoManager(UndoRedoManager undoRedoManagerOpen)
+    {
+        this.undoRedoManager = undoRedoManagerOpen;
+    }
+
 
 }

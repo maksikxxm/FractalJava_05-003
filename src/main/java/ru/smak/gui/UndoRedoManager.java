@@ -15,6 +15,7 @@ public class UndoRedoManager {
         xEdgesStack = new Stack<>();
         yEdgesStack = new Stack<>();
         insertState();
+
     }
 
     public void insertState() {

@@ -42,32 +42,15 @@ public class MovieMaker {
         this.fractal = keyFrames.get(0).getFractal();
         this.width = keyFrames.get(0).getWidth();
         this.height = keyFrames.get(0).getHeight();
-        this.coefficients = getCoefficients();
-        this.countOfFrames = (ArrayList<Integer>)(getCountOfFrames().clone());
+        //this.coefficients = (ArrayList<Integer>)(getCoeffitions().clone());
+        //this.countOfFrames = (ArrayList<Integer>)(getCountOfFrames().clone());
         this.N = numberOfFrames();
         this.K = sumCoeff();
-        System.out.println("В КОНСТРУКТОРЕ");
-        System.out.println("getCountOfFrames[0] " + getCountOfFrames().get(0));
-        System.out.println("countOfFrames[0] " + countOfFrames.get(0));
-        /*System.out.println("Количество ключевых кадров:");
-        System.out.println(keyFrames.size());
-        System.out.println("Количество K:");
-        System.out.println(coefficients.size());
-        System.out.println("Массив коэффициентов К:");
-        for (int i = 0; i < coefficients.size(); i++){
-            System.out.println(coefficients.get(i));
-        }
-        System.out.println("Количество N:");
-        System.out.println(countOfFrames.size());
-        System.out.println("Массив номеров N:");
-        for (int i = 0; i < coefficients.size(); i++){
-            System.out.println(coefficients.get(i));
-        }
-        System.out.println("Общий массив кадров(количество):");
-        System.out.println(frames.size());*/
     }
 
     public void create(){
+        this.coefficients = (ArrayList<Double>)(getCoefficients().clone());
+        this.countOfFrames = (ArrayList<Integer>)(getCountOfFrames().clone());
         for (int i = 0; i < keyFrames.size()-1; i++){
             frames.add(keyFrames.get(i));
             int k = 1;

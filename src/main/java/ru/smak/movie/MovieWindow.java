@@ -1,25 +1,19 @@
 package ru.smak.movie;
 
 import ru.smak.graphics.FractalPainter;
-import ru.smak.graphics.Plane;
 import ru.smak.gui.GraphicsPanel;
 import ru.smak.gui.MainWindow;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
 import java.util.ArrayList;
 
 public class MovieWindow extends JFrame {
-    //private GraphicsPanel moviePanel = new GraphicsPanel();
     private JPanel controlPanel;
-    private GroupLayout gl;
-    private GroupLayout glcp;
     private final Dimension minSz = new Dimension(600, 500);
     private JButton AddFile, OK, Play;
     private JSpinner FPS, Duration;
@@ -33,11 +27,9 @@ public class MovieWindow extends JFrame {
         GridLayout layout = new GridLayout(2,0,5,12);
         container.setBackground(Color.WHITE);
         container.setLayout(layout);
-        //container.setLayout(new FlowLayout(FlowLayout.CENTER));
         controlPanel = new JPanel();
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         setMinimumSize(minSz);
-        //moviePanel.setBackground(Color.WHITE);
         GroupLayout gl = new GroupLayout(getContentPane());
         GroupLayout glcp = new GroupLayout(controlPanel);
         SpinnerNumberModel mdlFPS = new SpinnerNumberModel(30, 1, 1000, 1);
@@ -83,9 +75,13 @@ public class MovieWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 //видео начинает создаваться
                 duration = (int)(Duration.getValue());
+                System.out.println("Длительность видео равна " + duration);
                 fps = (int)(FPS.getValue());
+                System.out.println("FPS " + fps);
                 movie = new MovieMaker(frames, duration, fps);
+                System.out.println("Видео создаётся...");
                 movie.create();
+                System.out.println("Видео создано");
             }
         });
 

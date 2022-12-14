@@ -61,7 +61,6 @@ public class MovieMaker {
         this.countOfFrames = (ArrayList<Integer>)(getCountOfFrames().clone());
         for (int i = 0; i < keyFrames.size()-1; i++){
             frames.add(new FractalPainter(keyFrames.get(i)));
-            images.add(frames.get(0).getBufferedImage());
             int k = 1;
             double deltaXMin = keyFrames.get(i+1).getPlane().getXMin() - keyFrames.get(i).getPlane().getXMin();
             double deltaXMax = keyFrames.get(i).getPlane().getXMax() - keyFrames.get(i+1).getPlane().getXMax();
@@ -78,11 +77,12 @@ public class MovieMaker {
                 color = keyFrames.get(i).getColorFunc();
                 Plane p = new Plane(xMin, xMax, yMin, yMax, width, height);
                 frames.add(new FractalPainter(p,fractal, color));
-                images.add(frames.get(j).getBufferedImage());
             }
         }
         frames.add((new FractalPainter(keyFrames.get(keyFrames.size()-1))));
-        images.add(frames.get(frames.size()-1).getBufferedImage());
+        for (int i = 0; i<frames.size();i++){
+            images.add(frames.get(i).getBufferedImage());
+        }
     }
 
     //метод, который возвращает коэффициент - во сколько раз изменилась плоскость

@@ -1,6 +1,7 @@
 package ru.smak.movie;
 
 import ru.smak.graphics.FractalPainter;
+import ru.smak.graphics.Plane;
 import ru.smak.gui.GraphicsPanel;
 import ru.smak.gui.MainWindow;
 
@@ -50,7 +51,7 @@ public class MovieWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //добавление кадра в список ключевых кадров
-                frames.add((FractalPainter)mainWindow.getMainPanel().getAllPainters("class ru.smak.graphics.FractalPainter").get(0));
+                frames.add(new FractalPainter((FractalPainter)mainWindow.getMainPanel().getAllPainters("class ru.smak.graphics.FractalPainter").get(0)));
                 GraphicsPanel moviePanel = new GraphicsPanel();
                 moviePanel.setBackground(Color.WHITE);
                 FractalPainter fp = new FractalPainter((FractalPainter)mainWindow.getMainPanel().getAllPainters("class ru.smak.graphics.FractalPainter").get(0));
@@ -74,6 +75,8 @@ public class MovieWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //видео начинает создаваться
+                System.out.println("xmax 1 кадра " + frames.get(0).getPlane().getXMax());
+                System.out.println("xmax 2 кадра " + frames.get(1).getPlane().getXMax());
                 duration = (int)(Duration.getValue());
                 System.out.println("Длительность видео равна " + duration);
                 fps = (int)(FPS.getValue());

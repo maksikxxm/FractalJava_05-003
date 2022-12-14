@@ -46,12 +46,15 @@ public class MovieMaker {
         //this.countOfFrames = (ArrayList<Integer>)(getCountOfFrames().clone());
         this.N = numberOfFrames();
         this.K = sumCoeff();
+        System.out.println("xmax 1 кадра " + keyFrames.get(0).getPlane().getXMax());
+        System.out.println("xmax 2 кадра " + keyFrames.get(1).getPlane().getXMax());
+
     }
 
     public void create(){
         this.countOfFrames = (ArrayList<Integer>)(getCountOfFrames().clone());
         for (int i = 0; i < keyFrames.size()-1; i++){
-            frames.add(keyFrames.get(i));
+            frames.add(new FractalPainter(keyFrames.get(i)));
             int k = 1;
             double deltaXMin = keyFrames.get(i+1).getPlane().getXMin() - keyFrames.get(i).getPlane().getXMin();
             double deltaXMax = keyFrames.get(i).getPlane().getXMax() - keyFrames.get(i+1).getPlane().getXMax();
@@ -70,6 +73,7 @@ public class MovieMaker {
                 frames.add(new FractalPainter(p,fractal, color));
             }
         }
+        frames.add((new FractalPainter(keyFrames.get(keyFrames.size()-1))));
         //
         System.out.println("Количество ключевых кадров: " + keyFrames.size());
 
@@ -92,6 +96,13 @@ public class MovieMaker {
             System.out.println("getCountOfFrames[" + i + "] " + getCountOfFrames().get(i));
             System.out.println("countOfFrames[" + i + "] " + countOfFrames.get(i));
         }
+
+        for (int i = 0; i < getCoefficients().size(); i++){
+            System.out.println("getCountOfFrames[" + i + "] " + getCountOfFrames().get(i));
+            System.out.println("countOfFrames[" + i + "] " + countOfFrames.get(i));
+        }
+        System.out.println(frames.get(0).getPlane().getXMax());
+        System.out.println(frames.get(1).getPlane().getXMax());
     }
 
     //метод, который возвращает коэффициент - во сколько раз изменилась плоскость

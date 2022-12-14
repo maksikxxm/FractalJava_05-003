@@ -70,8 +70,6 @@ public class MovieMaker {
             }
         }
         frames.add((new FractalPainter(keyFrames.get(keyFrames.size()-1))));
-
-
     }
 
     //метод, который возвращает коэффициент - во сколько раз изменилась плоскость

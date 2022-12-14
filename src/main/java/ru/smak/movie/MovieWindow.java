@@ -75,18 +75,10 @@ public class MovieWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //видео начинает создаваться
-                System.out.println("xmax 1 кадра " + frames.get(0).getPlane().getXMax());
-                System.out.println("xmax 2 кадра " + frames.get(1).getPlane().getXMax());
-                if (frames.size() != 0) {
-                    duration = (int) (Duration.getValue());
-                    System.out.println("Длительность видео равна " + duration);
-                    fps = (int) (FPS.getValue());
-                    System.out.println("FPS " + fps);
-                    movie = new MovieMaker(frames, duration, fps);
-                    System.out.println("Видео создаётся...");
-                    movie.create();
-                    System.out.println("Видео создано");
-                }
+                duration = (int)(Duration.getValue());
+                fps = (int)(FPS.getValue());
+                movie = new MovieMaker(frames, duration, fps);
+                movie.create();
             }
         });
 

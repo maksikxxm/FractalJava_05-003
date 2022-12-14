@@ -75,10 +75,12 @@ public class MovieWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //видео начинает создаваться
-                duration = (int)(Duration.getValue());
-                fps = (int)(FPS.getValue());
-                movie = new MovieMaker(frames, duration, fps);
-                movie.create();
+                if (frames.size() != 0) {
+                    duration = (int) (Duration.getValue());
+                    fps = (int) (FPS.getValue());
+                    movie = new MovieMaker(frames, duration, fps);
+                    movie.create();
+                }
             }
         });
 

@@ -1,11 +1,17 @@
 package ru.smak.movie;
 
+import org.jcodec.api.SequenceEncoder;
+import org.jcodec.common.io.NIOUtils;
+import org.jcodec.common.model.ColorSpace;
+import org.jcodec.common.model.Rational;
 import ru.smak.graphics.Colorizer;
 import ru.smak.graphics.FractalPainter;
 import ru.smak.graphics.Plane;
 import ru.smak.math.fractals.Fractal;
 
+import java.awt.image.BufferedImage;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class MovieMaker {
@@ -32,10 +38,12 @@ public class MovieMaker {
     private ArrayList<Integer> countOfFrames;//массив количества добавляемых кадров между соседними ключевыми кадрами
 
     private ArrayList<FractalPainter> frames;//массив всех кадров
+    private ArrayList<BufferedImage> images;
 
     public MovieMaker(ArrayList<FractalPainter> keyFrames, int time, int fps){
         this.keyFrames = keyFrames;
         this.frames = new ArrayList<>();
+        this.images = new ArrayList<>();
         this.time = time;
         this.fps = fps;
         this.color = keyFrames.get(0).getColorFunc();
@@ -121,6 +129,17 @@ public class MovieMaker {
     }
 
     public void show(){
+        AWTSequenceEncoder encoder = null;
+        try {
+            encoder = AWTSequenceEncoder.createSequenceEncoder(new File("E:\\4.mp4"), fps);
+            for (BufferedImage image : images) {
+                for(int i = 0; i < (int)((double)time/(N+keyFrames.size())); i++)
+                encoder.encodeImage(image);
+            }
+        } catch (Exception e) {
+            System.out.println("Fail to generate video!");
 
+        }
+        encoder.finish();
     }
 }

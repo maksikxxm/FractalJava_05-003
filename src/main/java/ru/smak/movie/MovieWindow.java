@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class MovieWindow extends JFrame {
@@ -56,6 +57,8 @@ public class MovieWindow extends JFrame {
                 moviePanel.setBackground(Color.WHITE);
                 FractalPainter fp = new FractalPainter((FractalPainter)mainWindow.getMainPanel().getAllPainters("class ru.smak.graphics.FractalPainter").get(0));
                 moviePanel.addPainter(fp);
+
+                //BufferedImage img = moviePanel.get
                 //удаление кадра из списка ключевых кадров
                 moviePanel.addMouseListener(new MouseAdapter() {
                     @Override
@@ -75,10 +78,12 @@ public class MovieWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //видео начинает создаваться
-                duration = (int)(Duration.getValue());
-                fps = (int)(FPS.getValue());
-                movie = new MovieMaker(frames, duration, fps);
-                movie.create();
+                if(frames.size() != 0) {
+                    duration = (int) (Duration.getValue());
+                    fps = (int) (FPS.getValue());
+                    movie = new MovieMaker(frames, duration, fps);
+                    movie.create();
+                }
             }
         });
 

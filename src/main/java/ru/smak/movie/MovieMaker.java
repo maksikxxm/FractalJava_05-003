@@ -6,6 +6,7 @@ import ru.smak.graphics.Plane;
 import ru.smak.math.fractals.Fractal;
 
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class MovieMaker {
@@ -32,10 +33,12 @@ public class MovieMaker {
     private ArrayList<Integer> countOfFrames;//массив количества добавляемых кадров между соседними ключевыми кадрами
 
     private ArrayList<FractalPainter> frames;//массив всех кадров
+    private ArrayList<BufferedImage> images;
 
     public MovieMaker(ArrayList<FractalPainter> keyFrames, int time, int fps){
         this.keyFrames = keyFrames;
         this.frames = new ArrayList<>();
+        this.images = new ArrayList<BufferedImage>();
         this.time = time;
         this.fps = fps;
         this.color = keyFrames.get(0).getColorFunc();
@@ -118,6 +121,12 @@ public class MovieMaker {
     }
     public void setTime(int time){
         this.time = time;
+    }
+
+    public void getBufferedImage(FractalPainter fp){
+        var img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        var tGr = img.createGraphics();
+        fp.paint(tGr);
     }
 
     public void show(){

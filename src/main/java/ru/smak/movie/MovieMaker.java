@@ -145,6 +145,6 @@ public class MovieMaker {
         } catch (Exception e) {
             System.out.println("Fail to generate video!");
         }
-        encoder.finish();
+
     }
 }

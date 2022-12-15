@@ -1,9 +1,11 @@
 package ru.smak.graphics;
 
 import org.jetbrains.annotations.NotNull;
+import ru.smak.gui.MainWindow;
 import ru.smak.gui.Painter;
 import ru.smak.math.Complex;
 import ru.smak.math.fractals.Fractal;
+import ru.smak.movie.MovieWindow;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -100,8 +102,7 @@ public class FractalPainter implements Painter {
 
     public BufferedImage getBufferedImage(){
         var img = new BufferedImage(plane.getWidth(), plane.getHeight(), BufferedImage.TYPE_INT_RGB);
-        var tGr = img.createGraphics();
-        this.paint(tGr);
+        this.paint(img.createGraphics());
         return img;
     }
 }

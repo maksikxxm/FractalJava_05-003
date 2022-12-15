@@ -136,12 +136,11 @@ public class MovieMaker {
     public void show(){
         AWTSequenceEncoder encoder = null;
         try {
-            encoder = AWTSequenceEncoder.createSequenceEncoder(new File("E:\\4.mp4"), fps);
+            encoder = AWTSequenceEncoder.createSequenceEncoder(new File("C:\\Users\\79178\\Desktop\\qyeye.mp4"), fps);
             for (BufferedImage image : images) {
-                for(int i = 0; i < time*25; i++)
-                encoder.encodeImage(image);
+                    encoder.encodeImage(image);
             }
-            //encoder.finish();
+            encoder.finish();
         } catch (Exception e) {
             System.out.println("Fail to generate video!");
         }

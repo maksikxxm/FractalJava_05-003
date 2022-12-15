@@ -19,7 +19,7 @@ public class MainWindow extends JFrame {
     private InstrumentPanel tool;
     private static final int GROW = GroupLayout.DEFAULT_SIZE;
     private static final int SHRINK = GroupLayout.PREFERRED_SIZE;
-    private final Dimension minSz = new Dimension(600, 500);
+    private final Dimension minSz = new Dimension(622, 504);
 
     private Point firstScalePoint = null;
     private Point lastScalePoint = null;

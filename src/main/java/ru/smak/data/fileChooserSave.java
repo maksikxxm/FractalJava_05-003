@@ -4,9 +4,6 @@ import ru.smak.graphics.ColorFunctionDark;
 import ru.smak.graphics.Plane;
 import ru.smak.gui.GraphicsPanel;
 import ru.smak.math.fractals.Mandelbrot;
-import ru.smak.math.fractals.MandelbrotCos;
-import ru.smak.math.fractals.MandelbrotX2;
-import ru.smak.math.fractals.MandelbrotX3;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -24,7 +21,6 @@ public class fileChooserSave
     private final JFileChooser FileChooser = new JFileChooser();
     private final GraphicsPanel graphicsPanel;
     private final dataPut dataPut = new dataPut();
-
     public fileChooserSave(GraphicsPanel graphicsPanel)
     {
         FileChooser.setDialogTitle("Сохранение файла");

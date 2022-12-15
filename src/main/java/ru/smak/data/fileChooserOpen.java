@@ -3,6 +3,7 @@ import ru.smak.dynamic.MaxIterations;
 import ru.smak.graphics.*;
 import ru.smak.gui.GraphicsPanel;
 import ru.smak.gui.MainWindow;
+import ru.smak.gui.UndoRedoManager;
 import ru.smak.math.fractals.*;
 import ru.smak.menu.InstrumentPanel;
 
@@ -17,7 +18,11 @@ public class fileChooserOpen
     private Colorizer currentColorizer= new ColorFunctionDark();
     private Fractal currentFractal = new MandelbrotX2();
     private  String path;
+    private UndoRedoManager undoRedoManager;
+    private MaxIterations maxIterations;
+    private  InstrumentPanel instrumentPanel;
     private MainWindow window;
+    JToolBar toolBar = new JToolBar();
     public fileChooserOpen()
     {
         FileChooser.setDialogTitle("Выберите файл");
@@ -72,13 +77,18 @@ public class fileChooserOpen
             case 4 -> currentFractal = new MandelbrotSin();
             case 5 -> currentFractal = new MandelbrotCos();
         }
-        MaxIterations maxIterations = new MaxIterations(window);
+        undoRedoManager = new UndoRedoManager(planeOpen);
+        window.setUndoRedoManager(undoRedoManager);
+        maxIterations = new MaxIterations(window);
         instrumentPanel.getJComboBoxMandelbrot().setSelectedIndex(rootData.MandelbrotXi);
         instrumentPanel.getJComboBoxColorizer().setSelectedIndex(rootData.CurrentColorI);
         instrumentPanel.getJCheckBoxMaxIterations().setSelected(rootData.MaxIterations);
+        instrumentPanel.setCurrentFractal(currentFractal);
+        instrumentPanel.setCurrentColorizer(currentColorizer);
         window.setPlane(planeOpen);
         graphicsPanel.addPainter( new FractalPainter(planeOpen,currentFractal, currentColorizer));
         graphicsPanel.repaint();
+        window.repaint();
     }
     public void Panel(GraphicsPanel GraphicsPanel)
     {
@@ -89,4 +99,5 @@ public class fileChooserOpen
     {
         this.window = window;
     }
+
 }

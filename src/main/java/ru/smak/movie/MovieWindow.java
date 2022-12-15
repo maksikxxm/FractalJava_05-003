@@ -35,7 +35,7 @@ public class MovieWindow extends JFrame {
         GroupLayout gl = new GroupLayout(getContentPane());
         GroupLayout glcp = new GroupLayout(controlPanel);
         SpinnerNumberModel mdlFPS = new SpinnerNumberModel(30, 1, 1000, 1);
-        SpinnerNumberModel mdlDuration = new SpinnerNumberModel(30, 5, 180, 1);
+        SpinnerNumberModel mdlDuration = new SpinnerNumberModel(30, 1, 1000, 1);
         AddFile = new JButton("Добавить кадр");
         FPS = new JSpinner(mdlFPS);
         Duration = new JSpinner(mdlDuration);

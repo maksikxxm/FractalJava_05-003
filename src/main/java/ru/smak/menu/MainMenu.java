@@ -125,8 +125,7 @@ public class MainMenu extends JFrame {
         JMenuItem redo = new JMenuItem("Вернуть (Ctrl + Y)");
         edit.add(undo);
         edit.add(redo);
-        edit.setIcon(createIcon("icons/edit.png"));
-        undo.setIcon(createIcon("icons/cancel.png"));
+
         undo.addMouseListener(new MouseAdapter() {      //  отмена операции
             @Override
             public void mousePressed(MouseEvent e) {
@@ -157,7 +156,6 @@ public class MainMenu extends JFrame {
 
     public JMenu createHelpMenu() {
         JMenu help = new JMenu("О программе");
-        help.setIcon(createIcon("icons/about.png"));
         help.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

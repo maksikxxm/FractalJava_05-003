@@ -136,7 +136,7 @@ public class MovieMaker {
     public void show(){
         AWTSequenceEncoder encoder = null;
         try {
-            encoder = AWTSequenceEncoder.createSequenceEncoder(new File("C:\\Users\\79178\\Desktop\\qyeye.mp4"), fps);
+            encoder = AWTSequenceEncoder.createSequenceEncoder(new File("C:\\Users\\79178\\Desktop\\video.mp4"), fps);
             for (BufferedImage image : images) {
                     encoder.encodeImage(image);
             }

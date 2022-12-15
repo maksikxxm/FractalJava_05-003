@@ -3,9 +3,9 @@ package ru.smak.gui;
 import kotlin.Pair;
 import ru.smak.dynamic.MaxIterations;
 import ru.smak.graphics.*;
-import ru.smak.math.Complex;
 import ru.smak.math.fractals.Mandelbrot;
 import ru.smak.math.fractals.MandelbrotX2;
+import ru.smak.math.fractals.Mandelbrot;
 import ru.smak.menu.InstrumentPanel;
 import ru.smak.menu.MainMenu;
 
@@ -15,8 +15,8 @@ import java.awt.event.*;
 
 public class MainWindow extends JFrame {
     private final GraphicsPanel mainPanel = new GraphicsPanel();
+    private Plane plane;
     private InstrumentPanel tool;
-    private final Plane plane;
     private static final int GROW = GroupLayout.DEFAULT_SIZE;
     private static final int SHRINK = GroupLayout.PREFERRED_SIZE;
     private final Dimension minSz = new Dimension(600, 500);
@@ -27,6 +27,7 @@ public class MainWindow extends JFrame {
     private Point lastDragPoint = null;
     private int LastButtonPressed;
     private int LastButtonReleased;
+    private UndoRedoManager undoRedoManager;    //  "управляющий" методами отмены и повторного выполнения действий
 
     public Plane getPlane() {
         return plane;
@@ -36,25 +37,45 @@ public class MainWindow extends JFrame {
     {
         return mainPanel;
     }
+    public  void setPlane(Plane plane)
+    {
+        this.plane = plane;
+    }
     public InstrumentPanel getInstrumentPanel(){return tool;}
+    public UndoRedoManager getUndoRedoManager(){
+        return undoRedoManager;
+    }
+
 
     private Color test(float x) { return Color.GREEN;}
+    Double xMin = -2.0, xMax = 1.0, yMin = -1.0, yMax = 1.0;
 
     public MainWindow(){
+        Data.frame = this;
+        Data.panel = mainPanel;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setMinimumSize(minSz);
         mainPanel.setFocusable(true); // Флаг focusable указывает, что mainPanel может получить фокус
 
         Mandelbrot m = new MandelbrotX2();
 
-        plane = new Plane(-2.0, 1.0, -1.0, 1.0, 0, 0);
+        plane = new Plane(xMin, xMax, yMin, yMax, 0, 0);
         var colorFunc = new ColorFunctionDark();
         FractalPainter fp = new FractalPainter(plane, m, colorFunc);
+
+        undoRedoManager = new UndoRedoManager(plane);
 
         mainPanel.setBackground(Color.WHITE);
 
         JMenuBar menuBar = new JMenuBar();
-        MainMenu menu = new MainMenu(menuBar);
+
+        MainMenu menu = new MainMenu(menuBar, this);
+
+
+        menu.setMainPanel(mainPanel); // Передача mainPanel в MainMenu
+        menu.setDataPutMainMenu(plane,m,colorFunc);
+        menu.setWindow(this);
+
         setJMenuBar(menuBar);
         JToolBar toolBar = new JToolBar();
         tool = new InstrumentPanel(toolBar, this);
@@ -112,23 +133,25 @@ public class MainWindow extends JFrame {
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
                 LastButtonReleased = e.getButton();
-                if(LastButtonReleased == 1)
-                {
-                    if (lastScalePoint !=null) {
-                        var g = mainPanel.getGraphics();
-                        g.setXORMode(Color.WHITE);
-                        g.drawRect(Math.min(firstScalePoint.x, lastScalePoint.x), Math.min(firstScalePoint.y, lastScalePoint.y), Math.abs(lastScalePoint.x- firstScalePoint.x), Math.abs(lastScalePoint.y- firstScalePoint.y));
-                        g.setPaintMode();
-                    }
+                if(LastButtonReleased == 1 && lastScalePoint != null) {
+                    var g = mainPanel.getGraphics();
+                    g.setXORMode(Color.WHITE);
+                    g.drawRect(Math.min(firstScalePoint.x, lastScalePoint.x), Math.min(firstScalePoint.y, lastScalePoint.y), Math.abs(lastScalePoint.x - firstScalePoint.x), Math.abs(lastScalePoint.y - firstScalePoint.y));
+                    g.setPaintMode();
                     var xMin = Converter.INSTANCE.xScrToCrt(Math.min(firstScalePoint.x, lastScalePoint.x), plane);
                     var xMax = Converter.INSTANCE.xScrToCrt(Math.max(firstScalePoint.x, lastScalePoint.x), plane);
                     var yMin = Converter.INSTANCE.yScrToCrt(Math.min(firstScalePoint.y, lastScalePoint.y), plane);
                     var yMax = Converter.INSTANCE.yScrToCrt(Math.max(firstScalePoint.y, lastScalePoint.y), plane);
                     plane.setXEdges(new Pair<>(xMin, xMax));
                     plane.setYEdges(new Pair<>(yMin, yMax));
+                    undoRedoManager.insertState();
                     lastScalePoint = firstScalePoint = null;
                     MaxIterations maxIterations = new MaxIterations(MainWindow.this);
                     mainPanel.repaint();
+                }
+                if(LastButtonPressed == 3 && lastDragPoint != null){
+                    undoRedoManager.insertState();
+                    lastDragPoint = firstDragPoint = null;
                 }
             }
         });
@@ -156,13 +179,30 @@ public class MainWindow extends JFrame {
                     firstDragPoint = new Point(lastDragPoint);
                     mainPanel.repaint();
                 }
+                if(LastButtonPressed == 2)
+                {
+
+                    lastScalePoint = e.getPoint();
+                }
+                if(LastButtonPressed == 2)
+                {
+
+                }
             }
         });
 
         mainPanel.addKeyListener(new KeyAdapter() {     //слушатель для прослушивания событий клавиатуры
-            public void keyReleased(KeyEvent e){
+            @Override
+            public void keyPressed(KeyEvent e){
                 if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Z){
-
+                    undoRedoManager.undo();
+                    MaxIterations maxIterations = new MaxIterations(MainWindow.this);
+                    mainPanel.repaint();
+                }
+                if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Y){
+                    undoRedoManager.redo();
+                    MaxIterations maxIterations = new MaxIterations(MainWindow.this);
+                    mainPanel.repaint();
                 }
             }
         });
@@ -179,4 +219,25 @@ public class MainWindow extends JFrame {
         g.drawRect(-1000, -1000, 1, 1);
         g.setPaintMode();
     }
+    public Double getxMin() {
+        return xMin;
+    }
+
+    public Double getxMax() {
+        return xMax;
+    }
+
+    public Double getyMin() {
+        return yMin;
+    }
+
+    public Double getyMax() {
+        return yMax;
+    }
+    public void setUndoRedoManager(UndoRedoManager undoRedoManagerOpen)
+    {
+        this.undoRedoManager = undoRedoManagerOpen;
+    }
+
+
 }

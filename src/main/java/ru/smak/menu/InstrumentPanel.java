@@ -1,6 +1,8 @@
 package ru.smak.menu;
 
-
+import ru.smak.data.Root;
+import ru.smak.data.fileChooserOpen;
+import ru.smak.data.fileChooserSave;
 import ru.smak.dynamic.MaxIterations;
 import ru.smak.movie.MovieWindow;
 
@@ -10,6 +12,7 @@ import ru.smak.gui.GraphicsPanel;
 import ru.smak.gui.MainWindow;
 import ru.smak.math.fractals.FractalFunctions;
 import ru.smak.math.fractals.*;
+import ru.smak.movie.MovieWindow;
 
 
 import javax.swing.*;
@@ -24,6 +27,7 @@ public class InstrumentPanel extends JToolBar {
     private JComboBox color;
     private JButton movie;
     private GraphicsPanel mainPanel;
+    private  MaxIterations maxIterations;
     private Fractal currentFractal = new MandelbrotX2();
     private Colorizer currentColorizer = new ColorFunctionDark();
     public InstrumentPanel(JToolBar tool, MainWindow mainWindow){
@@ -37,11 +41,12 @@ public class InstrumentPanel extends JToolBar {
         toolBar.addSeparator();
         movie = new JButton("Запись");
         movie.setFocusable(false);
-
         fractal = new JComboBox();
         var fractalFunctions = FractalFunctions.values();
-        for(int i =0;i <fractalFunctions.length;i++)
+        for(int i =0;i <fractalFunctions.length;i++) {
             fractal.addItem(fractalFunctions[i].toString());
+        }
+
 
         fractal.setFocusable(false);
         toolBar.add(fractal);
@@ -51,6 +56,7 @@ public class InstrumentPanel extends JToolBar {
         var colorizers = Colorizers.values();
         for(int i =0;i <colorizers.length;i++)
             color.addItem(colorizers[i].toString());
+
 
         color.setFocusable(false);
 
@@ -64,7 +70,12 @@ public class InstrumentPanel extends JToolBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //динамическое изменение числа итераций
-                MaxIterations maxIterations =  new MaxIterations(mainWindow);
+                maxIterations =  new MaxIterations(mainWindow);
+                fileChooserSave.MaxIterationsSave = maxIterations.getMaxIterationsSave();
+                if(maxIterations.getMaxIterationsSave())
+                {
+                    fileChooserSave.MandelbrotInt = maxIterations.getMaxIterationsInt();
+                }
                 mainPanel.repaint();
             }
         });
@@ -79,6 +90,7 @@ public class InstrumentPanel extends JToolBar {
                     case 1 -> currentColorizer = new ColorFunctionGreen();
                     case 2 -> currentColorizer = new ColorFunctionRed();
                 }
+                fileChooserSave.CurrentColorI = color.getSelectedIndex();
                 mainPanel.addPainter(new FractalPainter(plane, currentFractal, currentColorizer));
                 mainPanel.repaint();
             }
@@ -98,6 +110,7 @@ public class InstrumentPanel extends JToolBar {
                     case 4 -> currentFractal = new MandelbrotSin();
                     case 5 -> currentFractal = new MandelbrotCos();
                 }
+                fileChooserSave.MandelbrotXi = fractal.getSelectedIndex();
                 mainPanel.addPainter(new FractalPainter(plane, currentFractal, currentColorizer));
                 mainPanel.repaint();
             }
@@ -106,12 +119,31 @@ public class InstrumentPanel extends JToolBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //анимированное плавное перемещение по фракталу
-                var movieWnd = new MovieWindow();
+                var movieWnd = new MovieWindow(mainWindow);
                 movieWnd.setVisible(true);
             }
         });
     }
-
+    public void setCurrentColorizer (Colorizer OpenCurrentColorizer)
+    {
+        this.currentColorizer = OpenCurrentColorizer;
+    }
+    public void setCurrentFractal (Fractal OpenCurrentFractal)
+    {
+        this.currentFractal = OpenCurrentFractal;
+    }
+    public JComboBox getJComboBoxMandelbrot()
+   {
+        return  fractal;
+   }
+    public JComboBox getJComboBoxColorizer()
+    {
+        return  color;
+    }
     public Mandelbrot getCurrentFractal(){return (Mandelbrot) currentFractal;}
     public boolean getDynamicStepStatus(){return dynamicStep.isSelected();}
+    public JCheckBox getJCheckBoxMaxIterations()
+    {
+        return dynamicStep;
+    }
 }

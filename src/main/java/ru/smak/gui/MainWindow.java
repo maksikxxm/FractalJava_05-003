@@ -49,6 +49,7 @@ public class MainWindow extends JFrame {
 
     private Color test(float x) { return Color.GREEN;}
     Double xMin = -2.0, xMax = 1.0, yMin = -1.0, yMax = 1.0;
+    private double selectedXMin, selectedXMax, selectedYMin, selectedYMax;
 
     public MainWindow(){
         Data.frame = this;
@@ -58,8 +59,12 @@ public class MainWindow extends JFrame {
         mainPanel.setFocusable(true); // Флаг focusable указывает, что mainPanel может получить фокус
 
         Mandelbrot m = new MandelbrotX2();
+        selectedXMin = -2.;
+        selectedXMax = 1.;
+        selectedYMin = -1.;
+        selectedYMax = 1.;
 
-        plane = new Plane(xMin, xMax, yMin, yMax, 0, 0);
+        plane = new Plane(selectedXMin, selectedXMax, selectedYMin, selectedYMax, 0, 0);
         var colorFunc = new ColorFunctionDark();
         FractalPainter fp = new FractalPainter(plane, m, colorFunc);
 
@@ -82,26 +87,27 @@ public class MainWindow extends JFrame {
 
         //mainPanel.addPainter(fp);
 
+
         mainPanel.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                super.componentResized(e);
-                double newWidth = mainPanel.getWidth();
-                double newHeight = mainPanel.getHeight();
-                double widht = minSz.getWidth();
-                double height = minSz.getHeight();
-                double xResizeCoeff = newWidth / widht;
-                double yResizeCoeff = newHeight / height;
-                double minCoeff = Math.min(xResizeCoeff, yResizeCoeff);
-
-                    double xMinNew = -2 * xResizeCoeff / minCoeff ;
-                    double xMaxNew = 1 * xResizeCoeff / minCoeff ;
-                    double yMinNew = -1 * yResizeCoeff / minCoeff;
-                    double yMaxNew = 1 * yResizeCoeff / minCoeff;
-
-
+                double dx = selectedXMax - selectedXMin;
+                double dy = selectedYMax - selectedYMin;
+                double midX = (selectedXMax + selectedXMin) / 2;
+                double midY = (selectedYMax + selectedYMin) / 2;
+                double w = mainPanel.getWidth();
+                double h = mainPanel.getHeight();
+                if(dx / dy < w / h){
+                    plane.setYEdges(new Pair<>(selectedYMin, selectedYMax));
+                    double xMinNew = midX - dy * w / h / 2;
+                    double xMaxNew = midX + dy * w / h / 2;
                     plane.setXEdges(new Pair<>(xMinNew, xMaxNew));
-                plane.setYEdges(new Pair<>(yMinNew, yMaxNew));
+                }else{
+                    plane.setXEdges(new Pair<>(selectedXMin, selectedXMax));
+                    double yMinNew = midY - dx * h / w / 2;
+                    double yMaxNew = midY + dx * h / w / 2;
+                    plane.setYEdges(new Pair<>(yMinNew, yMaxNew));
+                }
                 plane.setWidth(mainPanel.getWidth());
                 plane.setHeight(mainPanel.getHeight());
                 mainPanel.repaint();

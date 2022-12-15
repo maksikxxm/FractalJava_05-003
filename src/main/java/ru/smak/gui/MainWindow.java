@@ -219,21 +219,7 @@ public class MainWindow extends JFrame {
         g.drawRect(-1000, -1000, 1, 1);
         g.setPaintMode();
     }
-    public Double getxMin() {
-        return xMin;
-    }
 
-    public Double getxMax() {
-        return xMax;
-    }
-
-    public Double getyMin() {
-        return yMin;
-    }
-
-    public Double getyMax() {
-        return yMax;
-    }
     public void setUndoRedoManager(UndoRedoManager undoRedoManagerOpen)
     {
         this.undoRedoManager = undoRedoManagerOpen;

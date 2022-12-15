@@ -145,6 +145,13 @@ public class MainMenu extends JFrame {
                 mainPanel.repaint();
             }
         });
+        //повтор операции
+        redo.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+            }
+        });
         return edit;
     }
 

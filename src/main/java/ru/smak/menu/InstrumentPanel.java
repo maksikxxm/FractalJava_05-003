@@ -27,6 +27,7 @@ public class InstrumentPanel extends JToolBar {
     private JComboBox color;
     private JButton movie;
     private GraphicsPanel mainPanel;
+    private  MaxIterations maxIterations;
     private Fractal currentFractal = new MandelbrotX2();
     private Colorizer currentColorizer = new ColorFunctionDark();
     public InstrumentPanel(JToolBar tool, MainWindow mainWindow){
@@ -69,8 +70,7 @@ public class InstrumentPanel extends JToolBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //динамическое изменение числа итераций
-                MaxIterations maxIterations =  new MaxIterations(mainWindow);
-                System.out.println(maxIterations+" rootData.MandelbrotSave.maxIterations");
+                maxIterations =  new MaxIterations(mainWindow);
                 fileChooserSave.MaxIterationsSave = maxIterations.getMaxIterationsSave();
                 if(maxIterations.getMaxIterationsSave())
                 {
@@ -124,7 +124,15 @@ public class InstrumentPanel extends JToolBar {
             }
         });
     }
-   public JComboBox getJComboBoxMandelbrot()
+    public void setCurrentColorizer (Colorizer OpenCurrentColorizer)
+    {
+        this.currentColorizer = OpenCurrentColorizer;
+    }
+    public void setCurrentFractal (Fractal OpenCurrentFractal)
+    {
+        this.currentFractal = OpenCurrentFractal;
+    }
+    public JComboBox getJComboBoxMandelbrot()
    {
         return  fractal;
    }

@@ -212,12 +212,14 @@ public class MainMenu extends JFrame {
         int height = Data.panel.getHeight() + 60;
         // создаем пустое изображение
         BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
         // из изображения вытаскиваем объект на котором можно рисовать
         Graphics2D g = bufferedImage.createGraphics();
         // задаем цвет
         g.setPaint ( Color.white );
         // заливаем изображение цветом
         g.fillRect ( 0, 0, bufferedImage.getWidth(), bufferedImage.getHeight() );
+
         // записываем изображение главной панели на изображение,
         // так как мы задали изображение больше в высоту(чем у главной панели)
         // снизу остается пространство для подписей

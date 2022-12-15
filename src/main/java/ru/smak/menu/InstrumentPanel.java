@@ -119,7 +119,7 @@ public class InstrumentPanel extends JToolBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //анимированное плавное перемещение по фракталу
-                var movieWnd = new MovieWindow();
+                var movieWnd = new MovieWindow(mainWindow);
                 movieWnd.setVisible(true);
             }
         });

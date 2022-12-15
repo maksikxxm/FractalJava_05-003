@@ -28,7 +28,7 @@ public class MainWindow extends JFrame {
     private int LastButtonPressed;
     private int LastButtonReleased;
     private UndoRedoManager undoRedoManager;    //  "управляющий" методами отмены и повторного выполнения действий
-
+    private Scaler scaler;
     public Plane getPlane() {
         return plane;
     }
@@ -65,6 +65,7 @@ public class MainWindow extends JFrame {
         selectedYMax = 1.;
 
         plane = new Plane(selectedXMin, selectedXMax, selectedYMin, selectedYMax, 0, 0);
+        scaler = new Scaler(plane);
         var colorFunc = new ColorFunctionDark();
         FractalPainter fp = new FractalPainter(plane, m, colorFunc);
 
@@ -91,25 +92,9 @@ public class MainWindow extends JFrame {
         mainPanel.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                double dx = selectedXMax - selectedXMin;
-                double dy = selectedYMax - selectedYMin;
-                double midX = (selectedXMax + selectedXMin) / 2;
-                double midY = (selectedYMax + selectedYMin) / 2;
-                double w = mainPanel.getWidth();
-                double h = mainPanel.getHeight();
-                if(dx / dy < w / h){
-                    plane.setYEdges(new Pair<>(selectedYMin, selectedYMax));
-                    double xMinNew = midX - dy * w / h / 2;
-                    double xMaxNew = midX + dy * w / h / 2;
-                    plane.setXEdges(new Pair<>(xMinNew, xMaxNew));
-                }else{
-                    plane.setXEdges(new Pair<>(selectedXMin, selectedXMax));
-                    double yMinNew = midY - dx * h / w / 2;
-                    double yMaxNew = midY + dx * h / w / 2;
-                    plane.setYEdges(new Pair<>(yMinNew, yMaxNew));
-                }
                 plane.setWidth(mainPanel.getWidth());
                 plane.setHeight(mainPanel.getHeight());
+                scaler.scale(selectedXMin, selectedXMax, selectedYMin, selectedYMax);
                 mainPanel.repaint();
             }
         });

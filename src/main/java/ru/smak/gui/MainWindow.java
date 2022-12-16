@@ -156,6 +156,10 @@ public class MainWindow extends JFrame {
                     mainPanel.repaint();
                 }
                 if(LastButtonPressed == 3 && lastDragPoint != null){
+                    selectedXMin = plane.getXMin();
+                    selectedXMax = plane.getXMax();
+                    selectedYMin = plane.getYMin();
+                    selectedYMax = plane.getYMax();
                     undoRedoManager.insertState();
                     lastDragPoint = firstDragPoint = null;
                 }

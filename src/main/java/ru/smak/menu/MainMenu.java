@@ -60,9 +60,6 @@ public class MainMenu extends JFrame {
         fileChooserSave fileChooserSave = new fileChooserSave(mainPanel);// Никитино
         fileChooserOpen fileChooserOpen = new fileChooserOpen();
 
-        //save.setIcon(new ImageIcon(getClass().getResource("/icons/save.png")));
-        save.setIcon(new ImageIcon("icons/save.png"));
-        saveAs.setIcon(new ImageIcon("icons/saveAs.png"));
 
         save.addActionListener(new ActionListener() {
             @Override
@@ -190,16 +187,6 @@ public class MainMenu extends JFrame {
         this.window= window;
     }
 
-
-    protected static ImageIcon createIcon(String path) {
-        URL imgURL = MainMenu.class.getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
-        } else {
-            System.err.println("File not found " + path);
-            return null;
-        }
-    }
     private static BufferedImage getBufferedImage() {
 
         // размеры изображения:

@@ -1,28 +1,30 @@
 package ru.smak.gui;
 
 import kotlin.Pair;
-import ru.smak.graphics.Plane;
 import java.util.Stack;
 
 public class UndoRedoManager {
-    private Plane plane;
+    private Scaler scaler;
     private int undoRedoPointer = -1;
     private Stack<Pair<Double, Double>> xEdgesStack;
     private Stack<Pair<Double, Double>> yEdgesStack;
 
-    public UndoRedoManager(Plane plane) {
-        this.plane = plane;
+    public UndoRedoManager(Scaler scaler) {
+        this.scaler = scaler;
         xEdgesStack = new Stack<>();
         yEdgesStack = new Stack<>();
         insertState();
-
     }
 
     public void insertState() {
         deleteStatesAfterPointer(undoRedoPointer);
-        xEdgesStack.push(plane.getXEdges());
-        yEdgesStack.push(plane.getYEdges());
+//        if(undoRedoPointer == 99){    // ограничение сохранения до 100 операций
+//            xEdgesStack.remove(0);
+//            yEdgesStack.remove(0);
+//        }else
         undoRedoPointer++;
+        xEdgesStack.push(new Pair<>(scaler.getXMin(), scaler.getXMax()));
+        yEdgesStack.push(new Pair<>(scaler.getYMin(), scaler.getYMax()));
     }
 
     private void deleteStatesAfterPointer(int undoRedoPointer) {
@@ -38,15 +40,15 @@ public class UndoRedoManager {
         if(undoRedoPointer < 1)
             return;
         undoRedoPointer--;
-        plane.setXEdges(xEdgesStack.get(undoRedoPointer));
-        plane.setYEdges(yEdgesStack.get(undoRedoPointer));
+        scaler.setScaleBorders(xEdgesStack.get(undoRedoPointer).getFirst(), xEdgesStack.get(undoRedoPointer).getSecond(),
+                yEdgesStack.get(undoRedoPointer).getFirst(), yEdgesStack.get(undoRedoPointer).getSecond());
     }
 
     public void redo() {    //  Ctrl + Y
         if(undoRedoPointer == xEdgesStack.size() - 1)
             return;
         undoRedoPointer++;
-        plane.setXEdges(xEdgesStack.get(undoRedoPointer));
-        plane.setYEdges(yEdgesStack.get(undoRedoPointer));
+        scaler.setScaleBorders(xEdgesStack.get(undoRedoPointer).getFirst(), xEdgesStack.get(undoRedoPointer).getSecond(),
+                yEdgesStack.get(undoRedoPointer).getFirst(), yEdgesStack.get(undoRedoPointer).getSecond());
     }
 }

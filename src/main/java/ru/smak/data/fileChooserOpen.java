@@ -3,6 +3,7 @@ import ru.smak.dynamic.MaxIterations;
 import ru.smak.graphics.*;
 import ru.smak.gui.GraphicsPanel;
 import ru.smak.gui.MainWindow;
+import ru.smak.gui.Scaler;
 import ru.smak.gui.UndoRedoManager;
 import ru.smak.math.fractals.*;
 import ru.smak.menu.InstrumentPanel;
@@ -19,6 +20,7 @@ public class fileChooserOpen
     private Fractal currentFractal = new MandelbrotX2();
     private  String path;
     private UndoRedoManager undoRedoManager;
+    private Scaler scaler;
     private MaxIterations maxIterations;
     private  InstrumentPanel instrumentPanel;
     private MainWindow window;
@@ -77,8 +79,10 @@ public class fileChooserOpen
             case 4 -> currentFractal = new MandelbrotSin();
             case 5 -> currentFractal = new MandelbrotCos();
         }
-        undoRedoManager = new UndoRedoManager(planeOpen);
+        scaler = new Scaler(planeOpen);
+        undoRedoManager = new UndoRedoManager(scaler);
         window.setUndoRedoManager(undoRedoManager);
+        window.setScaler(scaler);
         maxIterations = new MaxIterations(window);
         instrumentPanel.getJComboBoxMandelbrot().setSelectedIndex(rootData.MandelbrotXi);
         instrumentPanel.getJComboBoxColorizer().setSelectedIndex(rootData.CurrentColorI);

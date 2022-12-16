@@ -12,9 +12,6 @@ import ru.smak.data.fileChooserSave;
 import ru.smak.graphics.ColorFunctionDark;
 import ru.smak.graphics.Plane;
 import ru.smak.gui.Data;
-import ru.smak.gui.GraphicsPanel;
-import ru.smak.gui.MainWindow;
-import ru.smak.gui.UndoRedoManager;
 import ru.smak.math.fractals.Mandelbrot;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -24,7 +21,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -33,10 +29,10 @@ import java.net.URL;
 
 public class MainMenu extends JFrame {
     private JMenuBar menuBar;
-    private GraphicsPanel mainPanel;
+    private static GraphicsPanel mainPanel;
 
     private UndoRedoManager undoRedoManager;
-    private Plane PlaneSave;
+    private static Plane PlaneSave;
     private MainWindow window;
     private Mandelbrot MandelbrotSave;
     private ColorFunctionDark ColorSave;
@@ -63,6 +59,7 @@ public class MainMenu extends JFrame {
 
         fileChooserSave fileChooserSave = new fileChooserSave(mainPanel);// Никитино
         fileChooserOpen fileChooserOpen = new fileChooserOpen();
+
 
         save.addActionListener(new ActionListener() {
             @Override
@@ -121,6 +118,7 @@ public class MainMenu extends JFrame {
         JMenuItem redo = new JMenuItem("Вернуть (Ctrl + Y)");
         edit.add(undo);
         edit.add(redo);
+
         undo.addMouseListener(new MouseAdapter() {      //  отмена операции
             @Override
             public void mousePressed(MouseEvent e) {
@@ -190,10 +188,11 @@ public class MainMenu extends JFrame {
     }
 
     private static BufferedImage getBufferedImage() {
+
         // размеры изображения:
         // как главная панель(оттуда и беру размеры) + область снизу для записи координат
-        int width = Data.panel.getWidth();
-        int height = Data.panel.getHeight() + 60;
+        int width = mainPanel.getWidth();
+        int height = mainPanel.getHeight() + 60;
         // создаем пустое изображение
         BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
@@ -214,14 +213,14 @@ public class MainMenu extends JFrame {
         // задаем шрифт
         g.setFont(new Font("Serif", Font.PLAIN, 20));
         // создаем строку для х
-        String xStr = "X ∈ [" + Data.frame.getxMin() + "," + Data.frame.getxMax() + "]";
+        String xStr = "X ∈ [" + PlaneSave.getXMin() + "  ,  " + PlaneSave.getXMax() + "]";
         // указываем координаты
         int x = 20;
         int y = height - 40;
         // рисуем строку на изображении
         g.drawString(xStr, x, y);
         // создаем строку для y
-        String yStr = "Y ∈ [" + Data.frame.getyMin() + "," + Data.frame.getyMax() + "]";
+        String yStr = "Y ∈ [" + PlaneSave.getYMin() + "  ,  " + PlaneSave.getYMax() + "]";
         // координата х не меняется поэтому указываем только координату y
         y = height - 20;
         // рисуем строку на изображении

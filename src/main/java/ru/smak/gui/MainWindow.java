@@ -45,12 +45,6 @@ public class MainWindow extends JFrame {
     public UndoRedoManager getUndoRedoManager(){
         return undoRedoManager;
     }
-
-
-    private Color test(float x) { return Color.GREEN;}
-    Double xMin = -2.0, xMax = 1.0, yMin = -1.0, yMax = 1.0;
-
-
     public MainWindow(){
         Data.frame = this;
         Data.panel = mainPanel;
@@ -65,7 +59,7 @@ public class MainWindow extends JFrame {
         var colorFunc = new ColorFunctionDark();
         FractalPainter fp = new FractalPainter(plane, m, colorFunc);
 
-        undoRedoManager = new UndoRedoManager(plane);
+        undoRedoManager = new UndoRedoManager(scaler);
 
         mainPanel.setBackground(Color.WHITE);
 
@@ -81,9 +75,6 @@ public class MainWindow extends JFrame {
         setJMenuBar(menuBar);
         JToolBar toolBar = new JToolBar();
         tool = new InstrumentPanel(toolBar, this);
-
-        //mainPanel.addPainter(fp);
-
 
         mainPanel.addComponentListener(new ComponentAdapter() {
             @Override
@@ -184,12 +175,7 @@ public class MainWindow extends JFrame {
                 }
                 if(LastButtonPressed == 2)
                 {
-
                     lastScalePoint = e.getPoint();
-                }
-                if(LastButtonPressed == 2)
-                {
-
                 }
             }
         });

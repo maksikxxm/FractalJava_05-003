@@ -145,12 +145,11 @@ public class MainWindow extends JFrame {
                     g.setXORMode(Color.WHITE);
                     g.drawRect(Math.min(firstScalePoint.x, lastScalePoint.x), Math.min(firstScalePoint.y, lastScalePoint.y), Math.abs(lastScalePoint.x - firstScalePoint.x), Math.abs(lastScalePoint.y - firstScalePoint.y));
                     g.setPaintMode();
-                    var xMin = Converter.INSTANCE.xScrToCrt(Math.min(firstScalePoint.x, lastScalePoint.x), plane);
-                    var xMax = Converter.INSTANCE.xScrToCrt(Math.max(firstScalePoint.x, lastScalePoint.x), plane);
-                    var yMin = Converter.INSTANCE.yScrToCrt(Math.min(firstScalePoint.y, lastScalePoint.y), plane);
-                    var yMax = Converter.INSTANCE.yScrToCrt(Math.max(firstScalePoint.y, lastScalePoint.y), plane);
-                    plane.setXEdges(new Pair<>(xMin, xMax));
-                    plane.setYEdges(new Pair<>(yMin, yMax));
+                    selectedXMin = Converter.INSTANCE.xScrToCrt(Math.min(firstScalePoint.x, lastScalePoint.x), plane);
+                    selectedXMax = Converter.INSTANCE.xScrToCrt(Math.max(firstScalePoint.x, lastScalePoint.x), plane);
+                    selectedYMax = Converter.INSTANCE.yScrToCrt(Math.min(firstScalePoint.y, lastScalePoint.y), plane);
+                    selectedYMin = Converter.INSTANCE.yScrToCrt(Math.max(firstScalePoint.y, lastScalePoint.y), plane);
+                    scaler.scale(selectedXMin, selectedXMax, selectedYMin, selectedYMax);
                     undoRedoManager.insertState();
                     lastScalePoint = firstScalePoint = null;
                     MaxIterations maxIterations = new MaxIterations(MainWindow.this);

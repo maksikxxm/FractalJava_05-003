@@ -136,7 +136,7 @@ public class MainWindow extends JFrame {
                     double selectedXMax = Converter.INSTANCE.xScrToCrt(Math.max(firstScalePoint.x, lastScalePoint.x), plane);
                     double selectedYMax = Converter.INSTANCE.yScrToCrt(Math.min(firstScalePoint.y, lastScalePoint.y), plane);
                     double selectedYMin = Converter.INSTANCE.yScrToCrt(Math.max(firstScalePoint.y, lastScalePoint.y), plane);
-                    scaler.setScaleBorders(selectedXMin, selectedXMax, selectedYMax, selectedYMin);
+                    scaler.setScaleBorders(selectedXMin, selectedXMax, selectedYMin, selectedYMax);
                     undoRedoManager.insertState();
                     lastScalePoint = firstScalePoint = null;
                     MaxIterations maxIterations = new MaxIterations(MainWindow.this);

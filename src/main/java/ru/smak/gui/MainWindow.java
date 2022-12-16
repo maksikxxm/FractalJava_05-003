@@ -49,7 +49,7 @@ public class MainWindow extends JFrame {
 
     private Color test(float x) { return Color.GREEN;}
     Double xMin = -2.0, xMax = 1.0, yMin = -1.0, yMax = 1.0;
-    private double selectedXMin, selectedXMax, selectedYMin, selectedYMax;
+
 
     public MainWindow(){
         Data.frame = this;
@@ -59,12 +59,8 @@ public class MainWindow extends JFrame {
         mainPanel.setFocusable(true); // Флаг focusable указывает, что mainPanel может получить фокус
 
         Mandelbrot m = new MandelbrotX2();
-        selectedXMin = -2.;
-        selectedXMax = 1.;
-        selectedYMin = -1.;
-        selectedYMax = 1.;
 
-        plane = new Plane(selectedXMin, selectedXMax, selectedYMin, selectedYMax, 0, 0);
+        plane = new Plane(-2., 1., -1., 1., 0, 0);
         scaler = new Scaler(plane);
         var colorFunc = new ColorFunctionDark();
         FractalPainter fp = new FractalPainter(plane, m, colorFunc);
@@ -94,7 +90,7 @@ public class MainWindow extends JFrame {
             public void componentResized(ComponentEvent e) {
                 plane.setWidth(mainPanel.getWidth());
                 plane.setHeight(mainPanel.getHeight());
-                scaler.scale(selectedXMin, selectedXMax, selectedYMin, selectedYMax);
+                scaler.scale();
                 mainPanel.repaint();
             }
         });
@@ -145,21 +141,18 @@ public class MainWindow extends JFrame {
                     g.setXORMode(Color.WHITE);
                     g.drawRect(Math.min(firstScalePoint.x, lastScalePoint.x), Math.min(firstScalePoint.y, lastScalePoint.y), Math.abs(lastScalePoint.x - firstScalePoint.x), Math.abs(lastScalePoint.y - firstScalePoint.y));
                     g.setPaintMode();
-                    selectedXMin = Converter.INSTANCE.xScrToCrt(Math.min(firstScalePoint.x, lastScalePoint.x), plane);
-                    selectedXMax = Converter.INSTANCE.xScrToCrt(Math.max(firstScalePoint.x, lastScalePoint.x), plane);
-                    selectedYMax = Converter.INSTANCE.yScrToCrt(Math.min(firstScalePoint.y, lastScalePoint.y), plane);
-                    selectedYMin = Converter.INSTANCE.yScrToCrt(Math.max(firstScalePoint.y, lastScalePoint.y), plane);
-                    scaler.scale(selectedXMin, selectedXMax, selectedYMin, selectedYMax);
+                    double selectedXMin = Converter.INSTANCE.xScrToCrt(Math.min(firstScalePoint.x, lastScalePoint.x), plane);
+                    double selectedXMax = Converter.INSTANCE.xScrToCrt(Math.max(firstScalePoint.x, lastScalePoint.x), plane);
+                    double selectedYMax = Converter.INSTANCE.yScrToCrt(Math.min(firstScalePoint.y, lastScalePoint.y), plane);
+                    double selectedYMin = Converter.INSTANCE.yScrToCrt(Math.max(firstScalePoint.y, lastScalePoint.y), plane);
+                    scaler.setScaleBorders(selectedXMin, selectedXMax, selectedYMax, selectedYMin);
                     undoRedoManager.insertState();
                     lastScalePoint = firstScalePoint = null;
                     MaxIterations maxIterations = new MaxIterations(MainWindow.this);
                     mainPanel.repaint();
                 }
                 if(LastButtonPressed == 3 && lastDragPoint != null){
-                    selectedXMin = plane.getXMin();
-                    selectedXMax = plane.getXMax();
-                    selectedYMin = plane.getYMin();
-                    selectedYMax = plane.getYMax();
+                    scaler.setScaleBorders(plane.getXMin(), plane.getXMax(), plane.getYMin(), plane.getYMax());
                     undoRedoManager.insertState();
                     lastDragPoint = firstDragPoint = null;
                 }

@@ -5,11 +5,38 @@ import ru.smak.graphics.Plane;
 
 public class Scaler {
     private Plane plane;
+    private double selectedXMin;
+    private double selectedXMax;
+    private double selectedYMin;
+    private double selectedYMax;
     public Scaler(Plane plane){
         this.plane = plane;
+        selectedXMin = plane.getXMin();
+        selectedXMax = plane.getXMax();
+        selectedYMin = plane.getYMin();
+        selectedYMax = plane.getYMax();
+    }
+    public void setScaleBorders(double selectedXMin, double selectedXMax, double selectedYMin, double selectedYMax){
+        this.selectedXMin = selectedXMin;
+        this.selectedXMax = selectedXMax;
+        this.selectedYMin = selectedYMin;
+        this.selectedYMax = selectedYMax;
+        scale();
     }
 
-    public void scale(double selectedXMin, double selectedXMax, double selectedYMin, double selectedYMax){
+    public double getXMin(){
+        return selectedXMin;
+    }
+    public double getXMax(){
+        return selectedXMax;
+    }
+    public double getYMin(){
+        return selectedYMin;
+    }
+    public double getYMax(){
+        return selectedYMax;
+    }
+    public void scale(){
         double dx = selectedXMax - selectedXMin;
         double dy = selectedYMax - selectedYMin;
         double midX = (selectedXMax + selectedXMin) / 2;

@@ -102,11 +102,11 @@ public class MainMenu extends JFrame {
         open.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //fileChooserOpen.InstrumentPanel();
                 fileChooserOpen.WindowOpen(window);
                 fileChooserOpen.Panel(mainPanel);
                 fileChooserOpen.OpenFile();
-
+                PlaneSave = fileChooserOpen.getPlane();
+                MandelbrotSave = fileChooserOpen.getMandelbrot();
             }
         });
         return file;

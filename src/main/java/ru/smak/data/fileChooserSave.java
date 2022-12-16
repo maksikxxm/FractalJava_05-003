@@ -67,5 +67,6 @@ public class fileChooserSave
         this.PlaneSave = PlaneSave;
         this.MandelbrotSave = MandelbrotSave;
         this.ColorSave = ColorSave;
+        System.out.println(PlaneSave.getXMax()+"planeSet");
     }
 }

@@ -22,7 +22,8 @@ public class fileChooserOpen
     private UndoRedoManager undoRedoManager;
     private Scaler scaler;
     private MaxIterations maxIterations;
-    private  InstrumentPanel instrumentPanel;
+    private Plane plane;
+    private Mandelbrot Mandelbrot;
     private MainWindow window;
     JToolBar toolBar = new JToolBar();
     public fileChooserOpen()
@@ -46,7 +47,6 @@ public class fileChooserOpen
             dataGet.pathDontName = path;
             dataGet parser = new dataGet();
             Root Root = parser.parser();
-           // System.out.println("Data= "+ Root.toString());
             OpenPainter(Root);
         }
         // Если файл выбран, то представим его в сообщении
@@ -90,6 +90,8 @@ public class fileChooserOpen
         instrumentPanel.setCurrentFractal(currentFractal);
         instrumentPanel.setCurrentColorizer(currentColorizer);
         window.setPlane(planeOpen);
+        setPlane(planeOpen);
+        setMandelbrot((Mandelbrot) currentFractal);
         graphicsPanel.addPainter( new FractalPainter(planeOpen,currentFractal, currentColorizer));
         graphicsPanel.repaint();
         window.repaint();
@@ -103,5 +105,20 @@ public class fileChooserOpen
     {
         this.window = window;
     }
-
+    public void setPlane(Plane plane)
+    {
+        this.plane = plane;
+    }
+    public Plane getPlane()
+    {
+        return plane;
+    }
+    public void setMandelbrot(Mandelbrot Mandelbrot)
+    {
+        this.Mandelbrot = Mandelbrot;
+    }
+    public Mandelbrot getMandelbrot()
+    {
+        return Mandelbrot;
+    }
 }

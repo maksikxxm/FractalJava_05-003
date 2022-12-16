@@ -9,7 +9,7 @@ public class dataPut {
     private String pathDontName;
 
     public void put(Plane PlaneSave, Mandelbrot MandelbrotSave, ColorFunctionDark ColorSave, int MandelbrotXi, int ColorXi,boolean MaxIterations ) {
-        String path = pathDontName + ".json";
+        String path = pathDontName;
         dataInformation data = new dataInformation(PlaneSave, MandelbrotSave, ColorSave,MandelbrotXi,ColorXi,MaxIterations);
         try (PrintWriter out = new PrintWriter(new FileWriter(path))) {
             Gson gson = new Gson();
@@ -21,7 +21,7 @@ public class dataPut {
     }
     public void getPath(String path) {
         this.pathDontName = path;
-        System.out.println(path);
+        System.out.println(pathDontName);
     }
 }
 

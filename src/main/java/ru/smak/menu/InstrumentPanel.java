@@ -16,6 +16,7 @@ import ru.smak.movie.MovieWindow;
 
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -86,7 +87,14 @@ public class InstrumentPanel extends JToolBar {
                 mainPanel.removePaintersByType("class ru.smak.graphics.FractalPainter");
                 Plane plane = mainWindow.getPlane();
                 switch (color.getSelectedIndex()) {
-                    case 0 -> currentColorizer = new ColorFunctionDark();
+                    case 0 -> currentColorizer = //new ColorFunctionDark();
+                        (value)->{
+                        if (value == 1.0) return new Color((float)0.08,(float)0.10,(float)0.09);
+                        var r = (float)(Math.abs(Math.sin(value * 3)));
+                        var g = (float)(Math.abs(Math.sin(value * 7)));
+                        var b = (float)(Math.abs(Math.sin(value * 9)));
+                        return new Color(r, g, b);
+                    };
                     case 1 -> currentColorizer = new ColorFunctionGreen();
                     case 2 -> currentColorizer = new ColorFunctionRed();
                 }

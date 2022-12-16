@@ -31,6 +31,11 @@ public class InstrumentPanel extends JToolBar {
     private  MaxIterations maxIterations;
     private Fractal currentFractal = new MandelbrotX2();
     private Colorizer currentColorizer = new ColorFunctionDark();
+
+    public Colorizer getCurrentColorizer() {
+        return currentColorizer;
+    }
+
     public InstrumentPanel(JToolBar tool, MainWindow mainWindow){
         this.mainPanel = mainWindow.getMainPanel();
         toolBar = tool;

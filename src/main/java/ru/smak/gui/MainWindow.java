@@ -1,13 +1,16 @@
 package ru.smak.gui;
 
 import kotlin.Pair;
+import ru.smak.JuliaSet.JuliaWindow;
 import ru.smak.dynamic.MaxIterations;
 import ru.smak.graphics.*;
+import ru.smak.math.Complex;
 import ru.smak.math.fractals.Mandelbrot;
 import ru.smak.math.fractals.MandelbrotX2;
 import ru.smak.math.fractals.Mandelbrot;
 import ru.smak.menu.InstrumentPanel;
 import ru.smak.menu.MainMenu;
+import ru.smak.movie.MovieWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -127,6 +130,13 @@ public class MainWindow extends JFrame {
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
                 LastButtonReleased = e.getButton();
+                if(LastButtonPressed == 1 && lastScalePoint == null){
+                    double re = Converter.INSTANCE.xScrToCrt(firstScalePoint.x ,plane);
+                    double im = Converter.INSTANCE.yScrToCrt(firstScalePoint.y, plane);
+                    var juliaWnd = new JuliaWindow(new Complex(re, im), MainWindow.this);
+                    juliaWnd.setVisible(true);
+                    firstScalePoint = null;
+                }
                 if(LastButtonReleased == 1 && lastScalePoint != null) {
                     var g = mainPanel.getGraphics();
                     g.setXORMode(Color.WHITE);

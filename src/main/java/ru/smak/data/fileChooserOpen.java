@@ -82,6 +82,7 @@ public class fileChooserOpen
         scaler = new Scaler(planeOpen);
         undoRedoManager = new UndoRedoManager(scaler);
         window.setUndoRedoManager(undoRedoManager);
+        window.setScaler(scaler);
         maxIterations = new MaxIterations(window);
         instrumentPanel.getJComboBoxMandelbrot().setSelectedIndex(rootData.MandelbrotXi);
         instrumentPanel.getJComboBoxColorizer().setSelectedIndex(rootData.CurrentColorI);

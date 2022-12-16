@@ -8,6 +8,9 @@ import ru.smak.math.fractals.Mandelbrot;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
+import java.util.ArrayList;
+
+import static javax.swing.JFileChooser.SAVE_DIALOG;
 
 public class fileChooserSave
 {
@@ -16,6 +19,7 @@ public class fileChooserSave
     public static int CurrentColorI;
     public  static  boolean MaxIterationsSave;
     private Plane PlaneSave;
+    ArrayList<String> filenames = new ArrayList<String>();
     private Mandelbrot MandelbrotSave;
     private ColorFunctionDark ColorSave;
     private final JFileChooser FileChooser = new JFileChooser();
@@ -38,8 +42,10 @@ public class fileChooserSave
 
         int result = FileChooser.showSaveDialog(graphicsPanel);
         File fileSave = FileChooser.getSelectedFile();
+
         if (result == JFileChooser.APPROVE_OPTION) {
             String path = fileSave.getPath();
+
             dataPut.getPath(path);
             if (MandelbrotInt == 0) {
                 dataPut.put(PlaneSave, MandelbrotSave, ColorSave, MandelbrotXi, CurrentColorI, MaxIterationsSave); // Никитино
@@ -48,6 +54,7 @@ public class fileChooserSave
                 dataPut.put(PlaneSave, MandelbrotSave, ColorSave, MandelbrotXi, CurrentColorI, MaxIterationsSave);
             }
         }
+
         // Если файл выбран, то представим его в сообщении
         if (result == JFileChooser.APPROVE_OPTION )
             JOptionPane.showMessageDialog(graphicsPanel,

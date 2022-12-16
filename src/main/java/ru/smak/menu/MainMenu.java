@@ -54,19 +54,15 @@ public class MainMenu extends JFrame {
 
     public JMenu createFileMenu() {
         JMenu file = new JMenu("Файл");
-        JMenuItem save = new JMenuItem("Сохранить");//сохранить как собственный формат файла
-        JMenuItem saveAs = new JMenuItem("Сохранить как");//сохранить как jpg
-        JMenuItem open = new JMenuItem("Открыть");//открыть как собственный формат файла (загрузить из файла)
+        JMenuItem save = new JMenuItem("Сохранить как JSON...");//сохранить как собственный формат файла
+        JMenuItem saveAs = new JMenuItem("Сохранить как картинку...");//сохранить как jpg
+        JMenuItem open = new JMenuItem("Открыть...");//открыть как собственный формат файла (загрузить из файла)
         file.add(save);
         file.add(saveAs);
         file.add(open);
 
         fileChooserSave fileChooserSave = new fileChooserSave(mainPanel);// Никитино
         fileChooserOpen fileChooserOpen = new fileChooserOpen();
-
-        //save.setIcon(new ImageIcon(getClass().getResource("/icons/save.png")));
-        save.setIcon(new ImageIcon("icons/save.png"));
-        saveAs.setIcon(new ImageIcon("icons/saveAs.png"));
 
         save.addActionListener(new ActionListener() {
             @Override
@@ -125,8 +121,6 @@ public class MainMenu extends JFrame {
         JMenuItem redo = new JMenuItem("Вернуть (Ctrl + Y)");
         edit.add(undo);
         edit.add(redo);
-        edit.setIcon(createIcon("icons/edit.png"));
-        undo.setIcon(createIcon("icons/cancel.png"));
         undo.addMouseListener(new MouseAdapter() {      //  отмена операции
             @Override
             public void mousePressed(MouseEvent e) {
@@ -157,7 +151,6 @@ public class MainMenu extends JFrame {
 
     public JMenu createHelpMenu() {
         JMenu help = new JMenu("О программе");
-        help.setIcon(createIcon("icons/about.png"));
         help.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -196,16 +189,6 @@ public class MainMenu extends JFrame {
         this.window= window;
     }
 
-
-    protected static ImageIcon createIcon(String path) {
-        URL imgURL = MainMenu.class.getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
-        } else {
-            System.err.println("File not found " + path);
-            return null;
-        }
-    }
     private static BufferedImage getBufferedImage() {
         // размеры изображения:
         // как главная панель(оттуда и беру размеры) + область снизу для записи координат

@@ -50,9 +50,9 @@ public class MainMenu extends JFrame {
 
     public JMenu createFileMenu() {
         JMenu file = new JMenu("Файл");
-        JMenuItem save = new JMenuItem("Сохранить");//сохранить как собственный формат файла
-        JMenuItem saveAs = new JMenuItem("Сохранить как");//сохранить как jpg
-        JMenuItem open = new JMenuItem("Открыть");//открыть как собственный формат файла (загрузить из файла)
+        JMenuItem save = new JMenuItem("Сохранить как JSON...");//сохранить как собственный формат файла
+        JMenuItem saveAs = new JMenuItem("Сохранить как картинку...");//сохранить как jpg
+        JMenuItem open = new JMenuItem("Открыть...");//открыть как собственный формат файла (загрузить из файла)
         file.add(save);
         file.add(saveAs);
         file.add(open);

@@ -39,12 +39,11 @@ public class fileChooserSave
     public void SaveFile()
     {
         int result = FileChooser.showSaveDialog(graphicsPanel);
-        File fileSave = FileChooser.getSelectedFile();
+
         if (result == JFileChooser.APPROVE_OPTION) {
-            String path = fileSave.getPath();
             if (fileExists(result))
             {
-                dataPut.getPath(path);
+
                 if (MandelbrotInt == 0) {
                     dataPut.put(PlaneSave, MandelbrotSave, ColorSave, MandelbrotXi, CurrentColorI, MaxIterationsSave); // Никитино
                 } else {
@@ -65,7 +64,16 @@ public class fileChooserSave
         File[] filesInDirectory = FileChooser.getCurrentDirectory().listFiles();
         assert filesInDirectory != null;
         String obj = FileChooser.getSelectedFile().getName();
-        if (!obj.endsWith(".json")) obj += ".json";
+        File fileSave = FileChooser.getSelectedFile();
+        String path = fileSave.getPath();
+        if (!path.endsWith(".json")) {
+            path += ".json";
+            dataPut.getPath(path);
+        }
+        dataPut.getPath(path);
+        if (!obj.endsWith(".json")) {
+            obj += ".json";
+        }
         for (File file : filesInDirectory ) {
             if(file.getName().equals(obj))
             {
@@ -79,7 +87,7 @@ public class fileChooserSave
         }
         // Если файл выбран, то представим его в сообщении
         JOptionPane.showMessageDialog(graphicsPanel,
-                "Файл (" + FileChooser.getSelectedFile().getName() +".json"+
+                "Файл (" + obj+
                         " ) сохранен");
         return true;
 

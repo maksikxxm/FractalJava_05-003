@@ -15,6 +15,7 @@ import ru.smak.gui.Data;
 import ru.smak.math.fractals.Mandelbrot;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -87,6 +88,9 @@ public class MainMenu extends JFrame {
                     if(retVal==JFileChooser.APPROVE_OPTION) {
                         // получаем данные выбранного файла
                         File f = jfc.getSelectedFile();
+                        if(!f.getAbsolutePath().endsWith(".jpg")) {
+                            f = new File(f.getAbsolutePath() + ".jpg");
+                        }
                         String test = f.getAbsolutePath();
                         // сохраняем изображение в файл
                         var res = ImageIO.write(bufferedImage, "jpg", new File(test));

@@ -19,7 +19,7 @@ public class MainWindow extends JFrame {
     private InstrumentPanel tool;
     private static final int GROW = GroupLayout.DEFAULT_SIZE;
     private static final int SHRINK = GroupLayout.PREFERRED_SIZE;
-    private final Dimension minSz = new Dimension(600, 500);
+    private final Dimension minSz = new Dimension(622, 504);
 
     private Point firstScalePoint = null;
     private Point lastScalePoint = null;
@@ -28,7 +28,7 @@ public class MainWindow extends JFrame {
     private int LastButtonPressed;
     private int LastButtonReleased;
     private UndoRedoManager undoRedoManager;    //  "управляющий" методами отмены и повторного выполнения действий
-
+    private Scaler scaler;
     public Plane getPlane() {
         return plane;
     }
@@ -50,6 +50,7 @@ public class MainWindow extends JFrame {
     private Color test(float x) { return Color.GREEN;}
     Double xMin = -2.0, xMax = 1.0, yMin = -1.0, yMax = 1.0;
 
+
     public MainWindow(){
         Data.frame = this;
         Data.panel = mainPanel;
@@ -59,7 +60,8 @@ public class MainWindow extends JFrame {
 
         Mandelbrot m = new MandelbrotX2();
 
-        plane = new Plane(xMin, xMax, yMin, yMax, 0, 0);
+        plane = new Plane(-2., 1., -1., 1., 0, 0);
+        scaler = new Scaler(plane);
         var colorFunc = new ColorFunctionDark();
         FractalPainter fp = new FractalPainter(plane, m, colorFunc);
 
@@ -82,12 +84,13 @@ public class MainWindow extends JFrame {
 
         //mainPanel.addPainter(fp);
 
+
         mainPanel.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                super.componentResized(e);
                 plane.setWidth(mainPanel.getWidth());
                 plane.setHeight(mainPanel.getHeight());
+                scaler.scale();
                 mainPanel.repaint();
             }
         });
@@ -138,18 +141,18 @@ public class MainWindow extends JFrame {
                     g.setXORMode(Color.WHITE);
                     g.drawRect(Math.min(firstScalePoint.x, lastScalePoint.x), Math.min(firstScalePoint.y, lastScalePoint.y), Math.abs(lastScalePoint.x - firstScalePoint.x), Math.abs(lastScalePoint.y - firstScalePoint.y));
                     g.setPaintMode();
-                    var xMin = Converter.INSTANCE.xScrToCrt(Math.min(firstScalePoint.x, lastScalePoint.x), plane);
-                    var xMax = Converter.INSTANCE.xScrToCrt(Math.max(firstScalePoint.x, lastScalePoint.x), plane);
-                    var yMin = Converter.INSTANCE.yScrToCrt(Math.min(firstScalePoint.y, lastScalePoint.y), plane);
-                    var yMax = Converter.INSTANCE.yScrToCrt(Math.max(firstScalePoint.y, lastScalePoint.y), plane);
-                    plane.setXEdges(new Pair<>(xMin, xMax));
-                    plane.setYEdges(new Pair<>(yMin, yMax));
+                    double selectedXMin = Converter.INSTANCE.xScrToCrt(Math.min(firstScalePoint.x, lastScalePoint.x), plane);
+                    double selectedXMax = Converter.INSTANCE.xScrToCrt(Math.max(firstScalePoint.x, lastScalePoint.x), plane);
+                    double selectedYMax = Converter.INSTANCE.yScrToCrt(Math.min(firstScalePoint.y, lastScalePoint.y), plane);
+                    double selectedYMin = Converter.INSTANCE.yScrToCrt(Math.max(firstScalePoint.y, lastScalePoint.y), plane);
+                    scaler.setScaleBorders(selectedXMin, selectedXMax, selectedYMax, selectedYMin);
                     undoRedoManager.insertState();
                     lastScalePoint = firstScalePoint = null;
                     MaxIterations maxIterations = new MaxIterations(MainWindow.this);
                     mainPanel.repaint();
                 }
                 if(LastButtonPressed == 3 && lastDragPoint != null){
+                    scaler.setScaleBorders(plane.getXMin(), plane.getXMax(), plane.getYMin(), plane.getYMax());
                     undoRedoManager.insertState();
                     lastDragPoint = firstDragPoint = null;
                 }

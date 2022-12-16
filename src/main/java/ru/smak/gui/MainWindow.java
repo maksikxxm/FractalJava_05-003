@@ -213,6 +213,10 @@ public class MainWindow extends JFrame {
     {
         this.undoRedoManager = undoRedoManagerOpen;
     }
+    public void setScaler(Scaler scaler)
+    {
+        this.scaler = scaler;
+    }
 
 
 }
